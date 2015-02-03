@@ -1,7 +1,7 @@
 
 window.onload = function() {
-	document.body.style.backgroundImage = "url('space.jpg')";
-	document.body.style.backgroundSize = "100%";
+	// document.body.style.backgroundImage = "url('space.jpg')";
+	// document.body.style.backgroundSize = "100%";
 
 	topDiv = document.createElement("div");
 	topDiv.style.position = "fixed";

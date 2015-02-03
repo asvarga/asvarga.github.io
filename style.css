@@ -10,7 +10,9 @@
 }
 
 body {
-	background-color: #444;
+	/*background-color: #444;*/
+	background-image: url("space.jpg");
+	background-size: 100%;
 	color: #FFFFCC;
 	text-align: center;
 }
