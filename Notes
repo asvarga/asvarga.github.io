@@ -1,0 +1,36 @@
+
+NOTES:
+
+Consider building iterative graphs. 
+Mostly user controlled, but when a new node is added, it is placed intelligently.
+Moving nodes shouldn't affect other nodes.
+
+GOALS:
+
++ Be able to add any number of nodes at a time.
++ Be able to lock or free any node.
++ Parents contain children well
++ Consistency!
++ Beauty
+
+
+STRATEGY:
+
+1. Find a well-defined partitional ordering of nodes
+	- linear algebra approach
+	- class breaking approach
+	- swapping approach
+
+
+TODO:
+
+
+TODO LATER:
++ fix drag
++ edges
++ prioritize sort by key, then value
+	- both group members and ins
++ have a contents part above the children part
++ allow keys other than ints
++ don't repeatedly sort inSet keys
++ collapsible groups
