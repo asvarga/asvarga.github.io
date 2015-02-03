@@ -1,0 +1,108 @@
+
+* {
+	margin: 0; 
+    padding: 0;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+body {
+	background-color: #444;
+	color: #FFFFCC;
+	text-align: center;
+}
+
+#topBar {
+	width: 100%;
+	height: 50px;
+	position: fixed;
+    background-color: black;
+}
+
+#homeLink {
+	text-decoration: none;
+}
+
+#silkImg {
+	margin: 9px;
+	display: inline-block; 
+	width: 64px; 
+	height: 32px;
+}
+
+h1 {
+	font-size: 80px;
+	color: #00CCFF;
+}
+
+a {
+	color: red;
+}
+
+a:hover {
+	color: orange;
+}
+
+.label {
+	width: 100px;
+	display: inline-block;
+}
+
+input[type=text] {
+	width: 300px;
+	display: inline-block;
+}
+
+.splitScreen {
+	/*height: 100%;*/
+    width: 100%;
+}
+
+.floater {
+	float: left;
+    width: 40%;
+}
+
+.fill {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+/*#top {
+	position: fixed;
+	width: 100vmin;
+	height: 100vmin;
+}*/
+
+.node {
+	position: absolute;
+	/*outline: thick solid #FFF;*/
+	width: 5vmin;
+	height: 5vmin;
+	line-height: 5vmin;
+	text-align: center;
+	font-size: 2.5vmin;
+}
+
+.button {
+	position: relative;
+	background-color: #CCC;
+	color: #333;
+	padding: 10px;
+	display: block;
+	float: left;
+	margin: 10px 0px 10px 10px;
+}
+
+.button:hover {
+	background-color: #333;
+	color: #CCC;
+}
+
+
+
+
