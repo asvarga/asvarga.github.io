@@ -2,12 +2,14 @@
 window.onload = function() {
 	topDiv = document.createElement("div");
 	topDiv.style.position = "fixed";
-	topDiv.style.left = "5vmin";
+	topDiv.style.left = "calc(50% - 48vmin)";
 	//topDiv.style.margin = "0 auto";
-	topDiv.style.width = "90vmin";
-	topDiv.style.top = "5vmin";
-	topDiv.style.height = "90vmin";
-	topDiv.style.backgroundColor = "black";
+	topDiv.style.width = "96vmin";
+	topDiv.style.top = "calc(50% - 48vmin)";
+	topDiv.style.height = "96vmin";
+	//topDiv.style.backgroundColor = "black";
+	topDiv.style.backgroundImage = "url('space.jpg')";
+	topDiv.style.backgroundSize = "100%";
 	topDiv.style.overflow = "hidden";
 	// topDiv.style.display = "inline-block";
 	document.body.appendChild(topDiv);
