@@ -1,16 +1,17 @@
 
 window.onload = function() {
+	document.body.style.backgroundImage = "url('space.jpg')";
+	document.body.style.backgroundSize = "100%";
+
 	topDiv = document.createElement("div");
 	topDiv.style.position = "fixed";
-	topDiv.style.left = "calc(50% - 48vmin)";
+	topDiv.style.left = "calc(50% - 50vmin)";
 	//topDiv.style.margin = "0 auto";
-	topDiv.style.width = "96vmin";
-	topDiv.style.top = "calc(50% - 48vmin)";
-	topDiv.style.height = "96vmin";
+	topDiv.style.width = "100vmin";
+	topDiv.style.top = "calc(50% - 50vmin)";
+	topDiv.style.height = "100vmin";
 	//topDiv.style.backgroundColor = "black";
-	topDiv.style.backgroundImage = "url('space.jpg')";
-	topDiv.style.backgroundSize = "100%";
-	topDiv.style.overflow = "hidden";
+	//topDiv.style.overflow = "hidden";
 	// topDiv.style.display = "inline-block";
 	document.body.appendChild(topDiv);
 
