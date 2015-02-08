@@ -89,7 +89,7 @@ function addOne() {
 	if (datum.type == ALERT) {
 		node.onclick = function(e) { alert(datum.data); }
 	} else if (datum.type == LINK) {
-		node.onclick = function(e) { window.location.href = datum.data; }
+		node.onclick = function(e) { window.location = datum.data; }
 	} else if (datum.type == CUSTOM) {
 		node.onclick = datum.data;
 	} else {
