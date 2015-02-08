@@ -14,7 +14,7 @@ window.onload = function() {
 	graph.backButton.className = "button";
 	graph.backButton.innerHTML = "<=";
 	graph.backButton.onclick = function(evt) {
-		window.location.href = "./Main.html";
+		window.location = "./Main.html";
 	}
 	graph.buttons.appendChild(graph.backButton);
 
