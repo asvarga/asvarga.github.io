@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Alex Varga</title>
+		<link rel="shortcut icon" href="./favicon.ico">
+		<link rel="stylesheet" href="./style.css" type="text/css" />
+	</head>
+	<body>
+		<div id="home">
+			<a href="./Main.html">
+				<img border="0" alt="home" src="home.png" width="60" height="50">
+			</a>
+		</div>
+		<div id="contents">
+			<div id="innerContents">
+				<h1>META</h1>
+
+				My reason for making layout tool used by the home page was for use in displaying programs written in <a href="./silk.html">Silk</a>, the language I am creating. Programs in Silk are graphs contained in a group, which is just a special node. Groups have children as nodes, and some of those children may be groups, but each node is the child of exactly one group. More info about Silk can be found <a href="./silk.html">here</a>.
+
+				<br><br>
+
+				The home page is displayed as a program would be, with each box representing a group node. Each group also has each of its children as inputs to enforce order on the nodes, but the graphical edges that would usually connect nodes to their inputs are hidden here.
+
+				<br><br>
+
+				<h4>Layout heuristics for a given node include:</h4>
+				<br>
+				<ul>
+					<li>Moving close to and below input nodes.</li>
+					<li>Expanding to fit it's children.</li>
+					<li>Moving away from siblings.</li>
+					<li>Moving towards center of parent.</li>
+					<li>Moving towards origin.</li>
+				</ul>
+
+				<br>
+
+				The layout will also try to fill the page intelligently. Try making your browser window wide or tall (or rotating your phone), and it should reorganize itself.
+
+				<br><br>
+
+				Also, check out the "Fun" node.
+
+				<br><br>
+
+				I'll fix the resting jitter eventually, but you can pause the layout with the <span style="background-color: #CCC; color: #333; padding: 10px 13px 7px 13px; outline: 1px solid black;">P</span> in the top left of the home page.
+
+				
+
+			</div>
+		</div>
+	</body>
+</html>
