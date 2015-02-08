@@ -19,14 +19,14 @@ Graph = function(container) {
 	}
 	this.buttons.appendChild(this.toggleButton);
 
-	this.aboutButton = document.createElement("div");
-	this.aboutButton.className = "button";
-	this.aboutButton.innerHTML = "?";
-	var this2 = this;
-	this.aboutButton.onclick = function(evt) {
-		alert("ABOUT: This strange layout experiment is far from complete, but I figured it was cool enough as is for use here.\n\nFor more info, click the 'Silk' node!");
-	}
-	this.buttons.appendChild(this.aboutButton);
+	// this.aboutButton = document.createElement("div");
+	// this.aboutButton.className = "button";
+	// this.aboutButton.innerHTML = "?";
+	// var this2 = this;
+	// this.aboutButton.onclick = function(evt) {
+	// 	alert("ABOUT: This strange layout experiment is far from complete, but I figured it was cool enough as is for use here.\n\nFor more info, click the 'Silk' node!");
+	// }
+	// this.buttons.appendChild(this.aboutButton);
 
 	this.running = false;
 	this.dragging = null;
@@ -55,7 +55,7 @@ Graph = function(container) {
 
 
 }
-Graph.prototype.addNode = function(id, parent, contents, callback, width, height) {
+Graph.prototype.addNode = function(id, parent, width, height) {
 
 	this.n[id] = {
 		inSet: {}, 
@@ -80,14 +80,14 @@ Graph.prototype.addNode = function(id, parent, contents, callback, width, height
 	}
 
 	var node = document.createElement("div");
-	node.innerHTML = contents;
+	// node.innerHTML = contents;
 	node.className = "node";
 	node.nid = id;
 	node.style.backgroundColor = this.n[id].white ? "#FFF" : "#000";
 	node.style.color = this.n[id].white ? "#000" : "#FFF";
 
 	var this2 = this;
-	node.onmousedown = callback;
+	// node.onmousedown = callback;
 
 	// DRAGGING
 	// var this2 = this;
@@ -341,18 +341,25 @@ Graph.prototype.step = function() {
 			totHeight += this.n[n1].bottom - this.n[n1].top + 0.05;
 		}
 
-		var bias = 1.2;
+		var bias = 1;
 		if (this.n[key].parent == null) {
 			bias = this.nodeDIV.offsetWidth/this.nodeDIV.offsetHeight;
 		}
-		var tall = (totHeight*bias > totWidth);	// tall or squarish
+		if (this.n[key].tall) {		// groups try to stick with same direction, avoids flip-flopping
+			bias *= 1.1;
+		} else {
+			bias /= 1.1;
+		}
+		this.n[key].tall = (totHeight*bias > totWidth);	// tall or squarish
 
-		var keys = Object.keys(this.n[key].inSet).map(parseFloat).sort();
+		var keys = Object.keys(this.n[key].inSet).map(parseFloat).sort(function (a,b) {
+    		return a - b;
+		});
 		for (var i=0; i<keys.length-1; i++) {
-			var n1 = this.n[keys[i]];
-			var n2 = this.n[keys[i+1]];
+			var n1 = this.n[this.n[key].inSet[keys[i]]];//this.n[keys[i]];
+			var n2 = this.n[this.n[key].inSet[keys[i+1]]];//this.n[keys[i+1]];
 
-			if (tall) { 	
+			if (this.n[key].tall) { 	
 				var dx = n2.left - n1.right - 0.1;
 				var fx = -dx*0.1;
 				var dy = (n2.bottom+n2.top-n1.bottom-n1.top)/2;
@@ -393,10 +400,10 @@ Graph.prototype.step = function() {
 
 	for (var key in this.n) {
 		if (!this.dragging || key != this.dragging.nid) {
-			this.n[key].dl *= 0.8;
-			this.n[key].dr *= 0.8;
-			this.n[key].dt *= 0.8;
-			this.n[key].db *= 0.8;
+			this.n[key].dl *= 0.7;
+			this.n[key].dr *= 0.7;
+			this.n[key].dt *= 0.7;
+			this.n[key].db *= 0.7;
 			this.n[key].left += this.n[key].dl;
 			this.n[key].right += this.n[key].dr;
 			this.n[key].top += this.n[key].dt;
