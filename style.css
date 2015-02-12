@@ -135,5 +135,12 @@ ul {
     list-style-type: none;
 }
 
-
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin: 0px auto;
+}
+th,td {
+    padding: 5px;
+}
 
