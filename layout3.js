@@ -30,8 +30,10 @@ window.onload = function() {
 		{id:'math2', text:'Mathy Thing 2', parent:'math', type:ALERT, data:"TODO: Link to mathy thing #2", width:0.25},
 		{id:'code', text:'Code', parent:'top', type:NONE, width:0.12},
 		{id:'silk', text:'Silk', parent:'code', type:LINK, data:"./silk.html", width:0.1},
-		{id:'code2', text:'Code Thing 2', parent:'code', type:ALERT, data:"TODO: Link to code thing #2", width:0.15},
-		{id:'code3', text:'Code Thing 3', parent:'code', type:ALERT, data:"TODO: Link to code thing #3", width:0.15},
+		{id:'turing', text:'Turing Turtle', parent:'code', type:NONE, width:0.15},
+		{id:'turingFlash', text:'Flash Version', parent:'turing', type:LINK, data: "http://turingturtle.appspot.com/", width:0.15},
+		{id:'turingIOS', text:'iOS Version', parent:'turing', type:LINK, data: "http://itunes.apple.com/us/app/turing-turtle/id535340330?mt=8", width:0.15},
+		{id:'java4k', text:'Java4K Game', parent:'code', type:LINK, data:"./tideFrog.html", width:0.15},
 
 	];
 
@@ -52,7 +54,8 @@ window.onload = function() {
 	// // }
 	// graph.doPlacement();
 
-	setTimeout(addOneRep, 250);
+	dt = 150;
+	setTimeout(addOneRep, dt);
 }
 
 function addOneRep() {
@@ -71,7 +74,7 @@ function addOneRep() {
 
 	addOne();
 	if (ind < data.length) {
-		setTimeout(addOneRep, 250);
+		setTimeout(addOneRep, dt);
 	}
 }
 
