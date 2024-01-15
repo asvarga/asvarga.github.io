@@ -4,6 +4,7 @@ plugins:
   - search
   - tags
 theme:
+  favicon: Files/triangle-wave-icon.png
   icon:
     logo: material/triangle-wave
   name: material

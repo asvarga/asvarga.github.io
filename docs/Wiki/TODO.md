@@ -5,13 +5,12 @@ title: TODO
 tags: [TODO]
 ---
 
-- [ ] **GitHub action to call `mkdocs serve`**
+- [x] fix links
+- [x] fix GitHub login
+- [x] GitHub action to call `mkdocs serve`
 - [ ] put at [asvarga.com](https://www.asvarga.com)
 - [ ] deprecate medium blog
 - [ ] port [Old Website](https://thealexvarga.bitbucket.io/) here
 - [ ] MkDocs plugin to generate graph
 - [ ] make a base template for wikis
 - [ ] use the template with private wiki
-- [ ] foam templates
-- [x] fix links
-- [x] fix GitHub login
