@@ -1,0 +1,659 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Alexander Varga">
+      
+      
+      
+        <link rel="prev" href="../pure-lists-with-o-log-i-indexing-a607d06234e0/">
+      
+      
+        <link rel="next" href="../transfinite-meta-programming-a068a38cbdca/">
+      
+      <link rel="icon" href="../../Files/triangle-wave-icon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.6">
+    
+    
+      
+        <title>Transfinite Meta-Posting - Part 1 - AV</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.558e4712.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#now-do-programming" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AV" class="md-header__button md-logo" aria-label="AV" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-5 10L7.1 6.04 4.24 12H2L7 2l9.9 15.96L19.76 12H22Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AV
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Transfinite Meta-Posting - Part 1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AV" class="md-nav__button md-logo" aria-label="AV" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-5 10L7.1 6.04 4.24 12H2L7 2l9.9 15.96L19.76 12H22Z"/></svg>
+
+    </a>
+    AV
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Main
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" tabindex="0" aria-expanded="true">
+          Blog
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Blog" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Blog
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../efficient-transfinite-lists-b27323941419/" class="md-nav__link">
+        Efficient Transfinite Lists
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plotting-functions-on-ordinals-c42c3a162d93/" class="md-nav__link">
+        Plotting Functions on Ordinals
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pure-lists-with-o-log-i-indexing-a607d06234e0/" class="md-nav__link">
+        Pure Lists with O(log(i)) Indexing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Transfinite Meta-Posting - Part 1
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Transfinite Meta-Posting - Part 1
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#now-do-programming" class="md-nav__link">
+    Now Do Programming
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bigger-quotes" class="md-nav__link">
+    Bigger Quotes
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transfinite-meta-programming-a068a38cbdca/" class="md-nav__link">
+        Transfinite Meta-Programming - Part 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transfinite-zippers-caca53fed779/" class="md-nav__link">
+        Transfinite Zippers
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="false">
+          Wiki
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Wiki" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Wiki
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Wiki/NoteTaking/" class="md-nav__link">
+        Note Taking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Wiki/TODO/" class="md-nav__link">
+        TODO
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Wiki/Trace/" class="md-nav__link">
+        Example Trace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Wiki/page1/" class="md-nav__link">
+        Page 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Wiki/page2/" class="md-nav__link">
+        Page 2
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#now-do-programming" class="md-nav__link">
+    Now Do Programming
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bigger-quotes" class="md-nav__link">
+    Bigger Quotes
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+  <nav class="md-tags" >
+    
+      
+      
+        <span class="md-tag">Ordinal</span>
+      
+    
+      
+      
+        <span class="md-tag">Meta</span>
+      
+    
+  </nav>
+
+
+
+
+
+  <h1>Transfinite Meta-Posting - Part 1</h1>
+
+<p>In the beginning, I wrote blog posts.</p>
+<p>Once I ran out of ideas, I started to write blog posts about my experience writing blog posts. These were my first meta-posts.</p>
+<p>As my ego inflated ever larger, I began to post about my meta-posts.</p>
+<p>…</p>
+<!--more-->
+
+<p>It wasn’t long until I realized that I had discovered an endless trove of Content. I became the worlds most efficient content creator, each day reflecting on and posting about the creative process behind the previous day’s work. I was now a multi-stage poster.</p>
+<p>But it wasn’t long before other bloggers started to rip off my process. Their original posts may have been unique, but after a few days of iterated reflection stages their content was nearly indistinguishable from my own. I needed to stand out from these other multi-stage posters, so I wrote a new kind of reflective post.</p>
+<p>In that blog post I explained my infinite content creation process, and how I could have continued forever. This post wasn’t like those that came before it. It was about the infinite iteration itself, rather than being just another step in that iteration. It pushed the limit of content creation to entirely new levels. But this is not that blog post.</p>
+<p>The next day, I returned to my tried and true method of reflecting on the previous day. I detailed that limit-pushing post in all its glory, much as I have above.</p>
+<p>The next day I reflected again. And the next day. And the next.</p>
+<p>…</p>
+<p>And then I reflected on this second infinite iteration.</p>
+<p>etc.</p>
+<h3 id="now-do-programming">Now Do Programming</h3>
+<p>That was exhausting, thanks for sticking with me. But the moral of the story is:</p>
+<blockquote>
+<p>The semantics of natural language are closed under reflection and limits.</p>
+</blockquote>
+<p>That is to say, for any topic we can talk about: we can talk about talking about it, and we can talk about infinitely iterating processes of reflection.</p>
+<p>Such conversations aren’t very useful, but we <em>can</em> have them, and it’s <em>efficient</em> to do so. In particular, I can easily talk about talking without referring to the raw letters or phonemes from which conversation itself is built. So I tried to define a <em>formal</em> language with this property, and I think I’ve found one.</p>
+<p>The area of multi-stage programming which I punned at above starts this process. It presents infinite reflective towers of languages, each hosting the stage below it. At the bottom of the tower is a ground stage behaving like a normal programming language, which is analogous to the “normal” blog posts in the story above. MSP languages manage to do this efficiently without each stage needing to encode the syntax of the stage below it in it’s own syntax. To see how this nested representation might grow exponentially with the number of stages if we’re not careful, consider the Python program:</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/5024/1*AVdZzA2lMTkWs5_gyItmsw.png" /></p>
+<p>The third line of output is an encoding of an encoding of an encoding of the number 2, and is over 2500 characters long. Multi-stage programming circumvents this explosion by introducing a concept of quotation, inspired by natural language. For example, I can say that the first word of this sentence is “For” rather than saying that it is formed by joining the sixth, fifteenth, and eighteenth letters of the English alphabet.</p>
+<p>What multi-stage programming has that natural language doesn’t (but should) is a notion of splicing/unquoting. In spoken language this ends up looking like “I was walking in the park and ran into {oh what’s his name? your friend whose name starts with an “S”} and he says “Hello”.” That sentence contains a nested quote for the greeting, and we could nest quotes arbitrarily deeply if we wanted: “I said “I said “I said “Hello””””. However, it also contains a splice in curly brackets. The idea is to resolve the contents of the brackets to a syntactic object like a name and splice it into the surrounding sentence. Depending on context, the above meta-sentence might resolve to “I was walking in the park and ran into Steve and he says “Hello”.”</p>
+<p>Maybe you recognize this as f-strings or template strings in Python or JavaScript. If so, try not to get too hung up on the presence of strings in my examples. Strings are natural and easy to write down, but the concepts I’m getting at are more general and relate broadly to the relationships between syntax like strings, blog posts, or syntax trees and their semantics.</p>
+<p>Now we run into a problem. How do we actually talk about splices themselves? If we were to try to say something like “I claim that {the color of the sky} is different than {the color of the ocean}”, this would resolve to “I claim that blue is different than blue” which isn’t so. We failed to properly quote the splice, and it interacted with the quote. We’re gonna need a bigger quote.</p>
+<p>This same problem arises in multi-stage programming. Partial evaluation is a technique to turn a 1-stage program into a multi-stage program by carefully inserting quotes and splices. But at which stage does the partial evaluator live? What type might we assign it? How can it possibly output splices without interacting with them? The same questions apply for programs that interpret multi-stage programs. These programs exist “above” all of the stages in traditional MSP.</p>
+<h3 id="bigger-quotes">Bigger Quotes</h3>
+<p>We might start towards a solution to the above problem by introducing big quotes as, say, square brackets like: “I claim that [{the color of the sky}] is different than [{the color of the ocean}]”. The big quotes tell us not to resolve their contents. This might be sufficient for our needs, but once we consider big splices, we’ll run into the same problem, and so we’ll need ever larger quotes.</p>
+<p>If you can’t tell from my previous blog posts, I like ordinals, and that’s what we need here. In order to discuss a quote that contains splices, without resolving those splices, you need a different kind of quote. We end up wanting a different size quote for each ordinal. This could be implemented directly, but I’ll cut to the real punchline:</p>
+<blockquote>
+<p>We can accomplish transfinite meta-programming by starting with a language using DeBruijn indices and extending the domain of indices to larger ordinals.</p>
+</blockquote>
+<p>In the next post, I’ll explain how extend a simple Lambda Calculus-like language in this way. For some vague intuition:</p>
+<ul>
+<li>
+<p>A DeBruijn index of ω corresponds to a splice.</p>
+</li>
+<li>
+<p>An index of ω+n corresponds to a splice containing an index of n into the meta-language.</p>
+</li>
+<li>
+<p>An index of n+ω indexes into the current language by n but then splices to the meta-language anyways, so ends up equivalent to an index of n+ω = ω, or a normal splice.</p>
+</li>
+<li>
+<p>With indices up to ω² we can do all of multi-stage programming.</p>
+</li>
+</ul>
+<p>As an additional teaser, here is a trace of an unstaging function written in my language to prove that it works: <a href="https://github.com/asvarga/wiki/blob/main/other/Trace.tfdbi">https://github.com/asvarga/wiki/blob/main/other/Trace.tfdbi</a>. Yes, it uses the transfinite lists data structure from my last post :)</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.51d95adb.min.js"></script>
+      
+    
+  </body>
+</html>

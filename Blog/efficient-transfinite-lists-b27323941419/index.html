@@ -1,0 +1,701 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Alexander Varga">
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../plotting-functions-on-ordinals-c42c3a162d93/">
+      
+      <link rel="icon" href="../../Files/triangle-wave-icon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.6">
+    
+    
+      
+        <title>Efficient Transfinite Lists - AV</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.558e4712.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#definitions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AV" class="md-header__button md-logo" aria-label="AV" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-5 10L7.1 6.04 4.24 12H2L7 2l9.9 15.96L19.76 12H22Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AV
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Efficient Transfinite Lists
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AV" class="md-nav__button md-logo" aria-label="AV" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-5 10L7.1 6.04 4.24 12H2L7 2l9.9 15.96L19.76 12H22Z"/></svg>
+
+    </a>
+    AV
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Main
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" tabindex="0" aria-expanded="true">
+          Blog
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Blog" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Blog
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Efficient Transfinite Lists
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Efficient Transfinite Lists
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naive-implementation" class="md-nav__link">
+    Naive Implementation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#efficient-implementation" class="md-nav__link">
+    Efficient Implementation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-practice" class="md-nav__link">
+    In Practice
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plotting-functions-on-ordinals-c42c3a162d93/" class="md-nav__link">
+        Plotting Functions on Ordinals
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pure-lists-with-o-log-i-indexing-a607d06234e0/" class="md-nav__link">
+        Pure Lists with O(log(i)) Indexing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transfinite-meta-posting-c57f10d40975/" class="md-nav__link">
+        Transfinite Meta-Posting - Part 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transfinite-meta-programming-a068a38cbdca/" class="md-nav__link">
+        Transfinite Meta-Programming - Part 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transfinite-zippers-caca53fed779/" class="md-nav__link">
+        Transfinite Zippers
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="false">
+          Wiki
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Wiki" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Wiki
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Wiki/NoteTaking/" class="md-nav__link">
+        Note Taking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Wiki/TODO/" class="md-nav__link">
+        TODO
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Wiki/Trace/" class="md-nav__link">
+        Example Trace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Wiki/page1/" class="md-nav__link">
+        Page 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Wiki/page2/" class="md-nav__link">
+        Page 2
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naive-implementation" class="md-nav__link">
+    Naive Implementation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#efficient-implementation" class="md-nav__link">
+    Efficient Implementation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-practice" class="md-nav__link">
+    In Practice
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+  <nav class="md-tags" >
+    
+      
+      
+        <span class="md-tag">DataStructure</span>
+      
+    
+      
+      
+        <span class="md-tag">Ordinal</span>
+      
+    
+  </nav>
+
+
+
+
+
+  <h1>Efficient Transfinite Lists</h1>
+
+<p>My last two posts were about <a href="../plotting-functions-on-ordinals-c42c3a162d93/">ordinals</a> and <a href="../pure-lists-with-o-log-i-indexing-a607d06234e0/">pure lists</a>, and they got a combined whopping 11 claps, so I’m selling out and writing a post about both. In particular, this post is about a data structure I discovered for lists of transfinite length. A repo is linked at the bottom.</p>
+<!--more-->
+
+<h3 id="definitions">Definitions</h3>
+<p>So what is a transfinite list? Well a normal list is a mapping from natural numbers to values. To simplify matters for this post, we ignore the values themselves and consider only the <em>domain</em> of the mapping. For example, a normal list of length 3 will be represented as {0, 1, 2}. When encoded as linked lists, we can easily implement the following functions:</p>
+<ul>
+<li>
+<p><strong>put(n, L):</strong> Add n values to the front of list L. A value at position m ends up at position n+m.</p>
+</li>
+<li>
+<p><strong>get(n, L):</strong> Remove n values from the front of list L. A value at position m ends up at m-n.</p>
+</li>
+</ul>
+<p>For example, starting with the empty list {}, we might <strong>put(5)</strong> to get {0, 1, 2, 3, 4} and then <strong>get(2)</strong> to get {0, 1, 2}. Note that these are pure functions returning new values rather that editing the existing list. I’m abusing notation, and what we’re actually computing is <strong>get</strong>(2, <strong>put</strong>(5, {})), which is equivalent to <strong>put</strong>(3, {}).</p>
+<p>Now, a <em>transfinite</em> list is simply a mapping from <em>ordinals</em> to values, supporting the same functions. I made it up so don’t google it.</p>
+<p>Starting with {0, 1, 2}, if we <strong>put(ω)</strong> we should get the list {0, ω, ω+1, ω+2}. As specified, we’ve <strong>put</strong> by n=ω, so each m in the list goes to ω+m. Now if we <strong>put(1)</strong>, we get the list {0, 1, ω, ω+1, ω+2}. For example ω+1 goes to 1+(ω+1) = ω+1, staying put. Note that we can keep doing <strong>put(1)</strong> without moving any of the values past ω, which acts as a sort of separator between sub-lists. After any number of <strong>put(1)</strong>s, we can <strong>get(ω+1)</strong>, yielding {0, 1}.</p>
+<p>Note that transfinite lists will be “sparse” because we can’t actually add an infinite number of values to the list; we’re interested in finitary encodings. For example, the list {0, 1, ω, ω+1, ω+2} has holes at all natural numbers from 2 up. We might say that the <em>length</em> of a list is the largest number in the domain plus 1 (or 0 if empty), while the <em>size</em> is the cardinality of the domain. These coincide iff the list is finite and non-sparse.</p>
+<h3 id="naive-implementation">Naive Implementation</h3>
+<p>Once the above example makes sense, take a moment to consider how we might implement this as a data structure. A first implementation is to store the derivative of the list, i.e. a <em>normal</em> list of gaps between values. So {0, 1, 2, 3, ω, ω+1, ω+2} would be represented as [1, 1, 1, ω, 1, 1]. This makes the implementation of <strong>put(n)</strong> trivial; we simply prepend n onto the derivative list. The implementation of <strong>get</strong> isn’t so complicated either:</p>
+<blockquote>
+<p>get(n, [d, …L]) := if (n = 0) then [d, …L] else get(n-d, […L])</p>
+</blockquote>
+<p>That is, we keep subtracting differences in the list from n until we reach 0. Note that this is a simplification in that it won’t quite work when n isn’t in the list, and we’ll eventually reach a call where 0&lt;n&lt;d. Using the example derivative list above with <strong>get(ω)</strong>, we’ll compute:</p>
+<blockquote>
+<p>get(ω, [1, 1, 1, ω, 1, 1]) = if (ω = 0) then [1, 1, 1, ω, 1, 1] else get(ω-1, [1, 1, ω, 1, 1]) = get(ω, [1, 1, ω, 1, 1]) = … = get(ω, [1, ω, 1, 1]) = … = get(ω, [ω, 1, 1]) = … = get(0, [1, 1]) = if (0 = 0) then [1, 1] else get(0–1, [1]) = [1, 1].</p>
+</blockquote>
+<p>The resulting derivative list [1, 1] represents the list {0, 1, 2} as desired. Note that we must use “left subtraction” here. To see why, try <strong>get(ω+1)</strong> with the same list. After one step, we iterate on get with (ω+1)-1 which equals ω+1 with left subtraction, so n isn’t depleted and we eventually return [1].</p>
+<h3 id="efficient-implementation">Efficient Implementation</h3>
+<p>Now we’re ready for the interesting part. The above implementation works, but if we have many 1s in the derivative list before the ω, the algorithm will have to step through all of them, which seems wasteful. We might get around the problem temporarily by storing lists of derivative lists, letting us skip ahead to the next ω, but this only works for transfinite lists of lengths less than ω².</p>
+<p>Let’s consider an implementation “efficient” if it can compute <strong>get(n, L)</strong> in time proportionate to the size of a reasonable representation of n. Note that like in my other <a href="../pure-lists-with-o-log-i-indexing-a607d06234e0/">list post</a>, this is independent of the length of the list itself. Also note that since ω usually has a small representation, we should want the above example to run quickly, regardless of how many leading 1s there are in the derivative list.</p>
+<p>The solution once again lies in the representation of ordinals with balanced parentheses, which I would argue is a reasonable representation, and which I explained in my other <a href="../plotting-functions-on-ordinals-c42c3a162d93/">ordinals post</a>. The trick is for <strong>get(n)</strong> to use the sequence of left and right parentheses describing n to guide a path through our data structure. Let’s skip straight to an example:</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*iJEI_PICUSudgG0Cxam8HQ.png" /></p>
+<p>Recalling that the balanced parentheses representation of 1 is () and of ω is (()), the above can be seen as a depiction of the same difference list from above: [1, 1, 1, ω, 1, 1] = [(), (), (), (()), (), ()] = ()()()(())()(). Just tilt your head to the right and follow the sequence from bottom/left to the top/right. Left parens move left up the structure and right parens move right. The hollow nodes are where we might attach values, and the filled ones just connect them.</p>
+<p>Clearly this doesn’t work yet. Trying to do <strong>get(ω)</strong> by following the path (()) will go off the path, but it’s clear how we’d wish to correct this:</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*FbVgm0cNah4FBS7-SRdmdA.png" /></p>
+<p>Now doing <strong>get(ω)</strong> from any of the hollow nodes on the left will follow the path (()) and end up at the same correct node, yielding:</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*be7w-BcqXrffl6dOVTbfAQ.png" /></p>
+<p>Cool, but can we actually build this structure when we do <strong>put(n, L)</strong>? Yep, easily! While we <em>build</em> a new path for n like (), we simultaneously <em>follow</em> the same path from the existing node for L. Whenever the path goes right, if the <em>follow</em> path has an edge going left, we add one in the <em>build</em> path to the same node.</p>
+<p>For example, the diagram below depicts a <strong>put(1, L) </strong>using a path of (). The (dashed) <em>build</em> path follows the (bold) <em>follow</em> path, copying its (dotted) left edge to the topmost node.</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*bvLEiD3_WvufTMNOYUZqaA.png" /></p>
+<p>The implementation of <strong>put</strong> is shown below. The function <strong>ord2path</strong> converts an ordinal to a list of parentheses. The functions <strong>l</strong> and <strong>r</strong> return the left and right element respectively when passed a pair, or else return null. The yellow box shows where the <em>build </em>path copies the left edge of the <em>follow</em> path.</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/4472/1*OypdlGxnXj2Acu5pbuc6xQ.png" /></p>
+<h3 id="example">Example</h3>
+<p>I don’t have a proof that this works, so I’ll distract you with another intuition-building example:</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/4650/1*ipg3UGsfcQ6fFtycgUZwmQ.png" /></p>
+<p>This represents the transfinite list {0, 1, ω, ω+1, ω², ω²+1, ω³, ω³+1, ω^ω, ω^ω+1} with the derivative list [1, ω, 1, ω², 1, ω³, 1, ω^ω, 1]. Note how the peak of the first 1 difference can be followed all the way to the peak of the ω^ω difference. Note also how the structure was built up from right to left without ever having to follow an unbounded number of edges, simply by following previous edges. If you’re concerned that some nodes are lacking left edges, notice that any such path would correspond to an illegal ordinal like ω^(1+ω). Now if we do a <strong>get(ω²+1)</strong> by following the path (()())(), we end up with:</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/2518/1*ALJLn3vhFV5sEutnBaVeFA.png" /></p>
+<h3 id="in-practice">In Practice</h3>
+<p>I chose to implement this in a Lisp-like language (Racket) because there are parentheses and pairs everywhere of course. In fact, nodes are just pairs, ordinals are represented with nested lists alone, and the translation from ordinals to paths and back is done with printing and parsing(!) respectively. The diagrams are generated with graphviz/neato.</p>
+<p>The code is only a few dozen lines: <a href="https://github.com/asvarga/tf-lists">https://github.com/asvarga/tf-lists</a></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.51d95adb.min.js"></script>
+      
+    
+  </body>
+</html>
