@@ -6,7 +6,7 @@ author: "Alexander Varga"
 excerpt_separator: <!--more-->
 ---
 
-My last two posts were about [ordinals](https://medium.com/@thealexvarga/plotting-functions-on-ordinals-c42c3a162d93) and [pure lists](https://medium.com/@thealexvarga/pure-lists-with-o-log-i-indexing-a607d06234e0), and they got a combined whopping 11 claps, so I’m selling out and writing a post about both. In particular, this post is about a data structure I discovered for lists of transfinite length. A repo is linked at the bottom.
+My last two posts were about [ordinals](./plotting-functions-on-ordinals-c42c3a162d93) and [pure lists](./pure-lists-with-o-log-i-indexing-a607d06234e0), and they got a combined whopping 11 claps, so I’m selling out and writing a post about both. In particular, this post is about a data structure I discovered for lists of transfinite length. A repo is linked at the bottom.
 
 <!--more-->
 
@@ -40,9 +40,9 @@ The resulting derivative list [1, 1] represents the list {0, 1, 2} as desired. N
 
 Now we’re ready for the interesting part. The above implementation works, but if we have many 1s in the derivative list before the ω, the algorithm will have to step through all of them, which seems wasteful. We might get around the problem temporarily by storing lists of derivative lists, letting us skip ahead to the next ω, but this only works for transfinite lists of lengths less than ω².
 
-Let’s consider an implementation “efficient” if it can compute **get(n, L)** in time proportionate to the size of a reasonable representation of n. Note that like in my other [list post](https://medium.com/@thealexvarga/pure-lists-with-o-log-i-indexing-a607d06234e0), this is independent of the length of the list itself. Also note that since ω usually has a small representation, we should want the above example to run quickly, regardless of how many leading 1s there are in the derivative list.
+Let’s consider an implementation “efficient” if it can compute **get(n, L)** in time proportionate to the size of a reasonable representation of n. Note that like in my other [list post](./pure-lists-with-o-log-i-indexing-a607d06234e0), this is independent of the length of the list itself. Also note that since ω usually has a small representation, we should want the above example to run quickly, regardless of how many leading 1s there are in the derivative list.
 
-The solution once again lies in the representation of ordinals with balanced parentheses, which I would argue is a reasonable representation, and which I explained in my other [ordinals post](https://medium.com/@thealexvarga/plotting-functions-on-ordinals-c42c3a162d93). The trick is for **get(n)** to use the sequence of left and right parentheses describing n to guide a path through our data structure. Let’s skip straight to an example:
+The solution once again lies in the representation of ordinals with balanced parentheses, which I would argue is a reasonable representation, and which I explained in my other [ordinals post](./plotting-functions-on-ordinals-c42c3a162d93). The trick is for **get(n)** to use the sequence of left and right parentheses describing n to guide a path through our data structure. Let’s skip straight to an example:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*iJEI_PICUSudgG0Cxam8HQ.png)
 

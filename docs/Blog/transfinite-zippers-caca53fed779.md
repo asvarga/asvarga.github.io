@@ -6,11 +6,11 @@ author: "Alexander Varga"
 excerpt_separator: <!--more-->
 ---
 
-In my [previous post](https://medium.com/@thealexvarga/transfinite-meta-programming-a068a38cbdca), I described an approach for extending multi-stage programming (MSP) to infinity and beyond. We start with a simple computing “machine” M[0] such as the lambda calculus. Each machine M[a] has a successor machine M[a+1] which is capable of building and reasoning about programs from M[a], yielding towers of nested machines. From there, we note that MSP itself can’t be implemented in any such finite M[n], but must exist in some limit machine M[ω], yielding transfinite towers of machines M[a] for each ordinal a.
+In my [previous post](./transfinite-meta-programming-a068a38cbdca.md), I described an approach for extending multi-stage programming (MSP) to infinity and beyond. We start with a simple computing “machine” M[0] such as the lambda calculus. Each machine M[a] has a successor machine M[a+1] which is capable of building and reasoning about programs from M[a], yielding towers of nested machines. From there, we note that MSP itself can’t be implemented in any such finite M[n], but must exist in some limit machine M[ω], yielding transfinite towers of machines M[a] for each ordinal a.
 
 <!--more-->
 
-In [another post](https://medium.com/@thealexvarga/efficient-transfinite-lists-b27323941419), I defined a data structure used by such transfinite machines to encode mappings of variable indices to bound values. This post describes a new and improved data structure for these mappings.
+In [another post](./efficient-transfinite-lists-b27323941419.md), I defined a data structure used by such transfinite machines to encode mappings of variable indices to bound values. This post describes a new and improved data structure for these mappings.
 
 During the evaluation of a program in which a function was passed the values A, B, C, D, in that order, we might see a mapping like:
 
@@ -40,7 +40,7 @@ We’re now once again focused on B, and the F where we were is left chosen by i
 
 ![Figure 7](https://cdn-images-1.medium.com/max/2000/1*ID-J6hNR4fwUNvk4cY79LQ.png)
 
-Unsuprisingly, we find ourselves at F again, but this is a crucial improvement over [transfinite lists](https://medium.com/@thealexvarga/efficient-transfinite-lists-b27323941419) which would have forgotten the local context/values/siblings in this machine. I won’t try to justify it here, but this retentive behavior is what is needed enable programs to not just build, but reason about programs without losing information about bound variables.
+Unsuprisingly, we find ourselves at F again, but this is a crucial improvement over [transfinite lists](./efficient-transfinite-lists-b27323941419.md) which would have forgotten the local context/values/siblings in this machine. I won’t try to justify it here, but this retentive behavior is what is needed enable programs to not just build, but reason about programs without losing information about bound variables.
 
 Now we move beyond MSP by jumping to an entirely different infinite tower of machines with a **move(-ω²)** corresponding to a **[`ω²]** “big” quote:
 
@@ -50,7 +50,7 @@ Actually, this is lonely and weird, so lets **move(ω²)** back:
 
 ![Figure 9](https://cdn-images-1.medium.com/max/2074/1*Hwjo3dU2GtedW9jPlucCbw.png)
 
-Okay, that’s a little more familiar, so it’s time to talk about the green and blue circles. From where we stand at F, we see a winding vine of green circles taking us upwards to our ancestors in the tree. This vine is actually a trie of left and right movements, and these movements correspond to left and right parens in the bounded parentheses notation for ordinals that I wrote about [here](https://medium.com/@thealexvarga/plotting-functions-on-ordinals-c42c3a162d93). As I did there, I’ll replace left and right parentheses with \ and / respectively. Note that this ordinal notation only gets us up to ε₀ but the technique described here can be extended to higher ordinal notations fitting certain criteria.
+Okay, that’s a little more familiar, so it’s time to talk about the green and blue circles. From where we stand at F, we see a winding vine of green circles taking us upwards to our ancestors in the tree. This vine is actually a trie of left and right movements, and these movements correspond to left and right parens in the bounded parentheses notation for ordinals that I wrote about [here](./plotting-functions-on-ordinals-c42c3a162d93). As I did there, I’ll replace left and right parentheses with \ and / respectively. Note that this ordinal notation only gets us up to ε₀ but the technique described here can be extended to higher ordinal notations fitting certain criteria.
 
 In figures 1–3, we were moving by integer multiples of 1, which is represented by \/. This tells us to move up the trie following first a \ and then a / edge to reach a dark pink diamond, move along the zipper by the integer multiple to a light pink diamond, and then follow the reversed path downwards, rebuilding the vine in the new location.
 
