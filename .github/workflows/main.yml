@@ -1,5 +1,6 @@
 name: Publish docs via GitHub Pages
-on: []
+on: 
+  workflow_dispatch:
 
 jobs:
   build:
