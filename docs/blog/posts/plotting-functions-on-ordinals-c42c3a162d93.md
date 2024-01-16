@@ -1,14 +1,15 @@
 ---
 layout: post
 title: "Plotting Functions on Ordinals"
+date: 2020-05-27
 tags: [Ordinal]
-author: "Alexander Varga"
-excerpt_separator: <!--more-->
+categories: [Ordinal]
+authors: [me]
 ---
 
 Let’s say we’ve defined a function *f* from ordinals to ordinals and want to plot it like we might plot a function from integers to integers. We want to line up our ordinals on the x- and y-axes, and plot a point at (*x*, *f*(*x*)) for each ordinal *x*. Well where should we actually put those ordinals on the axes? This simple question is the topic of this post.
 
-<!--more-->
+<!-- more -->
 
 ![](https://cdn-images-1.medium.com/max/2000/1*EqnHBQWeWIUpATGui2DiVw.png)
 

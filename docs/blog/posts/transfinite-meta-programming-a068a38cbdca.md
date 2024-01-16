@@ -1,14 +1,15 @@
 ---
 layout: post
 title: "Transfinite Meta-Programming - Part 2"
+date: 2022-07-18
 tags: [Ordinal, Meta]
-author: "Alexander Varga"
-excerpt_separator: <!--more-->
+categories: [Ordinal, Meta]
+authors: [me]
 ---
 
 In [Part 1](./transfinite-meta-posting-c57f10d40975.md) I attempted to give some intuition for the process of iterating reflection to infinity and beyond: any time we can iterate reflection infinitely, we can reflect on this infinite process. In this post, I’ll be formalizing this notion in a simple programming language, and I recommend reading that last post before this one. Code is linked at the bottom.
 
-<!--more-->
+<!-- more -->
 
 I will show how this formalization arises naturally by starting with the Lambda Calculus with De Bruijn indices and conservatively extending these indices to arbitrary ordinals. I will try to break the large language and program changes into many small changes with the hope that this will minimize the amount of explanation required.
 

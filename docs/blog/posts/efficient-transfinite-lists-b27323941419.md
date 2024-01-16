@@ -1,14 +1,15 @@
 ---
 layout: post
 title: "Efficient Transfinite Lists"
+date: 2022-05-30
 tags: [DataStructure, Ordinal]
-author: "Alexander Varga"
-excerpt_separator: <!--more-->
+categories: [DataStructure, Ordinal]
+authors: [me]
 ---
 
 My last two posts were about [ordinals](./plotting-functions-on-ordinals-c42c3a162d93) and [pure lists](./pure-lists-with-o-log-i-indexing-a607d06234e0), and they got a combined whopping 11 claps, so I’m selling out and writing a post about both. In particular, this post is about a data structure I discovered for lists of transfinite length. A repo is linked at the bottom.
 
-<!--more-->
+<!-- more -->
 
 ### Definitions
 

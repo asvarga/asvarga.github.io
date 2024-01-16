@@ -1,12 +1,18 @@
 site_name: AV
+# repo_url: https://github.com/asvarga/asvarga.github.io
 plugins:
   - ezlinks
   - search
-  - tags
+  - tags:
+      tags_file: wiki/index.md
+  - blog
 theme:
   favicon: Files/triangle-wave-icon.png
   icon:
     logo: material/triangle-wave
+    repo: fontawesome/brands/github
+    # tag: 
+    #   default: fontawesome/solid/frog
   name: material
   palette:
     - scheme: slate
@@ -19,6 +25,36 @@ theme:
       toggle:
         icon: material/brightness-7 
         name: Switch to dark mode
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    # - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.indexes
+    - navigation.top
+extra:
+  tags: 
+    Ordinal: Ordinal
+  social:
+    - icon: fontawesome/brands/linkedin 
+      link: https://www.linkedin.com/in/alexander-varga/
+    - icon: fontawesome/brands/github 
+      link: https://github.com/asvarga
 markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
+  # - wikilinks
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.arithmatex:
+      generic: true
+extra_javascript:
+  - javascripts/katex.js 
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js  
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
