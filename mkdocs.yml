@@ -7,7 +7,7 @@ plugins:
       tags_file: wiki/index.md
   - blog
 theme:
-  favicon: Files/triangle-wave-icon.png
+  favicon: files/triangle-wave-icon.png
   icon:
     logo: material/triangle-wave
     repo: fontawesome/brands/github
@@ -42,6 +42,14 @@ extra:
       link: https://www.linkedin.com/in/alexander-varga/
     - icon: fontawesome/brands/github 
       link: https://github.com/asvarga
+    - icon: fontawesome/brands/stack-overflow 
+      link: https://www.stackoverflow.com/users/1684606/alex-varga
+    - icon: fontawesome/brands/youtube 
+      link: https://www.youtube.com/user/avarga93/videos
+    - icon: fontawesome/brands/flickr 
+      link: https://www.flickr.com/photos/124356640@N03
+    - icon: fontawesome/brands/vimeo 
+      link: https://www.vimeo.com/user99108597
 markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true

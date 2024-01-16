@@ -1,18 +1,21 @@
+---
+title: Hybird Env
+hide:
+  - toc
+---
+
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<title>Hybrid Env</title>
-		<link rel="icon" type="image/png" href="../images/favicon.ico">
 		<style type="text/css" media="screen">
-			body {
+			/* body {
 				margin: 0px;
 				background-color: aquamarine;
-			}
-			#all {
+			} */
+			/* #all {
 				margin: 0 auto;
     			width: 1000px;
-			}
+			} */
 			.outerOutput { 
 				position: absolute;
 				right: 0;
@@ -26,12 +29,12 @@
 				word-wrap: break-word;
 				margin: auto;
 			}
-			.words {
+			/* .words {
 				margin: 10px auto;
     			width: 600px;
     			padding: 10px;
     			background-color: lightgray;
-			}
+			} */
 		</style>
 		<script src="parser.js"></script>
 		<script src="code.js"></script>
@@ -362,11 +365,10 @@
 			<div class="words">
 				<b>First Attempt</b><br>
 				My first attempt at giving applications access to both the static and dynamic environments was to pass both to the interpret function, along with the code to be interpreted. This doesn't work though, because it makes it impossible to get the dynamic parent of the dynamic parent of an environment. For example, if interp/@run took (code, snv, dnv), the short circuiting 'if' would look like:
-				<br><br>
-				(let 'if (lam '(x y z) '(@run (_if x y z) @dnv false)))
-				<br>
-				(if true '(if true '1 '2) '3)
-				<br><br>
+```lisp
+(let 'if (lam '(x y z) '(@run (_if x y z) @dnv false)))
+(if true '(if true '1 '2) '3)
+```
 				The outer 'if' would want to run the inner 'if' in the dynamic environment from which it was called. However, it wouldn't have access to <em>that</em> environment's dynamic parent, which the inner 'if' needs.
 			</div>
 
@@ -387,8 +389,8 @@
 			</div>
 
 			<div class="words">
-				Made by Alex Varga in 2016
-				<br>
+				<!-- Made by Alex Varga in 2016 -->
+				<!-- <br> -->
 				Uses <a href="https://ace.c9.io" target="_blank">Ace</a> for the editors
 			</div>
 

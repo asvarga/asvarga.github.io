@@ -5,6 +5,4 @@ title: Main
 #   - toc
 ---
 
-Welcome to my website/blog/wiki.
-
-[Old Website](./bb)
+Welcome to my [blog](/blog)/[website](/site)/[wiki](/wiki).
