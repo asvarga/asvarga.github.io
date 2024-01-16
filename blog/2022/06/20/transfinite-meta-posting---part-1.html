@@ -8,32 +8,36 @@
       
       
       
-      
-        <link rel="prev" href="../../../06/20/transfinite-meta-posting---part-1/">
-      
-      
-        <link rel="next" href="../../../../2023/03/05/transfinite-zippers/">
+        <link rel="canonical" href="https://asvarga.github.io/blog/2022/06/20/transfinite-meta-posting---part-1.html">
       
       
-      <link rel="icon" href="../../../../../files/triangle-wave-icon.png">
+        <link rel="prev" href="../../05/30/efficient-transfinite-lists.html">
+      
+      
+        <link rel="next" href="../../07/18/transfinite-meta-programming---part-2.html">
+      
+      
+      <link rel="icon" href="../../../../files/triangle-wave-icon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.4">
     
     
       
-        <title>Transfinite Meta-Programming - Part 2 - AV</title>
+        <title>Transfinite Meta-Posting - Part 1 - AV</title>
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.50c56a3b.min.css">
       
         
-        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
 
     
     
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
       
     
     
@@ -48,7 +52,9 @@
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
     
-    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -74,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#de-bruijn-indices" class="md-skip">
+        <a href="#now-do-programming" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +96,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../../.." title="AV" class="md-header__button md-logo" aria-label="AV" data-md-component="logo">
+    <a href="../../../../index.html" title="AV" class="md-header__button md-logo" aria-label="AV" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-5 10L7.1 6.04 4.24 12H2L7 2l9.9 15.96L19.76 12H22Z"/></svg>
@@ -110,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Transfinite Meta-Programming - Part 2
+              Transfinite Meta-Posting - Part 1
             
           </span>
         </div>
@@ -199,7 +205,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../.." class="md-tabs__link">
+      <a href="../../../../index.html" class="md-tabs__link">
         
   
     
@@ -220,7 +226,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../../../" class="md-tabs__link">
+        <a href="../../../index.html" class="md-tabs__link">
           
   
     
@@ -240,7 +246,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../../site/" class="md-tabs__link">
+        <a href="../../../../site/index.html" class="md-tabs__link">
           
   
     
@@ -260,7 +266,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../../wiki/" class="md-tabs__link">
+        <a href="../../../../wiki/index.html" class="md-tabs__link">
           
   
     
@@ -303,7 +309,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../../.." title="AV" class="md-nav__button md-logo" aria-label="AV" data-md-component="logo">
+    <a href="../../../../index.html" title="AV" class="md-nav__button md-logo" aria-label="AV" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-5 10L7.1 6.04 4.24 12H2L7 2l9.9 15.96L19.76 12H22Z"/></svg>
@@ -321,7 +327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../.." class="md-nav__link">
+      <a href="../../../../index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -370,7 +376,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../" class="md-nav__link ">
+            <a href="../../../index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -450,7 +456,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../archive/2023/" class="md-nav__link">
+      <a href="../../../archive/2023.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -473,7 +479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../archive/2022/" class="md-nav__link">
+      <a href="../../../archive/2022.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -496,7 +502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../archive/2020/" class="md-nav__link">
+      <a href="../../../archive/2020.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -572,7 +578,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../category/datastructure/" class="md-nav__link">
+      <a href="../../../category/datastructure.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -595,7 +601,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../category/meta/" class="md-nav__link">
+      <a href="../../../category/meta.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -618,7 +624,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../category/ordinal/" class="md-nav__link">
+      <a href="../../../category/ordinal.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -689,7 +695,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../site/" class="md-nav__link ">
+            <a href="../../../../site/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -742,7 +748,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../site/ackermann/" class="md-nav__link ">
+            <a href="../../../../site/ackermann/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -798,7 +804,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../site/collision-trees/" class="md-nav__link ">
+            <a href="../../../../site/collision-trees/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -854,7 +860,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../site/div-jumper/" class="md-nav__link ">
+            <a href="../../../../site/div-jumper/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -910,7 +916,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../site/fireworks/" class="md-nav__link ">
+            <a href="../../../../site/fireworks/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -966,7 +972,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../site/hybrid-env/" class="md-nav__link ">
+            <a href="../../../../site/hybrid-env/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1022,7 +1028,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../site/splotch/" class="md-nav__link ">
+            <a href="../../../../site/splotch/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1100,7 +1106,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../wiki/" class="md-nav__link ">
+            <a href="../../../../wiki/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1133,7 +1139,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../wiki/NoteTaking/" class="md-nav__link">
+      <a href="../../../../wiki/NoteTaking.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1154,7 +1160,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../wiki/TODO/" class="md-nav__link">
+      <a href="../../../../wiki/TODO.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1175,7 +1181,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../wiki/Trace/" class="md-nav__link">
+      <a href="../../../../wiki/Trace.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1196,7 +1202,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../wiki/demo/" class="md-nav__link">
+      <a href="../../../../wiki/demo.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1217,7 +1223,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../wiki/page1/" class="md-nav__link">
+      <a href="../../../../wiki/page1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1238,7 +1244,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../wiki/page2/" class="md-nav__link">
+      <a href="../../../../wiki/page2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1286,63 +1292,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#de-bruijn-indices" class="md-nav__link">
+  <a href="#now-do-programming" class="md-nav__link">
     <span class="md-ellipsis">
-      De Bruijn Indices
+      Now Do Programming
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#splices" class="md-nav__link">
+  <a href="#bigger-quotes" class="md-nav__link">
     <span class="md-ellipsis">
-      Splices
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#transfinite-de-bruijn-indices" class="md-nav__link">
-    <span class="md-ellipsis">
-      Transfinite De Bruijn Indices
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lift-and-run" class="md-nav__link">
-    <span class="md-ellipsis">
-      Lift and Run
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#examples-and-higher-stages" class="md-nav__link">
-    <span class="md-ellipsis">
-      Examples and Higher Stages
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conclusions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Conclusions
+      Bigger Quotes
     </span>
   </a>
   
@@ -1364,7 +1325,7 @@
           <nav class="md-nav md-nav--primary">
             <div class="md-post__back">
               <div class="md-nav__title md-nav__container">
-                <a href="../../../../" class="md-nav__link">
+                <a href="../../../index.html" class="md-nav__link">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
                   <span class="md-ellipsis">
                     Back to index
@@ -1404,7 +1365,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/></svg>
-                        <time datetime="2022-07-18 00:00:00" class="md-ellipsis">July 18, 2022</time>
+                        <time datetime="2022-06-20 00:00:00" class="md-ellipsis">June 20, 2022</time>
                       </div>
                     </li>
                     
@@ -1415,8 +1376,8 @@
                           <span class="md-ellipsis">
                             in
                             
-                              <a href="../../../../category/ordinal/">Ordinal</a>, 
-                              <a href="../../../../category/meta/">Meta</a></span>
+                              <a href="../../../category/ordinal.html">Ordinal</a>, 
+                              <a href="../../../category/meta.html">Meta</a></span>
                         </div>
                       </li>
                     
@@ -1427,7 +1388,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5Z"/></svg>
                           <span class="md-ellipsis">
                             
-                              15 min read
+                              5 min read
                             
                           </span>
                         </div>
@@ -1458,7 +1419,7 @@
       
     
     
-      <a href="../../../../../wiki/#ordinal" class="md-tag md-tag-icon md-tag--Ordinal">Ordinal</a>
+      <a href="../../../../wiki/index.html#ordinal" class="md-tag md-tag-icon md-tag--Ordinal">Ordinal</a>
     
   
     
@@ -1467,118 +1428,65 @@
       
     
     
-      <a href="../../../../../wiki/#meta" class="md-tag md-tag-icon">Meta</a>
+      <a href="../../../../wiki/index.html#meta" class="md-tag md-tag-icon">Meta</a>
     
   
 </nav>
 
 
 
-  <h1>Transfinite Meta-Programming - Part 2</h1>
+  <h1>Transfinite Meta-Posting - Part 1</h1>
 
-<p>In <a href="../../../06/20/transfinite-meta-posting---part-1/">Part 1</a> I attempted to give some intuition for the process of iterating reflection to infinity and beyond: any time we can iterate reflection infinitely, we can reflect on this infinite process. In this post, I’ll be formalizing this notion in a simple programming language, and I recommend reading that last post before this one. Code is linked at the bottom.</p>
+<p>In the beginning, I wrote blog posts.</p>
+<p>Once I ran out of ideas, I started to write blog posts about my experience writing blog posts. These were my first meta-posts.</p>
+<p>As my ego inflated ever larger, I began to post about my meta-posts.</p>
+<p>…</p>
 <!-- more -->
 
-<p>I will show how this formalization arises naturally by starting with the Lambda Calculus with De Bruijn indices and conservatively extending these indices to arbitrary ordinals. I will try to break the large language and program changes into many small changes with the hope that this will minimize the amount of explanation required.</p>
-<p>Since we are dealing with meta-programming and quotes, it is important to distinguish concepts within the language from those outside of it. I will use markdown code blocks to name terms of the language from the outside. I will call the language used to implement the full language the "implementation language". I used Scala as the implementation language, but this should be irrelevant for this post. Also note that while I resort to operational nomenclature to help convey concepts, the language presented here (and its implementation) are purely functional.</p>
-<h3 id="de-bruijn-indices">De Bruijn Indices</h3>
-<p>We start with simple Lambda Calculus extended with some basic arithmetic operations. Here’s a program that takes two arguments named <code>x</code> and <code>y</code>, and returns the sum of their squares:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*qkDSfiyYo0mtjmkeiIdh1A.png" /></p>
-<p>The above program specifies a function that when applied to 3 and 4 returns 25. But that’s a lot of parentheses, but with an improved parser we can equivalently write:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*jFf5dExJlTLdKkmnIuwfrg.png" /></p>
-<p>The above program contains two lambda terms: <code>λy.(x*x)+(y*y)</code> and <code>λx.λy.(x*x)+(y*y)</code>. Any point within a program is inside some sequence of lambda terms, from innermost to outermost. At all variables in the above program, the sequence of lambda terms is [<code>λy.(x*x)+(y*y)</code>, <code>x.λy.(x*x)+(y*y)</code>]. Taking the variables bound by these lambda terms gives the sequence [<code>y</code>, <code>x</code>]. We might say that some point in the code "sees" that sequence of variables when looking outwards.</p>
-<p>Now we will introduce De Bruijn indices. We can replace each variable in the above program with it’s index in the sequence of variables that it "sees". These are called De Bruijn indices:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*L9jM4UeFqFTnJFIVMew1xA.png" /></p>
-<p>The <code>1</code> indices refer to <code>x</code> and the <code>0</code> indices refer to <code>y</code>, based on the [<code>y</code>, <code>x</code>] sequence they both see. The 0-indexing is important here. But of course, this is confusing. The indices look like integer values, so the whole program looks like it takes two arguments but always returns 1. Let’s instead write:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2388/1*aegeEsnx4mglzO9ZYHFZGw.png" /></p>
-<p>This looks needlessly verbose, but it will be consistent with what we’ll need soon. The real language provides nicer syntax for writing the same thing, but if I used that now things would get confusing.</p>
-<p>Notice that the variable names are no longer used, so we can just write:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2260/1*O86MdLCilaCabfNcVJ6sWA.png" /></p>
-<p>Let’s think a bit about how an interpreter might process the above programs. Loosely, the interpreter is a recursive function that walks the syntactic representation of the program, adding, multiplying, and applying when needed. In order to look up the passed value of a variable like <code>[,1]v</code>, it needs to keep track of which actual values were passed to each of the lambda terms that it sees. It does this in a data structure called an environment. For example, if the above program were applied to <code>3</code> and <code>4</code>, then at the <code>[,n]v</code> terms, the interpreter would have the environment [<code>4</code>, <code>3</code>]. Notice that the order is reversed from how the values are passed in. Now the <code>[,1]v</code> simply resolves to the 1st value from the environment: <code>3</code>. Note the correspondence to the more direct understanding when we used named variables.</p>
-<h3 id="splices">Splices</h3>
-<p>Operationally, when the interpreter sees <code>[,n]v</code>, it chops n values off the front of the environment, and then returns the first value of the resulting environment. Let’s split this into two separate things. The <code>[,n]t</code> will be called a splice and will tell the interpreter to descend into the body <code>t</code> with an environment chopped by n. The <code>v</code> will simply pop the first value off the environment. Now we can rewrite the above like:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*hstRfO4wPl7m_YXREQO4xQ.png" /></p>
-<p>A chop by 0 doesn’t do anything, so those have been removed. In fact, the actual language doesn’t even allow such no-ops. Now that we can attach splices to terms other than <code>v</code>, we can simplify further to:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*LWxrwG7nI7jv0GiCHQ_7pA.png" /></p>
-<p>Note that the <code>v</code>s look the same but return different values because they are interpreted in different contexts (with different environments). Also note that we’ve avoided the duplicate work of chopping the environment twice by combining both splices.</p>
-<p>Before we continue, we should take a look at how the interpreter handles this:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*njScJe7f9sOB4MNGRQmH3w.png" /></p>
-<p>This is a trace of an execution of the interpreter on the program above applied to <code>3</code> and <code>4</code>. The pipes on the left connect terms at the top to their resolved values at the bottom. Their nesting shows how the interpreter descends into terms. Symbols to the right of a pipe hint at the kind of term at the top and help our eyes follow a given pipe downwards. The right side of each line depicts the environment at that term. The <code>ƛ</code> terms are called closures; they’re <code>λ</code> terms but with an environment attached. Note how the outermost term is processed by first processing the outer lambda term, then processing the <code>4</code>, and then processing the body of the lambda term in an environment containing <code>4</code>. I won’t delve on this any further here.</p>
-<p>Most importantly, note how <code>[,1](v*v)</code> is processed in the environment [<code>4</code>, <code>3</code>]. It chops one value off the environment to yield [<code>3</code>] and then processes <code>v*v</code> in that environment. If you’re surprised that this term resolves to <code>9</code> rather than <code>[,1]9</code>, hold on to this concern because it will be important later.</p>
-<h3 id="transfinite-de-bruijn-indices">Transfinite De Bruijn Indices</h3>
-<p>From this vantage point, our big mental leap to meta-programming becomes a small one. We can "simply" extend the domain of our De Bruijn indices to transfinite ordinals. There are some tricky details, but we can get started rather easily. Let’s just try it and see what breaks:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2508/1*PXAelkKq1IixHel7bC6cRQ.png" /></p>
-<p>The error handling in this language could certainly be improved, but it’s hopefully clear what went wrong: by splicing by ω, we chopped off the entire environment so that when <code>v</code> tried to pop the value off the front, there was nothing there. We can fix this by introducing a new kind of term:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2216/1*bmK64m3hopMdwlPerEkmSw.png" /></p>
-<p>There’s a lot of new stuff here and our input program is a little buggy, but let’s focus on the evaluation of the <code>[`ω]t</code> term which starts at line 5. If we follow the pipe down, we can see that it resolves to a <code>[‘ω]t</code> value called a quote representing a piece of code. The original term is called a quasiquote and is used to build such quote values.</p>
-<p>Inside the evaluation of this term a couple things change. The environment annotation contains a <code>(())</code> before the <code>3</code> value. If you’ve read my other posts, you might recognize this as a representation of the index ω by which we’ve quasiquoted. This is because an environment is simply a function from ordinals to values, i.e. a <a href="../../../05/30/efficient-transfinite-lists/">transfinite list</a>. The effect that this has is to put the value <code>3</code> beyond infinity in the environment. No normal (finite) De Bruijn index could reach it from inside the quasiquote, because the value exists at the meta-level.</p>
-<p>In order to reach the value <code>3</code> in the environment, we need an infinite splice, like the <code>[,ω](../../v%2Av)</code> term on line 8. Stepping into this term chops the <code>(())</code> gap off the environment, so that the <code>v*v</code> on line 9 may resolve to <code>9</code>. It is important to note that this is <em>not</em> a new language feature; this splice behaves exactly like the splices in the earlier examples. All we’ve done is extend the set of legal indices (and the domain of environment maps) to infinity and beyond.</p>
-<p>Now note the difference in behviour of the <code>v*v</code> term on line 16: it resolves to itself. This is strange because it isn’t a value, but context is everything. Whenever the environment contains an infinite gap and so has infinte length, we’re inside a quote and the interpreter behaves differently. The interpreter will build code terms rather than values. In particular, variables won’t be resolved and operators like <code>*</code> will build terms from their arguments. The traces make this extra apparent by making the pipes dashed.</p>
-<h3 id="lift-and-run">Lift and Run</h3>
-<p>The above code was demonstrative but not quite correct. We’d like it to build a <code>specialized</code> lambda functions that map values <code>y</code> to <code>3*3+y*y</code> that has been constant folded, i.e. <code>λ.9+v*v</code>. We can accomplish this with the 2 remaining staging operators (parts of this trace have been removed for brevity):</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2644/1*dlQYFhQUbQXXXD-X19b_EQ.png" /></p>
-<p>The <code>[^ω]</code> term on line 10 is a "lift" operator. It evaluates its body with the environment unchanged and then lifts the resulting value to a quote with the specified index. In this case, that resulting quote is spliced into the surrounding quote of a lambda on line 20 which contains the term we were trying to build. Finally, we need to "run" this quote with a <code>[%ω]</code> operator to yield a closure which in this example is applied to <code>4</code>.</p>
-<p>To summarize the 4 staging operators, excluding quotes which are values:</p>
+<p>It wasn’t long until I realized that I had discovered an endless trove of Content. I became the worlds most efficient content creator, each day reflecting on and posting about the creative process behind the previous day’s work. I was now a multi-stage poster.</p>
+<p>But it wasn’t long before other bloggers started to rip off my process. Their original posts may have been unique, but after a few days of iterated reflection stages their content was nearly indistinguishable from my own. I needed to stand out from these other multi-stage posters, so I wrote a new kind of reflective post.</p>
+<p>In that blog post I explained my infinite content creation process, and how I could have continued forever. This post wasn’t like those that came before it. It was about the infinite iteration itself, rather than being just another step in that iteration. It pushed the limit of content creation to entirely new levels. But this is not that blog post.</p>
+<p>The next day, I returned to my tried and true method of reflecting on the previous day. I detailed that limit-pushing post in all its glory, much as I have above.</p>
+<p>The next day I reflected again. And the next day. And the next.</p>
+<p>…</p>
+<p>And then I reflected on this second infinite iteration.</p>
+<p>etc.</p>
+<h3 id="now-do-programming">Now Do Programming</h3>
+<p>That was exhausting, thanks for sticking with me. But the moral of the story is:</p>
+<blockquote>
+<p>The semantics of natural language are closed under reflection and limits.</p>
+</blockquote>
+<p>That is to say, for any topic we can talk about: we can talk about talking about it, and we can talk about infinitely iterating processes of reflection.</p>
+<p>Such conversations aren’t very useful, but we <em>can</em> have them, and it’s <em>efficient</em> to do so. In particular, I can easily talk about talking without referring to the raw letters or phonemes from which conversation itself is built. So I tried to define a <em>formal</em> language with this property, and I think I’ve found one.</p>
+<p>The area of multi-stage programming which I punned at above starts this process. It presents infinite reflective towers of languages, each hosting the stage below it. At the bottom of the tower is a ground stage behaving like a normal programming language, which is analogous to the “normal” blog posts in the story above. MSP languages manage to do this efficiently without each stage needing to encode the syntax of the stage below it in it’s own syntax. To see how this nested representation might grow exponentially with the number of stages if we’re not careful, consider the Python program:</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/5024/1*AVdZzA2lMTkWs5_gyItmsw.png" /></p>
+<p>The third line of output is an encoding of an encoding of an encoding of the number 2, and is over 2500 characters long. Multi-stage programming circumvents this explosion by introducing a concept of quotation, inspired by natural language. For example, I can say that the first word of this sentence is “For” rather than saying that it is formed by joining the sixth, fifteenth, and eighteenth letters of the English alphabet.</p>
+<p>What multi-stage programming has that natural language doesn’t (but should) is a notion of splicing/unquoting. In spoken language this ends up looking like “I was walking in the park and ran into {oh what’s his name? your friend whose name starts with an “S”} and he says “Hello”.” That sentence contains a nested quote for the greeting, and we could nest quotes arbitrarily deeply if we wanted: “I said “I said “I said “Hello””””. However, it also contains a splice in curly brackets. The idea is to resolve the contents of the brackets to a syntactic object like a name and splice it into the surrounding sentence. Depending on context, the above meta-sentence might resolve to “I was walking in the park and ran into Steve and he says “Hello”.”</p>
+<p>Maybe you recognize this as f-strings or template strings in Python or JavaScript. If so, try not to get too hung up on the presence of strings in my examples. Strings are natural and easy to write down, but the concepts I’m getting at are more general and relate broadly to the relationships between syntax like strings, blog posts, or syntax trees and their semantics.</p>
+<p>Now we run into a problem. How do we actually talk about splices themselves? If we were to try to say something like “I claim that {the color of the sky} is different than {the color of the ocean}”, this would resolve to “I claim that blue is different than blue” which isn’t so. We failed to properly quote the splice, and it interacted with the quote. We’re gonna need a bigger quote.</p>
+<p>This same problem arises in multi-stage programming. Partial evaluation is a technique to turn a 1-stage program into a multi-stage program by carefully inserting quotes and splices. But at which stage does the partial evaluator live? What type might we assign it? How can it possibly output splices without interacting with them? The same questions apply for programs that interpret multi-stage programs. These programs exist “above” all of the stages in traditional MSP.</p>
+<h3 id="bigger-quotes">Bigger Quotes</h3>
+<p>We might start towards a solution to the above problem by introducing big quotes as, say, square brackets like: “I claim that [{the color of the sky}] is different than [{the color of the ocean}]”. The big quotes tell us not to resolve their contents. This might be sufficient for our needs, but once we consider big splices, we’ll run into the same problem, and so we’ll need ever larger quotes.</p>
+<p>If you can’t tell from my previous blog posts, I like ordinals, and that’s what we need here. In order to discuss a quote that contains splices, without resolving those splices, you need a different kind of quote. We end up wanting a different size quote for each ordinal. This could be implemented directly, but I’ll cut to the real punchline:</p>
+<blockquote>
+<p>We can accomplish transfinite meta-programming by starting with a language using DeBruijn indices and extending the domain of indices to larger ordinals.</p>
+</blockquote>
+<p>In the next post, I’ll explain how extend a simple Lambda Calculus-like language in this way. For some vague intuition:</p>
 <ul>
 <li>
-<p><code>[`n]t</code> is a <em>quasiquote</em>. It evaluates <code>t</code> in the environment padded by <code>n</code> to yield a quote.</p>
+<p>A DeBruijn index of ω corresponds to a splice.</p>
 </li>
 <li>
-<p><code>[,n]t</code> is a <em>splice</em>. It evaluates <code>t</code> in the environment chopped by <code>n</code> and splices the resulting quote into the surrounding quote.</p>
+<p>An index of ω+n corresponds to a splice containing an index of n into the meta-language.</p>
 </li>
 <li>
-<p><code>[^n]t</code> is a <em>lift</em>. It evaluates <code>t</code> in the current environment and then builds a quote.</p>
+<p>An index of n+ω indexes into the current language by n but then splices to the meta-language anyways, so ends up equivalent to an index of n+ω = ω, or a normal splice.</p>
 </li>
 <li>
-<p><code>[%n]t</code> is a <em>run</em>. It evaluates <code>t</code> in the current environment, unwraps the resulting quote, and evaluates the resulting term.</p>
+<p>With indices up to ω² we can do all of multi-stage programming.</p>
 </li>
 </ul>
-<h3 id="implementation">Implementation</h3>
-<p>The implementation of the language isn’t so different than that for our original lambda calculus but with extra operators for staging, simple ordinal arithmetic, and some tricky cases to be careful about. I’ll detail a few of them here.</p>
-<p>As mentioned above, empty splices like <code>[,0]t</code> are disallowed by the language. More generally, the language implementation insists on keeping all terms during computation in a normal form with respect to these staging operators. This normal form excludes terms like <code>[,a][,b]t</code> in favor of <code>[,c]t</code> where <code>c</code> is equal to <code>a</code> plus <code>b</code>. For example, <code>[,ω][,1]t</code> is avoided in favor of <code>[,(ω+1)]t</code> which splices up 1 meta-level and then 1 normal De Bruijn index. On the other hand, <code>[,1][,ω]t</code> is avoided in favor of <code>[,ω]t</code>. Intuitively, splicing by 1 (or any finite) De Bruijn index is irrelevant when followed by a splice to a meta-level. This shows that splices don’t necessarily commute.</p>
-<p>Not all staging operators combine the way that splices do. To see (one reason) why, let’s look at a trace with a "big" quote:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*QUOoe-Fn38o6uRADUZOCRA.png" /></p>
-<p>The result is the funky looking <code>[‘ω²][`ω](3+4)</code>, a quote containing a quasiquote. Not only was the addition not resolved, but the inner <code>small</code> quote wasn’t either: it remained a quasiquote. The way to think about this is that the <code>ω²</code> dominates the <code>ω</code>, treating it like a value within the body of its quasiquote. I’ll define domination in a second, but it basically just means one quote is much bigger than the other. A simple reason why we can’t use <code>[`(ω²+ω)](../../3%2B4)</code> above is that it might resolve to <code>[‘(ω²+ω)](../../3%2B4)</code>, which is incorrect.</p>
-<p>There are a few equivalent ways to define when an ordinal <code>a</code> dominates <code>b</code>:</p>
-<ul>
-<li>
-<p><code>a &gt;&gt; b</code> when <code>b+a = a</code></p>
-</li>
-<li>
-<p><code>a &gt;&gt; b</code> when <code>a &gt; b</code> and <code>a+b != b+a</code> (<code>a</code> and <code>b</code> don’t commute additively)</p>
-</li>
-<li>
-<p><code>a &gt;&gt; b</code> when <code>b = 0</code> or <code>a = ω^c+d</code> and <code>b = ω^e+f</code> and <code>c &gt; e</code> (<code>a</code> has a bigger exponent than <code>b</code>)</p>
-</li>
-</ul>
-<p>What this implies is that quasiquote indices must be of the form <code>[`ω^x*y]</code> for some ordinals x and y, otherwise they’re the result of combining an ordinal with another that it dominates. That is to say, they must be monomials, or multiples of ω. This restriction suggests another representation of non-finite quotes: as quotes of a certain bigness (x) repeated a certain number of times (y). In the case of multi-stage programming, x is always 1, and in the case of simple meta-programming, y is also always 1. In fact, one could introduce multiple incomparable "flavors" or ω representing different languages in a non-total order of indices and transfinite splices would still make sense, but I’m getting ahead of myself.</p>
-<h3 id="examples-and-higher-stages">Examples and Higher Stages</h3>
-<p>I’d like to build towards the unstaging example I shared in the last post. Let’s start with a simple exponentiation function (with most of the trace removed again):</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/3576/1*ub1Cy6WaBBtzrf-kJdpSKA.png" /></p>
-<p>The only new feature here is the <code>f</code>. It works exactly like the <code>v</code> but instead of popping a passed argument off the environment, it pops off the function to which that argument was passed. In the trace above, the <code>f</code> pops off the inner lambda term that accepted the exponent argument so that we may recurse on it.</p>
-<p>Now let’s stage this program to yield a code generating function. I’ll simplify the syntax a bit to use <code>`</code> and <code>‘</code> and <code>,</code> as shorthand for <code>[`ω]</code> and <code>[‘ω]</code> and <code>[,ω]</code> because ω indices are very common. I’ll also use <code>v1</code> in place of <code>[,1]v</code> to make normal De Bruijn indices less verbose.</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/3068/1*Gi-EXDai39aXEimx0QYSQg.png" /></p>
-<p>The first thing to note is that we are in fact returning a quote of a term which would resolve to <code>8</code> and delaying the actual multiplication to resolve it. The result could of course be run with a <code>%</code>. The next thing to notice is that instead of just passing the number <code>2</code> to the function, we’ve passed a quoted <code>2</code>. This is fairly natural because the code of <code>2</code> appears in the output at the same "level". On the other hand, the <code>3</code> gets used as a number rather than code so is passed unquoted. The final thing to notice is that this program is exactly the same as the one above except with staging operators inserted. Our final example will be a program to undo what we just manually did and remove these operators, but we’re not ready yet.</p>
-<p>Instead of passing a quoted <code>2</code>, we can pass a quoted <code>v</code> and add some boilerplate:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/3188/1*RfjD4zWjfOA5AtPf4mg1Yg.png" /></p>
-<p>This builds residual code which cubes its inputs. If we’d passed a number other than <code>3</code>, we’d get residual code for other powers. If we’d staged a more efficient exponentiaion function such as one that used iterated squaring, we’d get more efficient residual code like <code>λ.(sqr (sqr v))</code> for powers of <code>4</code>. We could have fun here and this is all well explored, but let’s go higher.</p>
-<p>In order to effectively work with code objects in a functional language, it is helpful to have pattern matching tools. To this end, let’s generalize lambda terms to pattern lambdas which pattern match on their inputs:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*S9Bbq-MuTAKfXiFZtvsRXw.png" /></p>
-<p>The term to the left of the <code>.</code> is the pattern and the term to the right is the body as in a normal lambda. Applying a pattern lambda to an argument starts by inferring an environment in which the pattern would evaluate to the argument. For example, above the environment <code>‘3()’4()</code> is inferred because in this environment, the pattern <code>`(,v+,v1)</code> evaluates to the argument <code>‘(3+4)</code>. After this sort of backwards evaluation, normal forward evaluation takes place on the body in this inferred environment. The <code>v1</code> and <code>v</code> are swapped in this pattern lambda, so the result is that the <code>3</code> and <code>4</code> are swapped in the output. To write a normal lambda as a pattern lambda, simply use <code>v</code> as the pattern.</p>
-<p>Each pattern lambda is a term rewriting rule, but we’ll need a way to combine them. First an example with some syntactic sugar:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*WQ7Tne98kCg_Aaj6v5SKMw.png" /></p>
-<p>We’re using some new library assignment syntax to make authoring programs a little less painful, which hopefully doesn’t need explanation. The <code>|</code> is syntactic sugar which has the effect of combining pattern lambdas. The first pattern lambda works on addition terms, while the second works on multiplication terms. I’ve decided to make pattern lambda application evaluate to <code>0</code> when the pattern doesn’t match the argument. Now for the trace:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/3304/1*qBUkdFX3JheLuDkVRiepEg.png" /></p>
-<p>We can see on line 78 what the syntactic sugar <code>f|g</code> expands to: <code>λ.(f v) || (g v)</code>. The <code>||</code> operator is the usual short-circuiting boolean "or". This will first try <code>(f v)</code> and if that fails to match and returns <code>0</code>, it will try <code>(g v)</code>. The trace shows that this can be used to build a function that can handle multiple types of inputs.</p>
-<p>Now at long last we can write our first transfinite meta-program, <code>$unstage</code>:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2984/1*y_SBoxmLYYYBeG8LZdmsUQ.png" /></p>
-<p>The input $powCode is the <code>big</code> source code for the staged power function above. Having access to a program doesn’t imply having access to it’s source code <code>(!(x → r))</code>, so we must explicitly provide it’s source code at the <code>ω²</code> level so that $unstage which lives there may inspect and rewrite it. All of the pattern lambda cases withing $unstage (except the last) recurse structurally on the subterms of the input by calls to <code>f1</code>, <code>f2</code>, or <code>f3</code>. These all refer to $unstage but are at different depths because of the differing number of pattern variables in each pattern. The last catch-all case is the identity function and simply returns the term without recurring if nothing else matches. Note that the first few pattern cases are able to safely talk about <code>small</code> staging operators without interacting with them by using "big" quasiquotes, which was our goal from the start. The full trace can be found here: <a href="../../../../../wiki/Trace/">Trace</a></p>
-<h3 id="conclusions">Conclusions</h3>
-<p>The programming language I’ve presented is still in a few senses unsatisfactory. There is nothing in place to guarantee that the programs we generate are legal and have no unbound variables. The operators and quote values are in a sense very "raw" in the sense of an assembly language and require us to manually take care of our variables, lambdas, and indices. An improvement upon this language might try to automatically manage these things, perhaps by storing index "shifts" within the environment.</p>
-<p>The traces built are in some cases unnecessarily long because quotes are walked multiple redundant times. It may be possible to solve this by unifying quasiquote with quote into a single term variant with two parameters: size and "valueness". However, this makes it difficult in the implementation language to distinguish values from unresolved terms without fancy/dependent types.</p>
-<p>That being said, I’m happy with this little language. Scary glimpses into the depths of reflection upon reflection upon reflection have kept me awake at night, and I feel that even if this language is complete bogus, I have some sort of framework for addressing such "recurring thoughts".</p>
-<p>Finally, I should give credit to the paper "Multi-stage programming with generative and analytical macros" against which I tested the initial MSP fragment of this language and from which I borrowed some examples. The author Nicolas Stucki also answered several of my questions and taught me some Scala.</p>
-<p>The code can be found here: <a href="https://github.com/asvarga/Transfinite-Meta-Programming">https://github.com/asvarga/Transfinite-Meta-Programming</a></p>
+<p>As an additional teaser, here is a trace of an unstaging function written in my language to prove that it works: <a href="https://github.com/asvarga/wiki/blob/main/other/Trace.tfdbi">https://github.com/asvarga/wiki/blob/main/other/Trace.tfdbi</a>. Yes, it uses the transfinite lists data structure from my last post :)</p>
 
 
 
@@ -1708,12 +1616,12 @@
       <div class="md-progress" data-md-component="progress" role="progressbar"></div>
     
     
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["content.code.copy", "content.code.select", "navigation.indexes", "navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "search": "../../../../../assets/javascripts/workers/search.c011b7c0.min.js", "tags": {"Ordinal": "Ordinal"}, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.code.copy", "content.code.select", "navigation.indexes", "navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.c011b7c0.min.js", "tags": {"Ordinal": "Ordinal"}, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.7389ff0e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.7389ff0e.min.js"></script>
       
-        <script src="../../../../../javascripts/katex.js"></script>
+        <script src="../../../../javascripts/katex.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
       
