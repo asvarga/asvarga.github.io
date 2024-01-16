@@ -1,9 +1,10 @@
 ---
 layout: post
 title: "Transfinite Meta-Posting - Part 1"
+date: 2022-06-20
 tags: [Ordinal, Meta]
-author: "Alexander Varga"
-excerpt_separator: <!--more-->
+categories: [Ordinal, Meta]
+authors: [me]
 ---
 
 In the beginning, I wrote blog posts.
@@ -14,7 +15,7 @@ As my ego inflated ever larger, I began to post about my meta-posts.
 
 …
 
-<!--more-->
+<!-- more -->
 
 It wasn’t long until I realized that I had discovered an endless trove of Content. I became the worlds most efficient content creator, each day reflecting on and posting about the creative process behind the previous day’s work. I was now a multi-stage poster.
 

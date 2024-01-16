@@ -1,14 +1,15 @@
 ---
 layout: post
 title: "Pure Lists with O(log(i)) Indexing"
+date: 2020-10-21
 tags: [DataStructure]
-author: "Alexander Varga"
-excerpt_separator: <!--more-->
+categories: [DataStructure]
+authors: [me]
 ---
 
 Linked lists are simple and ubiquitous. When used as a stack, they allow for constant time pushing and popping. Furthermore, they are purely functional: multiple processes can branch off of a linked list and push their own items without stepping on eachothers’ toes, so long as they avoid mutating the list. However, indexing into a list is slow: retrieving the i’th element of a list requires i “hops” along the items. While indexing isn’t technically required of a stack, it is often desired. (For example, when implementing an interpreter with De Bruijn indices, variable lookup requires indexing into the stack representing the environment.) As the title suggests, it turns out that we can improve upon lists to achieve O(log(i)) indexing without forfeiting purity and O(1) push/pop. I call them *rainbow lists*.
 
-<!--more-->
+<!-- more -->
 
 ![A Rainbow List with shortcuts drawn as arcs and a highlighted path with n=63 and i=60.](https://cdn-images-1.medium.com/max/5960/1*JH6Pr_ok4JMyXTwL_VnFCA.png)
 
