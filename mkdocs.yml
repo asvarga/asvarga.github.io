@@ -26,12 +26,13 @@ theme:
         icon: material/brightness-7 
         name: Switch to dark mode
   features:
+    - content.code.copy
+    - content.code.select
+    - navigation.indexes
     - navigation.instant
     - navigation.instant.progress
-    # - navigation.tracking
     - navigation.tabs
     - navigation.tabs.sticky
-    - navigation.indexes
     - navigation.top
 extra:
   tags: 
