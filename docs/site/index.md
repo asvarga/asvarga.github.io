@@ -1,4 +1,6 @@
-
+---
+title: Site
+---
 
 <style type="text/css" media="screen">
     /* html {
@@ -127,7 +129,7 @@ I am a mathematically-minded software engineer who is fascinated by programming 
         <span class="tag-pretty"></span>
     </li>
     <li>
-        <a href="./jslang">Hybrid Environments</a> : A programming language combining static and dynamic scoping. It's fun but probably a horrible idea; try it in the browser! 
+        <a href="./hybrid-env">Hybrid Environments</a> : A programming language combining static and dynamic scoping. It's fun but probably a horrible idea; try it in the browser! 
         <span class="tag-languages"></span>
     </li>
     <li>
@@ -136,7 +138,7 @@ I am a mathematically-minded software engineer who is fascinated by programming 
         <span class="tag-pretty"></span>
     </li>
     <li>
-        <a href="./ack">Ackermann Blocks</a> : Interactive Ackermann function visualizer. 
+        <a href="./ackermann">Ackermann Blocks</a> : Interactive Ackermann function visualizer. 
         <span class="tag-algorithms"></span>
     </li>
     <li>
