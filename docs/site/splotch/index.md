@@ -1,37 +1,11 @@
+---
+title: Splotch
+---
+
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<title>Alex Varga</title>
-		<link rel="icon" type="image/png" href="../images/favicon.ico">
 		<style type="text/css" media="screen">
-			body {
-				margin: 0px;
-				background-color: lightblue;
-			}
-			/*#all {
-				margin: 0 auto;
-    			width: 1000px;
-			}*/
-			.outerOutput { 
-				position: absolute;
-				right: 0;
-				height: 100%;
-				width: 40%;
-				background-color: gray;
-				overflow-y: scroll;
-			}
-			.innerOutput {
-				padding: 10px;
-				word-wrap: break-word;
-				margin: auto;
-			}
-			.words {
-				margin: 10px auto;
-    			width: 600px;
-    			padding: 10px;
-    			background-color: lightgray;
-			}
 			iframe {
 				margin: 0 auto;
 				display: block;
