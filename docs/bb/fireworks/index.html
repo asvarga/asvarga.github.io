@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Alex Varga</title>
+		<link rel="icon" type="image/png" href="../images/favicon.ico">
+		<style type="text/css" media="screen">
+			body {
+				margin: 0px;
+				background-color: lightblue;
+			}
+			/*#all {
+				margin: 0 auto;
+    			width: 1000px;
+			}*/
+			.outerOutput { 
+				position: absolute;
+				right: 0;
+				height: 100%;
+				width: 40%;
+				background-color: gray;
+				overflow-y: scroll;
+			}
+			.innerOutput {
+				padding: 10px;
+				word-wrap: break-word;
+				margin: auto;
+			}
+			.words {
+				margin: 10px auto;
+    			width: 800px;
+    			padding: 10px;
+    			background-color: lightgray;
+			}
+			iframe {
+				margin: 0 auto;
+				display: block;
+			}
+			img {
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="all">
+			<h1 style="text-align: center;">Fireworks</h1>
+			<div class="words">
+				My team's final project for our Graphics class was a real-time scene with fireworks over a randomly generated infinite city, with a custom lighting system and a controllable camera.
+				<br><br>
+				I worked mainly on the fireworks for this project, writing GLSL code for the GPU. Each firework has 2^13 = 8192 particles, and their positions and colors are all averaged to create lights in real time. Additional color and position buffers are used to hold binary trees of averages, sort of like a heap. Particle information takes 13 frames to percolate down the tree to the root overall average, but this is extremely efficient on the GPU. 
+				<br><br>
+				Note in the pictures that particles exist in the space of the scene as opposed to being a 2D overlay. As such, they can be occluded by the buildings and light up the buildings with the correct color and direction.
+
+				<br><br>
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/I0JobHULJiE?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+				<br>
+				<div style="text-align:center">(Sound on!)</div>
+
+				<br>
+				<img src="../images/fw6.jpg" alt="fireworks 6" width="800">
+				<br><br>
+				<img src="../images/fw4.jpg" alt="fireworks 4" width="800">
+				<br><br>
+				<img src="../images/fw1.jpg" alt="fireworks 1" width="800">
+				<br><br>
+				<img src="../images/fw7.jpg" alt="fireworks 7" width="800">
+				<br><br>
+				<img src="../images/meanColor.png" alt="mean color" width="600">
+			</div>
+		</div>
+	</body>
+</html>
+
+
+

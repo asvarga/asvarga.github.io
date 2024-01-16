@@ -1,0 +1,16 @@
+
+canvas {
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    display: block;
+    background-color: DarkBlue;
+}
+
+/*#myDiv {
+	padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}*/
