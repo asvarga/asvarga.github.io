@@ -28,7 +28,7 @@ if (!document.ranDivJumper) {
 
 
 		var elem = document.createElement('img');
-		elem.src = "https://thealexvarga.bitbucket.io/images/penguin.png";
+		elem.src = "https://asvarga.github.io/site/images/penguin.png";
 		elem.addEventListener("load", () => {
 			BODY.appendChild(elem);
 			window.scrollTo(0, BODY.scrollHeight);
