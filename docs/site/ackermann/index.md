@@ -13,9 +13,9 @@ title: Ackermann Blocks
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 
+# Ackermann Blocks
 <body onload="init();">
 	<center>
-		<h1>Ackermann Blocks</h1>
 		The size of the block piles represent equations using the Ackermann function A. <br>
 		For example, when the piles are [2, 1, 1, 1], that represents A(2, A(1, A(1, 1))). <br>
 		The default settings show A(3, 1) reducing to 13. <br><br>

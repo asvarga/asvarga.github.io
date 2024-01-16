@@ -1,6 +1,7 @@
 ---
 title: Splotch
 ---
+# Paint Splotch Shadertoy
 
 <!DOCTYPE html>
 <html>
@@ -14,11 +15,12 @@ title: Splotch
 	</head>
 	<body>
 		<div id="all">
-			<h1 style="text-align: center;">Paint Splotch Shadertoy</h1>
 			<iframe width="640" height="360" frameborder="0" src="https://www.shadertoy.com/embed/4l3XWH?gui=true&t=10&paused=true&muted=false" allowfullscreen></iframe>
 			<div class="words">
+			<center>
 				<b>Press play to run.</b> Don't use full screen! 								
-				<br><br>
+				</center>
+				<br>
 				Paint splotches spread at different speeds and can't move through each other. The resulting boundary for 2 splotches is part circle, part exponential spiral. With even 3 splotches, the equations get really complicated. 
 				<br><br>
 				View/edit the code <a href="https://www.shadertoy.com/view/4l3XWH#">here</a>.

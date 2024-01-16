@@ -4,6 +4,8 @@ hide:
   - toc
 ---
 
+# Hybrid Environments
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -41,8 +43,6 @@ hide:
 	</head>
 	<body>
 		<div id="all">
-			<h1 style="text-align: center;">Hybrid Environments</h1>
-
 			<div class="words">
 				<b>The Challenge</b><br>
 				Make a language...

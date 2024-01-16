@@ -2,7 +2,7 @@
 title: Div Jumper
 ---
 
-<h1 style="text-align: center;">Div Jumper</h1>
+# Div Jumper
 <div class="words" style="text-align: center;">
 	<p>Click the link to play on this site!</p>
 	<p>Drag the link to your bookmarks bar to play on any site!</p>
