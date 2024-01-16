@@ -10,7 +10,7 @@ title: Div Jumper
 
 	<div style="background-color: cyan; width: 200px; margin: auto;">
 		<h1>
-			<a id="button" href="javascript:var s=document.createElement('script');document.body.appendChild(s);s.id='divJumper';s.src='https://thealexvarga.bitbucket.io/divJumper.js';void(0);">DivJumper</a>
+			<a id="button" href="javascript:var s=document.createElement('script');document.body.appendChild(s);s.id='divJumper';s.src='https://asvarga.github.io/site/div-jumper/divJumper.js';void(0);">DivJumper</a>
 		</h1>
 	</div>
 </div>

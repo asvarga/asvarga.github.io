@@ -7,7 +7,7 @@ tags: [TODO]
 
 - [x] 1. Copy bitbucket website into GitHub website 
 - [ ] 2. Redirect or point asvarga.com to GitHub
-- [ ] 3. Convert pages to markdown + prune unused garbage
+- [x] 3. Convert pages to markdown + prune unused garbage
 - [x] fix links
 - [x] fix GitHub login
 - [x] GitHub action to call `mkdocs serve`
