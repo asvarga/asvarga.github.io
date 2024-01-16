@@ -1,4 +1,5 @@
 site_name: AV
+site_url: https://asvarga.github.io/
 # repo_url: https://github.com/asvarga/asvarga.github.io
 plugins:
   - ezlinks
@@ -6,6 +7,7 @@ plugins:
   - tags:
       tags_file: wiki/index.md
   - blog
+  - offline
 theme:
   favicon: files/triangle-wave-icon.png
   icon:
@@ -68,3 +70,4 @@ extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
+  - stylesheets/extra.css
