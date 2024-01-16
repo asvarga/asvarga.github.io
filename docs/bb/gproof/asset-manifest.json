@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/gproof/static/css/main.6e95b44d.chunk.css",
+    "main.js": "/gproof/static/js/main.05c72b95.chunk.js",
+    "main.js.map": "/gproof/static/js/main.05c72b95.chunk.js.map",
+    "runtime~main.js": "/gproof/static/js/runtime~main.c1b95e9b.js",
+    "runtime~main.js.map": "/gproof/static/js/runtime~main.c1b95e9b.js.map",
+    "static/css/2.2a8df92f.chunk.css": "/gproof/static/css/2.2a8df92f.chunk.css",
+    "static/js/2.a12c46a7.chunk.js": "/gproof/static/js/2.a12c46a7.chunk.js",
+    "static/js/2.a12c46a7.chunk.js.map": "/gproof/static/js/2.a12c46a7.chunk.js.map",
+    "index.html": "/gproof/index.html",
+    "precache-manifest.70485d6a87db789853dfde769dec1907.js": "/gproof/precache-manifest.70485d6a87db789853dfde769dec1907.js",
+    "service-worker.js": "/gproof/service-worker.js",
+    "static/css/2.2a8df92f.chunk.css.map": "/gproof/static/css/2.2a8df92f.chunk.css.map",
+    "static/css/main.6e95b44d.chunk.css.map": "/gproof/static/css/main.6e95b44d.chunk.css.map"
+  }
+}
