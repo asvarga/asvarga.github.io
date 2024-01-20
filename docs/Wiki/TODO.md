@@ -7,13 +7,13 @@ tags: [TODO]
 
 - [x] 1. Copy bitbucket website into GitHub website 
 - [x] 2. Convert pages to markdown + prune unused garbage
-- [ ] 3. 
+- [x] 3. 
     - [x] Redirect or point [asvarga.com](https://www.asvarga.com) to GitHub
-    - [ ] Forward bitbucket to GitHub
+    - [x] Forward bitbucket to GitHub
 - [x] fix links
 - [x] fix GitHub login
 - [x] GitHub action to call `mkdocs serve`
 - [x] ~~deprecate medium blog~~
 - [ ] generate graph from links/tags like Roam
-- [ ] extract a base template for wikis
+- [x] extract a base template for wikis
 - [ ] use the template with private wiki
