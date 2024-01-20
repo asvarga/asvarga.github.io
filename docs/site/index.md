@@ -142,7 +142,9 @@ I am a mathematically-minded software engineer who is fascinated by programming 
         <span class="tag-algorithms"></span>
     </li>
     <li>
-        <a target="_blank" href="http://turingturtle.appspot.com/">Turing Turtle</a> : Puzzle game with turing machine programming. I made an iOS version but it's not currently in the App Store. 
+        <!-- <a target="_blank" href="http://turingturtle.appspot.com/">Turing Turtle</a> -->
+        Turing Turtle : Puzzle game with turing machine programming. 
+        <!-- I made an iOS version but it's not currently in the App Store.  -->
         <span class="tag-games"></span>
         <span class="tag-algorithms"></span>
         <ul>
