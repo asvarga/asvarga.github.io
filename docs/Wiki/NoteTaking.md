@@ -4,6 +4,8 @@ title: Note Taking
 
 I've tried a lot of note taking tools, but the only thing that works for me is simple directories of [MarkDown](https://www.markdownguide.org/) files + [Git](https://git-scm.com/) version control. In fact, this website is made with these simple tools.
 
+Here's a template: https://github.com/asvarga/MkDocs-Template
+
 ## Benefits
 
 - Free
