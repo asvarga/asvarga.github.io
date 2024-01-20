@@ -31,8 +31,8 @@ theme:
     - content.code.copy
     - content.code.select
     - navigation.indexes
-    - navigation.instant
-    - navigation.instant.progress
+    # - navigation.instant  # bug: requires manual page reload for equations to render
+    # - navigation.instant.progress
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.top
