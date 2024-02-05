@@ -2,14 +2,16 @@ site_name: AV
 site_url: https://asvarga.github.io/
 # repo_url: https://github.com/asvarga/asvarga.github.io
 plugins:
+  - awesome-pages
   - ezlinks
   - search
   - tags:
       tags_file: wiki/index.md
   - blog
   - offline
+  # - macros
 theme:
-  favicon: files/triangle-wave-icon.png
+  favicon: files/triangle-wave.svg
   icon:
     logo: material/triangle-wave
     repo: fontawesome/brands/github
@@ -64,6 +66,9 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.tilde
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji 
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 extra_javascript:
   - javascripts/katex.js 
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js  
