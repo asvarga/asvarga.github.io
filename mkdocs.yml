@@ -2,7 +2,7 @@ site_name: AV
 site_url: https://asvarga.github.io/
 # repo_url: https://github.com/asvarga/asvarga.github.io
 plugins:
-  - awesome-pages
+  # - awesome-pages
   - ezlinks
   - search
   - tags:
