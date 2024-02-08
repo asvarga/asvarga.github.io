@@ -10,7 +10,3 @@ authors: '[me]'
 # Rome
 
 Let's goooo
-
-Caccio e pepe
-
-Saltimbocca (jump in my mouth)
