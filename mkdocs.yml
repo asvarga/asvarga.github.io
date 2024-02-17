@@ -6,7 +6,7 @@ plugins:
   - ezlinks
   - search
   - tags:
-      tags_file: docs/wiki/index.md
+      tags_file: wiki/index.md
   - blog
   - offline
   # - macros
