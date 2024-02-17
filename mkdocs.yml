@@ -39,8 +39,8 @@ theme:
     - navigation.tabs.sticky
     - navigation.top
 extra:
-  tags: 
-    Ordinal: Ordinal
+  # tags: 
+  #   Ordinal: Ordinal
   social:
     - icon: fontawesome/brands/linkedin 
       link: https://www.linkedin.com/in/alexander-varga/
