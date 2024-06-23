@@ -99,17 +99,59 @@ In Fig. 7, White plays `Rf8` and Black plays `Rf6`. If White moves first, both m
   <figcaption>Fig. 8 - Rook Escape</figcaption>
 </figure>
 
-In Fig. 7, White plays `Rf3` and Black plays `Rxf6`. If White goes first, Black's move fails because it is a capture. If Black goes first, White is captured and unable to move. Ultimately Black holds White in place and neither move is merged.
+In Fig. 8, White plays `Rf3` and Black plays `Rxf6`. If White goes first, Black's move fails because it is a capture. If Black goes first, White is captured and unable to move. Ultimately Black holds White in place and neither move is merged.
 
 All of these scenarios illustrate rule 2a. Rule 2b is in fact irrelevant for chess, because successful moves always commute.
 
-One might wonder what happens if two "stubborn" players repeatedly try the same rule and are both blocked. We have a couple options:
+One might wonder what happens if two "stubborn" players repeatedly try the same rule and are both blocked. We have a couple options, including:
+
 - Forbid repeated moves until a successful move is made.
 - Apply a [threefold repetition](https://en.wikipedia.org/wiki/Threefold_repetition) rule as in chess which results in a draw.
+- Do nothing and allow infinite games.
 
 ### Generalizing to >2 Players
 
-TODO:
+Now I'll address games with more than two players. The rules above can be easily generalized to this case by replacing "both" with "all". However with many players, this can lead to situations where very little happens, so we can do better.
+
+In order to continue using chess examples while talking about games with more than 2 players, we'll need to modify our input game. Let each chess piece be controlled by a different player, with players split into teams based on color. Now we have 32 players, all of whom can move simultaneously! We should probably turn off friendly fire, but that's irrelevant for this discussion.
+
+Now consider the following situation:
+
+<figure>
+  <img src='/files/chess-block-3.png' width=400 />
+  <figcaption>Fig. 9 - Three rooks and a lot of blocking.</figcaption>
+</figure>
+
+According to our current rules, only the white rook on `c3` should be allowed to move. However, the other white rook might find this unfair: that move should block the black rook from blocking him. This is what I mean by "very little happening" in games with many players. We can make the situation even more extreme:
+
+<figure>
+  <img src='/files/chess-block-12.png' width=400 />
+  <figcaption>Fig. 10 - Twelve rooks and a lot of blocking.</figcaption>
+</figure>
+
+Still only a single white rook will move in this situation. However, it seems that all of the white rooks should move because all of the black rooks are blocked. We can make this work by resolving move conflicts in the following way, which specializes to the above rules in the case of 2 players:
+
+```python
+1 start with all moves unresolved
+2 loop until fixpoint:
+3     resolve all illegal moves are illegal without merging them
+4     M = the set of moves legal in all orderings of unresolved moves
+5     if all possible orderings of M lead to the same game state:
+6         merge all moves in M and resolve them
+```
+
+That is, we iteratively either merge or block moves until no more decisions can be made. As mentioned, when we have only 2 players, this algorithm is equivalent to the two rules above. For the case of chess and other games where legal moves commute, the check on line 5 can be omitted.
+
+Let's apply this to the 12-rook scenario from Fig. 10. 
+
+1. After one round of the loop, the white rook on `a7` will have moved, and no other moves will be resolved.
+2. In the second round of the loop, the black rook on `c8` will be blocked and resolved on line 3. This will free up the white rook on `b6` to move, so `M` will contain just that move.
+3. In the third round of the loop, the black rook on `d7` will be blocked and resolved on line 3. This will free up the white rook on `c5` to move, so `M` will contain just that move.
+4. Ultimately, all moves will be resolved and only the white rooks will have moved.
+
+### Conclusion
+
+
 
 ### Links
 
