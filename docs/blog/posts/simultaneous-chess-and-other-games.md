@@ -103,6 +103,10 @@ In Fig. 7, White plays `Rf3` and Black plays `Rxf6`. If White goes first, Black'
 
 All of these scenarios illustrate rule 2a. Rule 2b is in fact irrelevant for chess, because successful moves always commute.
 
+One might wonder what happens if two "stubborn" players repeatedly try the same rule and are both blocked. We have a couple options:
+- Forbid repeated moves until a successful move is made.
+- Apply a [threefold repetition](https://en.wikipedia.org/wiki/Threefold_repetition) rule as in chess which results in a draw.
+
 ### Generalizing to >2 Players
 
 TODO:
