@@ -6,3 +6,5 @@ modified: 2022-11-05T23:14:29-04:00
 # README
 
 View here: https://asvarga.github.io
+
+Run locally: `mkdocs serve`
