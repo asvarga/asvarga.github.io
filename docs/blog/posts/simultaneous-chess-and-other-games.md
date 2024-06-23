@@ -40,3 +40,40 @@ All of those conflict resolution rules are fair, but I'm interested in rules tha
   <img src='/files/tic-tac-toe-1.png' width=400 />
   <figcaption>Both players request the center square; what happens?</figcaption>
 </figure>
+
+In particular, I want a sort of function mapping turn-based games to simultaneous games. Without getting too formal, these input games could be defined via their [game trees](https://en.wikipedia.org/wiki/Game_tree) by providing:
+
+- An initial game state
+- Transitions between game states based on player moves
+- Predicates for determining the end of the game
+
+It's important to note that a game state must not encode whose turn it is, which would be a non-starter for us. An implementation of these games would keep track of whose turn it is outside of the game state, like separating the chess clock from the chess board. This means that we'll have transitions out of states for all players.
+
+<figure>
+  <img src='/files/game-tree-1.svg' width=400 />
+  <figcaption>Part of a game tree with transitions for multiple players out of a single state.</figcaption>
+</figure>
+
+Given how opaque this general game interface is, there are really only so many things we can do with it to build a simulataneous game. Lets start with:
+
+> **Rule 1:** Players may only submit moves that are legal in the input game.
+
+This might seem like an obvious rule to avoid trivial output games, but certain simultaneous chess variants don't require this rule. Consider the following moves:
+
+<figure>
+  <img src='/files/chess-2.png' width=400 />
+  <figcaption>White preemtively tries to capture their own piece on f6.</figcaption>
+</figure>
+
+White is assuming that Black will capture on `f6`, so White tries to "premove" to capture back on the same square. Such chess variants need to specify what happens when Black doesn't capture on `f6`. However, allowing moves like this is impossible in general simultaneous games because "capturing one's own piece" isn't a legal transition in the input game. It isn't in the game tree so it can't be described or requested through the opaque game interface.
+
+Now we turn to the question of how to resolve conflicts in general. Again there are only so many things we can do, but I'll propose:
+
+> **Rule 2:** Moves are tried in all possible orders, and only moves that are legal in all orders are executed.
+
+FIXME: This doesn't choose which state to end up in...
+
+
+### Links
+
+- Images created using [chess.com/analysis](https://www.chess.com/analysis) and [playtictactoe.org](https://playtictactoe.org/) and [app.diagrams.net](https://app.diagrams.net/)
