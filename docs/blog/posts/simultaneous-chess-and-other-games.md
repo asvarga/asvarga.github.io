@@ -151,9 +151,9 @@ Let's apply this to the 12-rook scenario from Fig. 10.
 
 ### Implementation
 
-The computational feasibility of actually implementing this algorithm is exponential in the worst case, since we must consider all orderings of move. However for chess in particular, the ordering on line `4` can be handled by checking moves pariwise to compute `M`, and the ordering on line `5` can be handled by omitting the check altogether. This gives us a polynomial time algorithm, even on large/infinite boards where pieces might move arbitrarily far.
+The computational complexity of a direct implementation of this algorithm is exponential in the worst case since we must consider all orderings of player moves. However for chess in particular, the ordering on line `4` can be handled by checking moves pairwise to compute `M`, and the ordering on line `5` can be handled by omitting the check altogether. This gives us a polynomial time algorithm, even on large/infinite boards where pieces might move arbitrarily far.
 
-For input games where this algorithm does constant work per player, it can be feasible to run it in real time on a GPU. I'm working on such a game which was the motiviation for this investigation.
+For input games where this algorithm can be implemented with constant work per player, it can be feasible to run large numbers of players in real time on a GPU. I'm working on such a game, which was the original motivation for this investigation.
 
 ### Conclusion
 
