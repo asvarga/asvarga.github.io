@@ -5,7 +5,6 @@ date: 2024-06-22
 tags: [Game]
 categories: [Game]
 authors: [me]
-draft: true
 ---
 
 The game of chess is famously flawed due to the [first-move advantage](https://en.wikipedia.org/wiki/First-move_advantage_in_chess), in which the player who moves first has a significant advantage. Let's fix it and make it fair.
