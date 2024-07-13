@@ -8,28 +8,28 @@
       
       
       
-        <link rel="canonical" href="https://asvarga.github.io/blog/2022/05/30/efficient-transfinite-lists.html">
+        <link rel="canonical" href="https://asvarga.github.io/blog/category/game.html">
       
       
-        <link rel="prev" href="../../../2020/10/21/pure-lists-with-ologi-indexing.html">
+        <link rel="prev" href="datastructure.html">
       
       
-        <link rel="next" href="../../06/20/transfinite-meta-posting---part-1.html">
+        <link rel="next" href="meta.html">
       
       
-      <link rel="icon" href="../../../../files/triangle-wave.svg">
+      <link rel="icon" href="../../files/triangle-wave.svg">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.9">
     
     
       
-        <title>Efficient Transfinite Lists - AV</title>
+        <title>Game - AV</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.f2e4d321.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f2e4d321.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -52,9 +52,9 @@
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
     
-      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#definitions" class="md-skip">
+        <a href="#game" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +96,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../../index.html" title="AV" class="md-header__button md-logo" aria-label="AV" data-md-component="logo">
+    <a href="../../index.html" title="AV" class="md-header__button md-logo" aria-label="AV" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-5 10L7.1 6.04 4.24 12H2L7 2l9.9 15.96L19.76 12H22Z"/></svg>
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Efficient Transfinite Lists
+              Game
             
           </span>
         </div>
@@ -205,7 +205,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../index.html" class="md-tabs__link">
+      <a href="../../index.html" class="md-tabs__link">
         
   
     
@@ -226,7 +226,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../../index.html" class="md-tabs__link">
+        <a href="../index.html" class="md-tabs__link">
           
   
     
@@ -246,7 +246,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../site/index.html" class="md-tabs__link">
+        <a href="../../site/index.html" class="md-tabs__link">
           
   
     
@@ -266,7 +266,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../wiki/index.html" class="md-tabs__link">
+        <a href="../../wiki/index.html" class="md-tabs__link">
           
   
     
@@ -296,9 +296,7 @@
           
             
               
-                
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -309,7 +307,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../../index.html" title="AV" class="md-nav__button md-logo" aria-label="AV" data-md-component="logo">
+    <a href="../../index.html" title="AV" class="md-nav__button md-logo" aria-label="AV" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 12-5 10L7.1 6.04 4.24 12H2L7 2l9.9 15.96L19.76 12H22Z"/></svg>
@@ -327,7 +325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../index.html" class="md-nav__link">
+      <a href="../../index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -377,7 +375,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../index.html" class="md-nav__link ">
+            <a href="../index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -460,7 +458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../archive/2024.html" class="md-nav__link">
+      <a href="../archive/2024.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -483,7 +481,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../archive/2023.html" class="md-nav__link">
+      <a href="../archive/2023.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -506,7 +504,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../archive/2022.html" class="md-nav__link">
+      <a href="../archive/2022.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -529,7 +527,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../archive/2020.html" class="md-nav__link">
+      <a href="../archive/2020.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -555,8 +553,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -574,11 +574,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
         
           
           <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
@@ -592,7 +592,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             Categories
@@ -608,7 +608,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../category/datastructure.html" class="md-nav__link">
+      <a href="datastructure.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -626,12 +626,23 @@
                 
   
   
-  
     
   
   
-    <li class="md-nav__item">
-      <a href="../../../category/game.html" class="md-nav__link">
+    
+      
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="game.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -640,6 +651,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -654,7 +666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../category/meta.html" class="md-nav__link">
+      <a href="meta.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -677,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../category/ordinal.html" class="md-nav__link">
+      <a href="ordinal.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -746,7 +758,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../site/index.html" class="md-nav__link ">
+            <a href="../../site/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -800,7 +812,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../site/ackermann/index.html" class="md-nav__link ">
+            <a href="../../site/ackermann/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -857,7 +869,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../site/collision-trees/index.html" class="md-nav__link ">
+            <a href="../../site/collision-trees/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -914,7 +926,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../site/div-jumper/index.html" class="md-nav__link ">
+            <a href="../../site/div-jumper/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -971,7 +983,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../site/fireworks/index.html" class="md-nav__link ">
+            <a href="../../site/fireworks/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1028,7 +1040,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../site/hybrid-env/index.html" class="md-nav__link ">
+            <a href="../../site/hybrid-env/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1085,7 +1097,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../site/splotch/index.html" class="md-nav__link ">
+            <a href="../../site/splotch/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1163,7 +1175,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../wiki/index.html" class="md-nav__link ">
+            <a href="../../wiki/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1196,7 +1208,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../wiki/NoteTaking.html" class="md-nav__link">
+      <a href="../../wiki/NoteTaking.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1217,7 +1229,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../wiki/TODO.html" class="md-nav__link">
+      <a href="../../wiki/TODO.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1238,7 +1250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../wiki/Trace.html" class="md-nav__link">
+      <a href="../../wiki/Trace.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1259,7 +1271,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../wiki/demo.html" class="md-nav__link">
+      <a href="../../wiki/demo.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1280,7 +1292,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../wiki/page1.html" class="md-nav__link">
+      <a href="../../wiki/page1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1301,7 +1313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../wiki/page2.html" class="md-nav__link">
+      <a href="../../wiki/page2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1343,7 +1355,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../wiki/slides/index.html" class="md-nav__link ">
+            <a href="../../wiki/slides/index.html" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1387,8 +1399,6 @@
             
             
               
-                
-              
               <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
@@ -1398,59 +1408,8 @@
   
   
   
+    
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#definitions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Definitions
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#naive-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Naive Implementation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#efficient-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Efficient Implementation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#in-practice" class="md-nav__link">
-    <span class="md-ellipsis">
-      In Practice
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -1459,186 +1418,69 @@
             
           
           
-  <div class="md-content md-content--post" data-md-component="content">
-    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
-      <div class="md-sidebar__scrollwrap">
-        <div class="md-sidebar__inner md-post">
-          <nav class="md-nav md-nav--primary">
-            <div class="md-post__back">
-              <div class="md-nav__title md-nav__container">
-                <a href="../../../index.html" class="md-nav__link">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-                  <span class="md-ellipsis">
-                    Back to index
-                  </span>
-                </a>
-              </div>
-            </div>
+  <div class="md-content" data-md-component="content">
+    <div class="md-content__inner">
+      <header class="md-typeset">
+        <h1 id="game">Game</h1>
+      </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="/files/triangle-wave.svg" alt="Alexander Varga">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2024-06-22 00:00:00">June 22, 2024</time></li>
+        
+          <li class="md-meta__item">
+            in
             
-              <div class="md-post__authors md-typeset">
-                
-                  <div class="md-profile md-post__profile">
-                    <span class="md-author md-author--long">
-                      <img src="/files/triangle-wave.svg" alt="Alexander Varga">
-                    </span>
-                    <span class="md-profile__description">
-                      <strong>
-                        
-                          Alexander Varga
-                        
-                      </strong>
-                      <br>
-                      
-                    </span>
-                  </div>
-                
-              </div>
-            
-            <ul class="md-post__meta md-nav__list">
-              <li class="md-nav__item md-nav__item--section">
-                <div class="md-post__title">
-                  <span class="md-ellipsis">
-                    Metadata
-                  </span>
-                </div>
-                <nav class="md-nav">
-                  <ul class="md-nav__list">
-                    <li class="md-nav__item">
-                      <div class="md-nav__link">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/></svg>
-                        <time datetime="2022-05-30 00:00:00" class="md-ellipsis">May 30, 2022</time>
-                      </div>
-                    </li>
-                    
-                    
-                      <li class="md-nav__item">
-                        <div class="md-nav__link">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3H9m3 2 4 13 3-1-4-13-3 1M5 5v13h3V5H5M3 19v2h18v-2H3Z"/></svg>
-                          <span class="md-ellipsis">
-                            in
-                            
-                              <a href="../../../category/datastructure.html">DataStructure</a>, 
-                              <a href="../../../category/ordinal.html">Ordinal</a></span>
-                        </div>
-                      </li>
-                    
-                    
-                      
-                      <li class="md-nav__item">
-                        <div class="md-nav__link">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5Z"/></svg>
-                          <span class="md-ellipsis">
-                            
-                              7 min read
-                            
-                          </span>
-                        </div>
-                      </li>
-                    
-                  </ul>
-                </nav>
-              </li>
-            </ul>
-          </nav>
+              <a href="game.html" class="md-meta__link">Game</a></li>
+        
+        
           
-        </div>
-      </div>
+          <li class="md-meta__item">
+            
+              8 min read
+            
+          </li>
+        
+      </ul>
+      
     </div>
-    <article class="md-content__inner md-typeset">
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="simultaneous-chess-and-other-games"><a class="toclink" href="../2024/06/22/simultaneous-chess-and-other-games.html">Simultaneous Chess and Other Games</a></h2>
+<p>The game of chess is famously flawed due to the <a href="https://en.wikipedia.org/wiki/First-move_advantage_in_chess">first-move advantage</a>, in which the player who moves first has a significant advantage. Let's fix it and make it fair.</p>
+
+    <nav class="md-post__action">
+      <a href="../2024/06/22/simultaneous-chess-and-other-games.html">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
+      
       
         
-  
-  
+          
 
-<nav class="md-tags" >
-  
-    
-    
-    
-      <a href="../../../../wiki/index.html#datastructure" class="md-tag">DataStructure</a>
-    
-  
-    
-    
-    
-      <a href="../../../../wiki/index.html#ordinal" class="md-tag">Ordinal</a>
-    
+
+
+<nav class="md-pagination">
   
 </nav>
-
-
-
-  <h1>Efficient Transfinite Lists</h1>
-
-<p>My last two posts were about <a href="../../../2020/05/27/plotting-functions-on-ordinals.html">ordinals</a> and <a href="../../../2020/10/21/pure-lists-with-ologi-indexing.html">pure lists</a>, and they got a combined whopping 11 claps, so I’m selling out and writing a post about both. In particular, this post is about a data structure I discovered for lists of transfinite length. A repo is linked at the bottom.</p>
-<!-- more -->
-
-<h3 id="definitions">Definitions</h3>
-<p>So what is a transfinite list? Well a normal list is a mapping from natural numbers to values. To simplify matters for this post, we ignore the values themselves and consider only the <em>domain</em> of the mapping. For example, a normal list of length 3 will be represented as {0, 1, 2}. When encoded as linked lists, we can easily implement the following functions:</p>
-<ul>
-<li>
-<p><strong>put(n, L):</strong> Add n values to the front of list L. A value at position m ends up at position n+m.</p>
-</li>
-<li>
-<p><strong>get(n, L):</strong> Remove n values from the front of list L. A value at position m ends up at m-n.</p>
-</li>
-</ul>
-<p>For example, starting with the empty list {}, we might <strong>put(5)</strong> to get {0, 1, 2, 3, 4} and then <strong>get(2)</strong> to get {0, 1, 2}. Note that these are pure functions returning new values rather that editing the existing list. I’m abusing notation, and what we’re actually computing is <strong>get</strong>(2, <strong>put</strong>(5, {})), which is equivalent to <strong>put</strong>(3, {}).</p>
-<p>Now, a <em>transfinite</em> list is simply a mapping from <em>ordinals</em> to values, supporting the same functions. I made it up so don’t google it.</p>
-<p>Starting with {0, 1, 2}, if we <strong>put(ω)</strong> we should get the list {0, ω, ω+1, ω+2}. As specified, we’ve <strong>put</strong> by n=ω, so each m in the list goes to ω+m. Now if we <strong>put(1)</strong>, we get the list {0, 1, ω, ω+1, ω+2}. For example ω+1 goes to 1+(ω+1) = ω+1, staying put. Note that we can keep doing <strong>put(1)</strong> without moving any of the values past ω, which acts as a sort of separator between sub-lists. After any number of <strong>put(1)</strong>s, we can <strong>get(ω+1)</strong>, yielding {0, 1}.</p>
-<p>Note that transfinite lists will be “sparse” because we can’t actually add an infinite number of values to the list; we’re interested in finitary encodings. For example, the list {0, 1, ω, ω+1, ω+2} has holes at all natural numbers from 2 up. We might say that the <em>length</em> of a list is the largest number in the domain plus 1 (or 0 if empty), while the <em>size</em> is the cardinality of the domain. These coincide iff the list is finite and non-sparse.</p>
-<h3 id="naive-implementation">Naive Implementation</h3>
-<p>Once the above example makes sense, take a moment to consider how we might implement this as a data structure. A first implementation is to store the derivative of the list, i.e. a <em>normal</em> list of gaps between values. So {0, 1, 2, 3, ω, ω+1, ω+2} would be represented as [1, 1, 1, ω, 1, 1]. This makes the implementation of <strong>put(n)</strong> trivial; we simply prepend n onto the derivative list. The implementation of <strong>get</strong> isn’t so complicated either:</p>
-<blockquote>
-<p>get(n, [d, …L]) := if (n = 0) then [d, …L] else get(n-d, […L])</p>
-</blockquote>
-<p>That is, we keep subtracting differences in the list from n until we reach 0. Note that this is a simplification in that it won’t quite work when n isn’t in the list, and we’ll eventually reach a call where 0&lt;n&lt;d. Using the example derivative list above with <strong>get(ω)</strong>, we’ll compute:</p>
-<blockquote>
-<p>get(ω, [1, 1, 1, ω, 1, 1]) = if (ω = 0) then [1, 1, 1, ω, 1, 1] else get(ω-1, [1, 1, ω, 1, 1]) = get(ω, [1, 1, ω, 1, 1]) = … = get(ω, [1, ω, 1, 1]) = … = get(ω, [ω, 1, 1]) = … = get(0, [1, 1]) = if (0 = 0) then [1, 1] else get(0–1, [1]) = [1, 1].</p>
-</blockquote>
-<p>The resulting derivative list [1, 1] represents the list {0, 1, 2} as desired. Note that we must use “left subtraction” here. To see why, try <strong>get(ω+1)</strong> with the same list. After one step, we iterate on get with (ω+1)-1 which equals ω+1 with left subtraction, so n isn’t depleted and we eventually return [1].</p>
-<h3 id="efficient-implementation">Efficient Implementation</h3>
-<p>Now we’re ready for the interesting part. The above implementation works, but if we have many 1s in the derivative list before the ω, the algorithm will have to step through all of them, which seems wasteful. We might get around the problem temporarily by storing lists of derivative lists, letting us skip ahead to the next ω, but this only works for transfinite lists of lengths less than ω².</p>
-<p>Let’s consider an implementation “efficient” if it can compute <strong>get(n, L)</strong> in time proportionate to the size of a reasonable representation of n. Note that like in my other <a href="../../../2020/10/21/pure-lists-with-ologi-indexing.html">list post</a>, this is independent of the length of the list itself. Also note that since ω usually has a small representation, we should want the above example to run quickly, regardless of how many leading 1s there are in the derivative list.</p>
-<p>The solution once again lies in the representation of ordinals with balanced parentheses, which I would argue is a reasonable representation, and which I explained in my other <a href="../../../2020/05/27/plotting-functions-on-ordinals.html">ordinals post</a>. The trick is for <strong>get(n)</strong> to use the sequence of left and right parentheses describing n to guide a path through our data structure. Let’s skip straight to an example:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*iJEI_PICUSudgG0Cxam8HQ.png" /></p>
-<p>Recalling that the balanced parentheses representation of 1 is () and of ω is (()), the above can be seen as a depiction of the same difference list from above: [1, 1, 1, ω, 1, 1] = [(), (), (), (()), (), ()] = ()()()(())()(). Just tilt your head to the right and follow the sequence from bottom/left to the top/right. Left parens move left up the structure and right parens move right. The hollow nodes are where we might attach values, and the filled ones just connect them.</p>
-<p>Clearly this doesn’t work yet. Trying to do <strong>get(ω)</strong> by following the path (()) will go off the path, but it’s clear how we’d wish to correct this:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*FbVgm0cNah4FBS7-SRdmdA.png" /></p>
-<p>Now doing <strong>get(ω)</strong> from any of the hollow nodes on the left will follow the path (()) and end up at the same correct node, yielding:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*be7w-BcqXrffl6dOVTbfAQ.png" /></p>
-<p>Cool, but can we actually build this structure when we do <strong>put(n, L)</strong>? Yep, easily! While we <em>build</em> a new path for n like (), we simultaneously <em>follow</em> the same path from the existing node for L. Whenever the path goes right, if the <em>follow</em> path has an edge going left, we add one in the <em>build</em> path to the same node.</p>
-<p>For example, the diagram below depicts a <strong>put(1, L) </strong>using a path of (). The (dashed) <em>build</em> path follows the (bold) <em>follow</em> path, copying its (dotted) left edge to the topmost node.</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2000/1*bvLEiD3_WvufTMNOYUZqaA.png" /></p>
-<p>The implementation of <strong>put</strong> is shown below. The function <strong>ord2path</strong> converts an ordinal to a list of parentheses. The functions <strong>l</strong> and <strong>r</strong> return the left and right element respectively when passed a pair, or else return null. The yellow box shows where the <em>build </em>path copies the left edge of the <em>follow</em> path.</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/4472/1*OypdlGxnXj2Acu5pbuc6xQ.png" /></p>
-<h3 id="example">Example</h3>
-<p>I don’t have a proof that this works, so I’ll distract you with another intuition-building example:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/4650/1*ipg3UGsfcQ6fFtycgUZwmQ.png" /></p>
-<p>This represents the transfinite list {0, 1, ω, ω+1, ω², ω²+1, ω³, ω³+1, ω^ω, ω^ω+1} with the derivative list [1, ω, 1, ω², 1, ω³, 1, ω^ω, 1]. Note how the peak of the first 1 difference can be followed all the way to the peak of the ω^ω difference. Note also how the structure was built up from right to left without ever having to follow an unbounded number of edges, simply by following previous edges. If you’re concerned that some nodes are lacking left edges, notice that any such path would correspond to an illegal ordinal like ω^(1+ω). Now if we do a <strong>get(ω²+1)</strong> by following the path (()())(), we end up with:</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/2518/1*ALJLn3vhFV5sEutnBaVeFA.png" /></p>
-<h3 id="in-practice">In Practice</h3>
-<p>I chose to implement this in a Lisp-like language (Racket) because there are parentheses and pairs everywhere of course. In fact, nodes are just pairs, ordinals are represented with nested lists alone, and the translation from ordinals to paths and back is done with printing and parsing(!) respectively. The diagrams are generated with graphviz/neato.</p>
-<p>The code is only a few dozen lines: <a href="https://github.com/asvarga/tf-lists">https://github.com/asvarga/tf-lists</a></p>
-
-
-
-
-
-
-
-  
-  
-
-
-
-
-  
-
-
-
+        
       
-    </article>
+    </div>
   </div>
 
           
@@ -1747,12 +1589,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.code.copy", "content.code.select", "navigation.indexes", "navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.code.select", "navigation.indexes", "navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.8fd75fb4.min.js"></script>
       
-        <script src="../../../../javascripts/katex.js"></script>
+        <script src="../../javascripts/katex.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
       
