@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Simultaneous Chess and Other Games"
+title: "Fair Chess and Simultaneous Games"
 date: 2024-06-22
 tags: [Game]
 categories: [Game]
