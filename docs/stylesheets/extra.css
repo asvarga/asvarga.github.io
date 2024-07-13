@@ -8,3 +8,8 @@
     margin-right: auto;
     width: 50%;
 }
+
+iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
