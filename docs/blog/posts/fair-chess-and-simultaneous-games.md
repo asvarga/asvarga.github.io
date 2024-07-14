@@ -122,7 +122,7 @@ Now consider the following situation:
   <figcaption>Fig. 9 - Three rooks and a lot of blocking.</figcaption>
 </figure>
 
-According to our current rules, only the white rook on `c3` should be allowed to move. However, the other white rook on `d4` might find this unfair: `c3`'s move should block the black rook from blocking `d4`'s move. This is what I mean by "very little happening" in games with many players. We can make the situation even more extreme:
+According to our current rules, only the white rook on `c5` should be allowed to move. However, the other white rook on `d4` might find this unfair: `c5`'s move should block the black rook from blocking `d4`'s move. This is what I mean by "very little happening" in games with many players. We can make the situation even more extreme:
 
 <figure>
   <img src='/files/chess-block-12.png' width=400 />
