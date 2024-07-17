@@ -153,6 +153,13 @@ Let's apply this to the 12-rook scenario from Fig. 10.
 
 The computational complexity of a direct implementation of this algorithm is exponential in the worst case since we must consider all orderings of player moves. However for chess in particular, the ordering on line `4` can be handled by checking moves pairwise to compute `M`, and the ordering on line `5` can be handled by omitting the check altogether. This gives us a polynomial time algorithm, even on large/infinite boards where pieces might move arbitrarily far.
 
+Edit: [Mateen Kasim](https://www.linkedin.com/in/mateen-kasim/) shared with me the counterexample to the sufficiency of checking moves pairwise in Fig. 11. Question: Is there still a polynomial time algorithm to compute `M` for chess? What if we fix the number of kings per team? What if we change the win condition of the input game to capturing the opponent's king, and remove checks and checkmates?
+
+<figure>
+  <img src='/files/mateen-paradox.png' width=400 />
+  <figcaption>Fig. 11 - Three pairwise legal moves with an illegal ordering.</figcaption>
+</figure>
+
 For input games where this algorithm can be implemented with constant work per player, it can be feasible to run large numbers of players in real time on a GPU. I'm working on such a game, which was the original motivation for this investigation.
 
 ### Conclusion
@@ -165,5 +172,5 @@ This game we've arrived at may not the most *fun* simultaneous chess variant, bu
 
 <!-- 
 Empty Board:
-8/8/8/8/8/8/8/8 w - - 0 1 
+8/8/8/8/8/8/8/8 w - - 0 1
 -->
