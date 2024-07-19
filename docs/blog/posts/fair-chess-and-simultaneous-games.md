@@ -2,8 +2,8 @@
 layout: post
 title: "Fair Chess and Simultaneous Games"
 date: 2024-06-22
-tags: [Game]
-categories: [Game]
+tags: [Game, ParallelProgramming]
+categories: [Game, ParallelProgramming]
 authors: [me]
 ---
 
