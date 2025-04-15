@@ -114,7 +114,7 @@ I am a mathematically-minded software engineer who is fascinated by programming 
 <ul>
     <li>
         <!-- ./resume/index.html?exec=trs -->
-        <a target="_blank" href="./gproof"><b>Graphical Proof Assistant</b></a> : Graph-based proof assistant using my "Hybrid UI". Made this tool to help me experiment with type systems. (<a target="_blank" href="https://vimeo.com/355226173" target="_blank">Video</a>) 
+        <a target="_blank" href="./gproof">Graphical Proof Assistant</a> : Graph-based proof assistant using my "Hybrid UI". Made this tool to help me experiment with type systems. (<a target="_blank" href="https://vimeo.com/355226173" target="_blank">Video</a>) 
         <span class="tag-proofs"></span> 
         <span class="tag-pretty"></span>
     </li>
@@ -124,7 +124,7 @@ I am a mathematically-minded software engineer who is fascinated by programming 
         <span class="tag-algorithms"></span>
     </li>
     <li>
-        <a href="./fireworks"><b>3D Fireworks</b></a> : Graphics Course final project with thousands of particles with real-time lighting. 
+        <a href="./fireworks">3D Fireworks</a> : Graphics Course final project with thousands of particles with real-time lighting. 
         <span class="tag-gpu"></span> 
         <span class="tag-pretty"></span>
     </li>
@@ -133,7 +133,7 @@ I am a mathematically-minded software engineer who is fascinated by programming 
         <span class="tag-languages"></span>
     </li>
     <li>
-        <a href="./collision-trees"><b>Collision Trees</b></a> : Computational art from self-colliding trees with a surprising variety of emergent behaviors. 
+        <a href="./collision-trees">Collision Trees</a> : Computational art from self-colliding trees with a surprising variety of emergent behaviors. 
         <span class="tag-algorithms"></span> 
         <span class="tag-pretty"></span>
     </li>
@@ -148,13 +148,17 @@ I am a mathematically-minded software engineer who is fascinated by programming 
         <span class="tag-games"></span>
         <span class="tag-algorithms"></span>
         <ul>
-            <li><a target="_blank" href="https://www.youtube.com/watch?v=lBxgJZyGVoQ"><b>4 minute video</b></a></li>
+            <li><a target="_blank" href="https://www.youtube.com/watch?v=lBxgJZyGVoQ">4 minute video</a></li>
             <li><a target="_blank" href="https://www.youtube.com/watch?v=E6qZlcyR4uc">1 minute video</a></li>
         </ul>
     </li>
     <li>
         <a href="./splotch">Paint Splotch Shadertoy</a> : Watching this simulated paint dry isn't boring, I promise! 
         <span class="tag-gpu"></span>
+    </li>
+    <li>
+        <a target="_blank" href="https://github.com/asvarga/String-Reuse-Visualizer">String Reuse Visualizer</a> : Visualize how text transformers reuse chars in memory. 
+        <span class="tag-languages"></span>
     </li>
     <li>
         <a href="./div-jumper">Div Jumper</a>
