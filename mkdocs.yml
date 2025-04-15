@@ -14,6 +14,9 @@ plugins:
         's/forge/index.md': 'https://cs.brown.edu/media/filer_public/e7/ae/e7aee136-a292-4b44-8e3f-7841aad57475/vargaalexander.pdf'
         's/forge-paper/index.md': 'https://cs.brown.edu/~sk/Publications/Papers/Published/ngp----forge/'
   - social
+  - exclude:
+      glob:
+        - overrides/*
   # - macros
 theme:
   favicon: files/triangle-wave.svg
