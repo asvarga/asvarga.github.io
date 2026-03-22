@@ -114,6 +114,13 @@ I am a mathematically-minded software engineer who is fascinated by programming 
 <ul>
     <li>
         <!-- ./resume/index.html?exec=trs -->
+        <a target="_blank" href="./nanobots">NanoBots</a> : Compile gas-metered state machines to run on the GPU right in your browser.
+        <span class="tag-languages"></span>
+        <span class="tag-gpu"></span>
+        <span class="tag-pretty"></span>
+    </li>
+    <li>
+        <!-- ./resume/index.html?exec=trs -->
         <a target="_blank" href="./gproof">Graphical Proof Assistant</a> : Graph-based proof assistant using my "Hybrid UI". Made this tool to help me experiment with type systems. (<a target="_blank" href="https://vimeo.com/355226173" target="_blank">Video</a>) 
         <span class="tag-proofs"></span> 
         <span class="tag-pretty"></span>
