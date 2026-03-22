@@ -1,5 +1,5 @@
 mkdocs
 mkdocs-exclude
 mkdocs-ezlinks-plugin
-mkdocs-material
+mkdocs-material[imaging]
 mkdocs-redirects
