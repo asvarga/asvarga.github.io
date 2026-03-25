@@ -26,7 +26,7 @@ I designed it over the course of several years and then implemented it in a day 
 
 ### Compilation + Performance
 
-It would be very unwieldy to represent bytecode in GPU buffers and interpret it in GPU threads. This somewhat necessitates compilation of user programs to GPU shader code itself, and was the motivation for this project in the first place. This enables crazy performance. It's ultimately able to simulate 2.7 million bots @ 200 rounds/sec on my M1 for a total of over *half a billion bot rounds/second* on my M1. This was in a 2040 x 2040 grid with the simple default program. There are certainly more optimizations to squeeze out on both the compiler and GPU fronts.
+It would be very unwieldy to represent bytecode in GPU buffers and interpret it in GPU threads. This somewhat necessitates compilation of user programs to GPU shader code itself, and was the motivation for this project in the first place. This enables crazy performance. It's ultimately able to simulate 2.7 million bots @ 200 rounds/sec for a total of over *half a billion bot rounds/second* on my M1. This was in a 2040 x 2040 grid with the simple default turn-right program. There are certainly more optimizations to squeeze out on both the compiler and GPU fronts.
 
 In particular, we compile via an IR with register machine with basic blocks. Click the "GPU" button on the bottom right to inspect the generated WGSL code.
 
