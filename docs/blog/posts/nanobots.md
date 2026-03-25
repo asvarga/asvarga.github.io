@@ -10,7 +10,7 @@ authors: [me]
 I made a [simulation](../../site/nanobots/index.html) where users program millions of nanobots that run in the GPU. Let me show you its features :)
 
 <figure>
-  <img src='/files/lotta-bots.png' width=600 />
+  <img src='/files/nanobots.png' width="100%" />
   <figcaption>Screenshot of simulation depicting multiple "states of matter"</figcaption>
 </figure>
 
