@@ -5,6 +5,7 @@ date: 2026-05-02
 tags: [Puzzle, Math]
 categories: [Puzzle, Math]
 authors: [me]
+hide: [toc]
 ---
 
 **Puzzle**: Find a function $f: \R \rarr \R$ with 4-fold rotational symmetry.
