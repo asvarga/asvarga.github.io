@@ -2,8 +2,8 @@
 layout: post
 title: "Plotting Functions on Ordinals"
 date: 2020-05-27
-tags: [Ordinal]
-categories: [Ordinal]
+tags: [Ordinal, Math]
+categories: [Ordinal, Math]
 authors: [me]
 ---
 

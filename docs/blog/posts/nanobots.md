@@ -18,7 +18,7 @@ I built a [compiler](../../site/nanobots/index.html) to let users program millio
 
 ### Overview
 
-The compiler can be found [here](../../site/nanobots/index.html). On the left you'll find the grid of cells in which the simulation takes place. Many "nanobots" live in the grid and are represented by pixels. To the right is a text editor where you can program the nanobots. When the program is edited, it is compiled to WebGL shader code and executed on the GPU. Execution is completely deterministic and divergence-free for all programs in spite of the massive parallelism.
+The compiler can be found [here](../../site/nanobots/index.html) (note: it may not work properly on mobile). On the left you'll find the grid of cells in which the simulation takes place. Many "nanobots" live in the grid and are represented by pixels. To the right is a text editor where you can program the nanobots. When the program is edited, it is compiled to WebGL shader code and executed on the GPU. Execution is completely deterministic and divergence-free for all programs in spite of the massive parallelism.
 
 The compiler itself is implemented in Rust and built for WASM, allowing a closed "development" loop right in the browser. Compiled GPU code is hot-swapped in without disruption and bot states are maintained when possible. The editor uses CodeMirror6 with custom syntax highlighting.
 
