@@ -21,7 +21,7 @@ hide: [toc]
   There are many solutions, but here's a nice animated family of them. Click the bottom right to view+edit.
   <iframe src="https://www.desmos.com/calculator/e75b3c7808?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
   $$
-    y = \begin{cases}
+    f(x) = \begin{cases}
       0            & x = 0                                             \\
       x \cdot c    & \lfloor\log_{c}\lvert x\rvert\rfloor < 1 \pmod{2} \\
       \frac{-x}{c} & \text{otherwise}                                  \\
