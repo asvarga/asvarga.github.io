@@ -2,3 +2,6 @@
 venv
 /site
 .cache
+# SatSight's wasm demo is fetched from its GitHub release at deploy time
+# (see .github/workflows/main.yml) rather than committed here.
+/docs/site/satsight
