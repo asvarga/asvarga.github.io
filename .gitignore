@@ -1,7 +1,14 @@
 .DS_Store
 venv
+# Local venv created by bin/main from requirements.txt (see .envrc / nix/).
+/.venv
 /site
 .cache
+# direnv's local cache for the nix dev shell (see .envrc / nix/flake.nix).
+.direnv/
+# Claude Code local overrides and worktrees.
+.claude/settings.local.json
+.claude/worktrees/
 # SatSight's wasm demo is fetched from its GitHub release at deploy time
 # (see .github/workflows/main.yml) rather than committed here.
 /docs/site/satsight

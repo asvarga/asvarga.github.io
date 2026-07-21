@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+#
+# bin/main — serve the MkDocs site locally with live reload.
+#
+# `mkdocs serve` rebuilds the site and refreshes the browser whenever a source
+# file under docs/ (or mkdocs.yml) changes, so edits show up without a manual
+# rebuild.
+#
+# With ./bin on PATH (see .envrc), just run `main` from anywhere in the repo.
+#
+#   main                 # serve on http://127.0.0.1:8000 with live reload
+#   main -a 0.0.0.0:9000 # any extra args are passed through to `mkdocs serve`
+#   REBUILD=1 main       # recreate the venv from scratch before serving
+#
+# The mkdocs packages are pinned by requirements.txt and installed into a local
+# .venv (created on first run); the nix dev shell provides Python + the native
+# imaging libs the social-card plugin needs. Works from any cwd (resolves the
+# repo root from its own path).
+#
+set -euo pipefail
+
+here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+root="$(cd "$here/.." && pwd)"
+cd "$root"
+
+venv="$root/.venv"
+stamp="$venv/.requirements.sha"
+req="$root/requirements.txt"
+
+# Recreate the venv on request, or if it is missing/incomplete.
+if [ "${REBUILD:-}" = "1" ] || [ ! -x "$venv/bin/mkdocs" ]; then
+  [ "${REBUILD:-}" = "1" ] && rm -rf "$venv"
+  echo "bin/main: creating virtualenv at .venv …" >&2
+  python3 -m venv "$venv"
+fi
+
+# (Re)install deps when requirements.txt changes (tracked by a checksum stamp),
+# so a fresh pull with new plugins doesn't silently run against stale packages.
+want="$(shasum "$req" | awk '{print $1}')"
+if [ ! -f "$stamp" ] || [ "$(cat "$stamp")" != "$want" ]; then
+  echo "bin/main: installing dependencies from requirements.txt …" >&2
+  "$venv/bin/pip" install --quiet --upgrade pip
+  "$venv/bin/pip" install --quiet -r "$req"
+  echo "$want" > "$stamp"
+fi
+
+# macOS SIP strips DYLD_* env vars across the `#!/usr/bin/env bash` shebang
+# above, so the nix dev shell hands us the native imaging-lib path under a
+# non-DYLD name (see nix/flake.nix). Promote it back here, just before exec:
+# the next exec target is the nix python, which preserves it, so cairosvg (the
+# mkdocs-material social-card plugin) can dlopen libcairo. No-op off the nix
+# shell / on Linux, where LD_LIBRARY_PATH already handles this.
+if [ -n "${MKDOCS_IMAGING_LIB_PATH:-}" ]; then
+  export DYLD_FALLBACK_LIBRARY_PATH="${MKDOCS_IMAGING_LIB_PATH}${DYLD_FALLBACK_LIBRARY_PATH:+:${DYLD_FALLBACK_LIBRARY_PATH}}"
+fi
+
+exec "$venv/bin/mkdocs" serve "$@"
