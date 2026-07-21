@@ -7,4 +7,4 @@ modified: 2022-11-05T23:14:29-04:00
 
 View here: https://asvarga.github.io
 
-Run locally: `mkdocs serve`
+Run locally: `main` (i.e. `properdocs serve`). Deploy: `deploy` (i.e. `properdocs gh-deploy`).

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#
+# bin/deploy — build the site and publish it to GitHub Pages.
+#
+# `properdocs gh-deploy` builds the site and force-pushes the result to the
+# gh-pages branch, which is what asvarga.github.io serves. This mirrors the
+# "Deploy docs" step in .github/workflows/main.yml so a local deploy produces
+# the same published site as the manual GitHub Action.
+#
+# With ./bin on PATH (see .envrc), just run `deploy` from anywhere in the repo.
+#
+#   deploy               # fetch the SatSight demo, build, and push to gh-pages
+#   deploy --dirty       # extra args are passed through to `properdocs gh-deploy`
+#   REBUILD=1 deploy     # recreate the venv from scratch before deploying
+#
+# Dependency/venv bootstrap and the nix imaging-lib handoff live in bin/lib.sh.
+source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
+
+# Fetch the latest SatSight wasm demo, exactly as the deploy workflow does, so a
+# local deploy doesn't publish the site with the demo missing. SatSight
+# (github.com/asvarga/SatSight) republishes this as its "web-latest" release
+# asset on every push; we pull it at deploy time rather than committing the wasm
+# blobs (docs/site/satsight is gitignored).
+echo "bin/deploy: fetching latest SatSight web demo …" >&2
+tarball="$(mktemp -t satsight-web.XXXXXX.tar.gz)"
+trap 'rm -f "$tarball"' EXIT
+mkdir -p docs/site/satsight
+curl -fsSL -o "$tarball" \
+  https://github.com/asvarga/SatSight/releases/download/web-latest/satsight-web.tar.gz
+tar -xzf "$tarball" -C docs/site/satsight
+
+exec "$venv/bin/properdocs" gh-deploy --force "$@"
