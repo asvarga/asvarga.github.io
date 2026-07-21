@@ -21,5 +21,16 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Fetch latest SatSight web demo
+        # SatSight (github.com/asvarga/SatSight) builds this on every push to
+        # main and republishes it as the "web-latest" release asset. Pulling
+        # it here (rather than committing it) keeps this repo free of binary
+        # wasm blobs and always picks up whatever SatSight last published.
+        run: |
+          mkdir -p docs/site/satsight
+          curl -fsSL -o /tmp/satsight-web.tar.gz \
+            https://github.com/asvarga/SatSight/releases/download/web-latest/satsight-web.tar.gz
+          tar -xzf /tmp/satsight-web.tar.gz -C docs/site/satsight
+
       - name: Deploy docs
         run: mkdocs gh-deploy --force
