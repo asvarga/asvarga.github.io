@@ -124,6 +124,11 @@ I am a mathematically-minded software engineer who is fascinated by programming 
         <span class="tag-pretty"></span>
     </li>
     <li>
+        <a href="./satsight">SatSight</a> : Solve puzzles like Sudoku, Akari, and graph coloring by reduction to SAT, then watch the solver's discoveries projected back into the puzzle — with the CDCL search steppable one event at a time. Runs in your browser via WebAssembly. (<a target="_blank" href="https://github.com/asvarga/SatSight">GitHub</a>) 
+        <span class="tag-proofs"></span>
+        <span class="tag-algorithms"></span>
+    </li>
+    <li>
         <!-- ./resume/index.html?exec=trs -->
         <a target="_blank" href="./gproof">Graphical Proof Assistant</a> : Graph-based proof assistant using my "Hybrid UI". I made this tool to help me experiment with type systems. (<a target="_blank" href="https://vimeo.com/355226173" target="_blank">Video</a>) 
         <span class="tag-proofs"></span> 
