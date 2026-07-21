@@ -66,6 +66,8 @@ extra:
     - icon: fontawesome/brands/vimeo 
       link: https://www.vimeo.com/user99108597
 markdown_extensions:
+  # Process Markdown (e.g. links) nested inside raw HTML blocks like <center>.
+  - md_in_html
   - pymdownx.tasklist:
       custom_checkbox: true
   # - wikilinks
