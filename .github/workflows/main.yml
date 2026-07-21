@@ -33,4 +33,4 @@ jobs:
           tar -xzf /tmp/satsight-web.tar.gz -C docs/site/satsight
 
       - name: Deploy docs
-        run: mkdocs gh-deploy --force
+        run: properdocs gh-deploy --force
