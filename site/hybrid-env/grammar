@@ -1,0 +1,37 @@
+
+{
+	function Quote(val) { 
+    	this.type = "Quote";
+    	this.val = val; 
+    }
+    function Hook(val) { 
+    	this.type = "Hook";
+    	this.val = val; 
+    }
+    function Identifier(val) {
+    	this.type = "Identifier";
+    	this.val = val; 
+    }
+    function Expression(val) {
+    	this.type = "Expression";
+        this.val = val;
+    }
+}
+
+atom = content:(expression / quote / hook / string / true / false / null/ number / identifier) whitespace? {return content}
+
+expression = whitespace? "(" whitespace? atoms:atom* ")" whitespace? {return new Expression(atoms)}
+
+quote = "'" whitespace? e:atom whitespace? {return new Quote(e)}
+hook = "@" whitespace? i:identifier whitespace? {return new Hook(i.val)}
+
+string = '"' chars:[^"]* '"' {return chars.join("")}
+true = "true" whitespace? {return true}
+false = "false" whitespace? {return false}
+null = "null" whitespace? {return null}
+number = digits:[0-9]+ {return parseInt(digits.join(""),10)}
+
+identifier = content:[^ \t\n\r()]+ {return new Identifier(content.join(""))}
+
+whitespace
+  = [ \t\n\r]*

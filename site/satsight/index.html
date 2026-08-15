@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>SatSight</title>
+    <!-- Trunk builds this crate to wasm and injects the loader (plan §9). -->
+    
+<script type="module">
+import init, * as bindings from '/site/satsight/satsight-app-2e62750fd401265e.js';
+const wasm = await init({ module_or_path: '/site/satsight/satsight-app-2e62750fd401265e_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: #1e1e1e;
+      }
+      /* eframe drives the canvas size; fill the viewport. */
+      canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  <link rel="modulepreload" href="/site/satsight/satsight-app-2e62750fd401265e.js" crossorigin="anonymous" integrity="sha384-OElt1sTb0s9Li/Y9zrOyF0q+eQZTmcna+FMMDFDHfBp6wcBNUjGG5zY0Dg4uq9qm"><link rel="preload" href="/site/satsight/satsight-app-2e62750fd401265e_bg.wasm" crossorigin="anonymous" integrity="sha384-OSsoEodDih9ntJ/9UKDrZbiFBFcmzeAUMY/z60eV+ceUynMV1dcCxJC5qdztO1Iu" as="fetch" type="application/wasm"></head>
+  <body>
+    <canvas id="satsight_canvas"></canvas>
+  </body>
+</html>
