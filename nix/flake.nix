@@ -42,6 +42,8 @@
             # Interpreter only; properdocs + plugins come from requirements.txt via
             # pip, matching the `pip install -r requirements.txt` deploy step.
             pkgs.python3
+            # Manages asvarga.com DNS in Route 53 (custom domain for GitHub Pages).
+            pkgs.awscli2
           ] ++ imagingLibs;
 
           # Help the pip-installed wheels (cairosvg/cairocffi) dlopen the
