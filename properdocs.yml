@@ -5,12 +5,14 @@ site_url: https://asvarga.com/
 # header tab. These are built and reachable by URL, just unlisted.
 not_in_nav: |
   message.md
+hooks:
+  # Redirect pages from their old .html URLs to the new directory URLs.
+  - hooks/legacy_html_redirects.py
 plugins:
   # - awesome-pages
   - search
   - tags
   - blog
-  - offline
   - redirects:
       redirect_maps:
         's/forge/index.md': 'https://cs.brown.edu/media/filer_public/e7/ae/e7aee136-a292-4b44-8e3f-7841aad57475/vargaalexander.pdf'

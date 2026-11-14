@@ -204,7 +204,7 @@ I am a mathematically-minded software engineer who is fascinated by programming 
         </ul>
     </li>
     <li>
-        <a target="_blank" href="./motp/index.html">Mars of the Penguins</a> : In-progress game about programming a colony of bots.
+        <a target="_blank" href="./motp/">Mars of the Penguins</a> : In-progress game about programming a colony of bots.
         <span class="tag-games"></span>
     </li>
     <li>

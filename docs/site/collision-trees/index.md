@@ -30,7 +30,7 @@ These are Fibonacci Trees. Try counting the leaves of the various dendrites stic
 <img src="images/E60A41B9-F5C1-472D-830E-2F0F670D28E9.png" width="800">
 <img src="images/7AC43F4A-735D-445E-8346-B001BC4D7CDF.png" width="800">
 
-These images have multiple groups of trees growing at different speeds, racing to fill the plane. Compare to my <a href="../splotch/index.html">continuous simluation</a> of the same dynamic.
+These images have multiple groups of trees growing at different speeds, racing to fill the plane. Compare to my <a href="../splotch/">continuous simluation</a> of the same dynamic.
 
 <img src="images/FADB83C7-B321-4030-BEE2-3A85DF0417DC.png" width="800">
 <img src="images/04D52F72-22E3-4B60-9F09-20493F7533FF.png" width="800">
