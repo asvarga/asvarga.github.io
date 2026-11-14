@@ -3,7 +3,7 @@ title: Example Trace
 ---
 
 
-Raw file: [Trace.tfdbi](./Trace.tfdbi)
+Raw file: [Trace.tfdbi](../files/Trace.tfdbi)
 
 ```
 ;------------------------------;

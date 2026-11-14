@@ -5,4 +5,4 @@ tags: [Test]
 
 Two
 
-[[page1]]
+[page1](page1.md)

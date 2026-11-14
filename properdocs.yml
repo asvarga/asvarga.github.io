@@ -7,10 +7,8 @@ not_in_nav: |
   message.md
 plugins:
   # - awesome-pages
-  - ezlinks
   - search
-  - tags:
-      tags_file: wiki/index.md
+  - tags
   - blog
   - offline
   - redirects:
