@@ -1,5 +1,4 @@
 properdocs
 mkdocs-exclude
-mkdocs-ezlinks-plugin
 mkdocs-material[imaging]
 mkdocs-redirects
