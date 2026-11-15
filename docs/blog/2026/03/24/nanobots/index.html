@@ -35,14 +35,14 @@
     <div class="meta"><time datetime="2026-03-24">March 24, 2026</time><span>3 min read</span><span class="tags"><a class="tag" href="/blog/#tag=compilers">Compilers</a><a class="tag" href="/blog/#tag=game">Game</a><a class="tag" href="/blog/#tag=parallelprogramming">Parallel Programming</a></span></div>
   </header>
   <div class="prose">
-<p>I built a <a href="https://quiltlang.github.io/demo/nanobots/">compiler</a> to let users program millions of nanobots that run in the GPU. Let me show you its features :)</p>
+<p>I built a <a href="https://quiltlang.github.io/demo/nanobots/" target="_blank" rel="noopener">compiler</a> to let users program millions of nanobots that run in the GPU. Let me show you its features :)</p>
 <figure>
   <img loading="lazy" src='/files/nanobots.png' width="100%">
   <figcaption>Screenshot of simulation depicting multiple "states of matter"</figcaption>
 </figure>
 
 <h3 id="overview">Overview</h3>
-<p>The compiler can be found <a href="https://quiltlang.github.io/demo/nanobots/">here</a> (note: it may not work properly on mobile). On the left you'll find the grid of cells in which the simulation takes place. Many "nanobots" live in the grid and are represented by pixels. To the right is a text editor where you can program the nanobots. When the program is edited, it is compiled to WebGL shader code and executed on the GPU. Execution is completely deterministic and divergence-free for all programs in spite of the massive parallelism.</p>
+<p>The compiler can be found <a href="https://quiltlang.github.io/demo/nanobots/" target="_blank" rel="noopener">here</a> (note: it may not work properly on mobile). On the left you'll find the grid of cells in which the simulation takes place. Many "nanobots" live in the grid and are represented by pixels. To the right is a text editor where you can program the nanobots. When the program is edited, it is compiled to WebGL shader code and executed on the GPU. Execution is completely deterministic and divergence-free for all programs in spite of the massive parallelism.</p>
 <p>The compiler itself is implemented in Rust and built for WASM, allowing a closed "development" loop right in the browser. Compiled GPU code is hot-swapped in without disruption and bot states are maintained when possible. The editor uses CodeMirror6 with custom syntax highlighting.</p>
 <p>I designed it over the course of several years and then implemented it in a day with Claude Code.</p>
 <h3 id="compilation-performance">Compilation + Performance</h3>
@@ -82,7 +82,7 @@ while true:
 <footer class="site-footer">
   <div class="wrap">
     <span>&copy; Alexander Varga</span>
-    <nav aria-label="Elsewhere"><a href="https://github.com/asvarga">GitHub</a><a href="https://www.linkedin.com/in/alexander-varga/">LinkedIn</a><a href="https://www.stackoverflow.com/users/1684606/alex-varga">Stack Overflow</a><a href="https://www.youtube.com/user/avarga93/videos">YouTube</a><a href="https://www.flickr.com/photos/124356640@N03">Flickr</a><a href="https://www.vimeo.com/user99108597">Vimeo</a></nav>
+    <nav aria-label="Elsewhere"><a href="https://github.com/asvarga" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/alexander-varga/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.stackoverflow.com/users/1684606/alex-varga" target="_blank" rel="noopener">Stack Overflow</a><a href="https://www.youtube.com/user/avarga93/videos" target="_blank" rel="noopener">YouTube</a><a href="https://www.flickr.com/photos/124356640@N03" target="_blank" rel="noopener">Flickr</a><a href="https://www.vimeo.com/user99108597" target="_blank" rel="noopener">Vimeo</a></nav>
   </div>
 </footer>
 </body>

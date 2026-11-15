@@ -41,7 +41,7 @@
 <p><img loading="lazy" alt="" src="/files/medium/EqnHBQWeWIUpATGui2DiVw.png"></p>
 <p>When we’re plotting functions from integers to integers, we simply space out all integers evenly on the axes. This clearly won’t work for our case because we’ll only be able to fit the first ω ordinals. What we need is literally a function <em>t </em>from ordinals to the (positive) real number line telling us where to put tick marks on the axes. This is akin to the trick people use to plot really big finite numbers: use a log-log plot to squish the really big numbers into a manageable and visually appealing domain using <em>t</em>(<em>x</em>) := log(<em>x</em>).</p>
 <p><img loading="lazy" alt="" src="/files/medium/x9t4Cs3cC6gH_GwDeUmhPQ.png"></p>
-<p>We retrict our attention here to just the ordinals up to <a href="https://en.wikipedia.org/wiki/Epsilon_numbers_(mathematics)">ε₀</a> because they are easy to represent in code, so we seek a function <strong><em>t</em> : ε₀ → ℝ⁺</strong> with a few desiderata:</p>
+<p>We retrict our attention here to just the ordinals up to <a href="https://en.wikipedia.org/wiki/Epsilon_numbers_(mathematics)" target="_blank" rel="noopener">ε₀</a> because they are easy to represent in code, so we seek a function <strong><em>t</em> : ε₀ → ℝ⁺</strong> with a few desiderata:</p>
 <ol>
 <li>
 <p><em>t</em> should be strictly increasing.</p>
@@ -55,7 +55,7 @@
 </ol>
 <p>Desideratum 1 is something we obviously want for our plotting purposes so ticks don’t overlap and they increase from left to right, but even that is tricky to satisfy. It seems like it should be easy because ε₀ is countable and the reals aren’t, but there are just so many ordinals to squeeze onto the line. Desideratum 2 is also very natural for the aesthetics of plotting, but once again is trickier to accomplish than it seems. The last desideratum is actually quite easy to accomplish once we have the first two, but has some interesting implictions. Since <em>t</em> approximates the height of the power tower defining an ordinal, it acts as a super-logarithm (slog; an inverse of tetration) in base ω. Also, combined with desideratum 2, we see that <em>t</em>(ε₀) = <em>t</em>(ω^ω^…) = ∞, so our ticks will fill the axes and we’ll have a sort of “slog-slog” plot.</p>
 <p><img loading="lazy" alt="" src="/files/medium/3ph9oxfZe14U_exSwOMS-w.jpeg"></p>
-<p>If we draw the kind of function we have in mind, it seems simple enough. For every inifinite sequence like 1, 2, 3, …, we can place each ordinal somewhere between its predecessor and the limit of the sequence. For example, <em>t</em>(3) is about halfway between <em>t</em>(2) and <em>t</em>(ω). But how can we formalize this in a function? After a lot of head-scratching and googling, one might come across a succinct representation of ordinal <em>trees</em> using balanced parentheses (BP) that we can use for desideratum 1. The first step of the conversion from ordinals to BP is to convert to <a href="https://en.wikipedia.org/wiki/Ordinal_arithmetic#Cantor_normal_form">Cantor Normal Form</a>, as in the image above. In short, all ordinals up to ε₀ can be represented as a sort of polynomial in base ω where all exponents are sorted and are themselves in Cantor Normal Form:</p>
+<p>If we draw the kind of function we have in mind, it seems simple enough. For every inifinite sequence like 1, 2, 3, …, we can place each ordinal somewhere between its predecessor and the limit of the sequence. For example, <em>t</em>(3) is about halfway between <em>t</em>(2) and <em>t</em>(ω). But how can we formalize this in a function? After a lot of head-scratching and googling, one might come across a succinct representation of ordinal <em>trees</em> using balanced parentheses (BP) that we can use for desideratum 1. The first step of the conversion from ordinals to BP is to convert to <a href="https://en.wikipedia.org/wiki/Ordinal_arithmetic#Cantor_normal_form" target="_blank" rel="noopener">Cantor Normal Form</a>, as in the image above. In short, all ordinals up to ε₀ can be represented as a sort of polynomial in base ω where all exponents are sorted and are themselves in Cantor Normal Form:</p>
 <p><img loading="lazy" alt="" src="/files/medium/sE8UiqRu1NfzxXdXMut6kA.png"></p>
 <p>For example, ω+3 = ω^ω^0+ω^0+ω^0+ω^0. Such a polynomial can be interpreted as an ordinal tree where the value of each node is the sum of ω to the power of the values of its child nodes:</p>
 <p><img loading="lazy" alt="" src="/files/medium/Vn5f1pMrpCW2xWc8SU5TLA.png"></p>
@@ -76,7 +76,7 @@
 <p><img loading="lazy" alt="" src="/files/medium/ODZLPmQJqWxmcUA4KLKdzw.png"></p>
 <p>To show off our work, we can now plot functions from ordinals to ordinals like <em>f</em>(<em>x</em>) := <em>x</em>*<em>x</em>:</p>
 <p><img loading="lazy" alt="" src="/files/medium/bPEFlj5GwQgjWQUly93Pyg.png"></p>
-<p>The repo can be found here: <a href="https://github.com/asvarga/ordinals-python">https://github.com/asvarga/ordinals-python</a></p>
+<p>The repo can be found here: <a href="https://github.com/asvarga/ordinals-python" target="_blank" rel="noopener">https://github.com/asvarga/ordinals-python</a></p>
   </div>
   <footer class="post-foot">
     <nav class="pager" aria-label="More posts"><a class="next" href="/blog/2020/10/21/pure-lists-with-ologi-indexing/"><small>Newer &rarr;</small>Pure Lists with O(log(i)) Indexing</a></nav>
@@ -86,7 +86,7 @@
 <footer class="site-footer">
   <div class="wrap">
     <span>&copy; Alexander Varga</span>
-    <nav aria-label="Elsewhere"><a href="https://github.com/asvarga">GitHub</a><a href="https://www.linkedin.com/in/alexander-varga/">LinkedIn</a><a href="https://www.stackoverflow.com/users/1684606/alex-varga">Stack Overflow</a><a href="https://www.youtube.com/user/avarga93/videos">YouTube</a><a href="https://www.flickr.com/photos/124356640@N03">Flickr</a><a href="https://www.vimeo.com/user99108597">Vimeo</a></nav>
+    <nav aria-label="Elsewhere"><a href="https://github.com/asvarga" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/alexander-varga/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.stackoverflow.com/users/1684606/alex-varga" target="_blank" rel="noopener">Stack Overflow</a><a href="https://www.youtube.com/user/avarga93/videos" target="_blank" rel="noopener">YouTube</a><a href="https://www.flickr.com/photos/124356640@N03" target="_blank" rel="noopener">Flickr</a><a href="https://www.vimeo.com/user99108597" target="_blank" rel="noopener">Vimeo</a></nav>
   </div>
 </footer>
 </body>

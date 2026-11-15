@@ -28,7 +28,11 @@ and no framework: what's committed is what's served.
    the title, `<meta>` description, date, tags and the `.prose` body.
 2. Add it to the top of `docs/blog/index.html` (under its year) and to the
    "Recent writing" list on `docs/index.html` (keep five).
-3. Point the neighbouring posts' Older/Newer links at it.
+3. Give its blog-index entry a thumbnail: a ~640px-wide 3:2 image in
+   `docs/files/thumbs/<slug>.jpg`.
+4. Point the neighbouring posts' Older/Newer links at it.
+
+Links that leave the site get `target="_blank" rel="noopener"`.
 
 Posts that use math load KaTeX in their `<head>` (see
 `blog/2026/05/02/function-with-4-fold-symmetry/`) and write `\( … \)` or

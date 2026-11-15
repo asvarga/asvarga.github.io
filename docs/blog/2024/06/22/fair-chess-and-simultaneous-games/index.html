@@ -35,11 +35,11 @@
     <div class="meta"><time datetime="2024-06-22">June 22, 2024</time><span>7 min read</span><span class="tags"><a class="tag" href="/blog/#tag=game">Game</a><a class="tag" href="/blog/#tag=parallelprogramming">Parallel Programming</a></span></div>
   </header>
   <div class="prose">
-<p>The game of chess is famously flawed due to the <a href="https://en.wikipedia.org/wiki/First-move_advantage_in_chess">first-move advantage</a>, in which the player who moves first has a significant advantage. Let's fix it and make it fair.</p>
+<p>The game of chess is famously flawed due to the <a href="https://en.wikipedia.org/wiki/First-move_advantage_in_chess" target="_blank" rel="noopener">first-move advantage</a>, in which the player who moves first has a significant advantage. Let's fix it and make it fair.</p>
 <h3 id="simultaneous-chess">Simultaneous Chess</h3>
-<p>Perhaps the simplest way to get rid of a first-move advantage is to remove the first move: we'll consider chess variants where both players move simultaneously. This is a well-studied concept in game theory, called a <a href="https://en.wikipedia.org/wiki/Simultaneous_game">simultaneous game</a>. We might have a setup where in each round of play:</p>
+<p>Perhaps the simplest way to get rid of a first-move advantage is to remove the first move: we'll consider chess variants where both players move simultaneously. This is a well-studied concept in game theory, called a <a href="https://en.wikipedia.org/wiki/Simultaneous_game" target="_blank" rel="noopener">simultaneous game</a>. We might have a setup where in each round of play:</p>
 <ol>
-<li>Both players write down a move in <a href="https://en.wikipedia.org/wiki/Algebraic_notation_(chess)">algebraic notation</a>. I'll call this "requesting" a move.</li>
+<li>Both players write down a move in <a href="https://en.wikipedia.org/wiki/Algebraic_notation_(chess)" target="_blank" rel="noopener">algebraic notation</a>. I'll call this "requesting" a move.</li>
 <li>Players reveal their moves simultaneously.</li>
 <li>Their moves are both executed, possibly with some resolution of conflicts. I'll call this "merging" the moves.</li>
 </ol>
@@ -52,7 +52,7 @@
 <ul>
 <li>Both pieces are captured.</li>
 <li>Both pieces stay at their original square.</li>
-<li>The <a href="https://en.wikipedia.org/wiki/Chess_piece_relative_value">higher-valued</a> piece captures the lower-valued piece.</li>
+<li>The <a href="https://en.wikipedia.org/wiki/Chess_piece_relative_value" target="_blank" rel="noopener">higher-valued</a> piece captures the lower-valued piece.</li>
 <li>Pieces are animated one square at a time towards their destination, and the piece to arrive last captures the piece already there.</li>
 <li>Players enter a boxing ring and fight for the square.</li>
 </ul>
@@ -63,7 +63,7 @@
   <figcaption>Fig. 2 - Both players request the center square; what happens?</figcaption>
 </figure>
 
-<p>In particular, I want a sort of function mapping turn-based input games to simultaneous games. Without getting too formal, these input games could be defined via their <a href="https://en.wikipedia.org/wiki/Game_tree">game trees</a> by providing:</p>
+<p>In particular, I want a sort of function mapping turn-based input games to simultaneous games. Without getting too formal, these input games could be defined via their <a href="https://en.wikipedia.org/wiki/Game_tree" target="_blank" rel="noopener">game trees</a> by providing:</p>
 <ul>
 <li>An initial game state</li>
 <li>A partial function from game states and player moves to new game states</li>
@@ -119,7 +119,7 @@
 <p>One might wonder what happens if two "stubborn" players repeatedly try the same rule and are both blocked. We have a couple options, including:</p>
 <ul>
 <li>Forbid repeated moves until a successful move is made.</li>
-<li>Apply a <a href="https://en.wikipedia.org/wiki/Threefold_repetition">threefold repetition</a> rule as in chess which results in a draw.</li>
+<li>Apply a <a href="https://en.wikipedia.org/wiki/Threefold_repetition" target="_blank" rel="noopener">threefold repetition</a> rule as in chess which results in a draw.</li>
 <li>Do nothing and allow infinite games.</li>
 </ul>
 <h3 id="generalizing-to-2-players">Generalizing to &gt;2 Players</h3>
@@ -155,7 +155,7 @@
 </ol>
 <h3 id="implementation">Implementation</h3>
 <p>The computational complexity of a direct implementation of this algorithm is exponential in the worst case since we must consider all orderings of player moves. However for chess in particular, the ordering on line <code>4</code> can be handled by checking moves pairwise to compute <code>M</code>, and the ordering on line <code>5</code> can be handled by omitting the check altogether. This gives us a polynomial time algorithm, even on large/infinite boards where pieces might move arbitrarily far.</p>
-<p>Edit: <a href="https://www.linkedin.com/in/mateen-kasim/">Mateen Kasim</a> shared with me the counterexample to the sufficiency of checking moves pairwise in Fig. 11. Question: Is there still a polynomial time algorithm to compute <code>M</code> for chess? What if we fix the number of kings per team? What if we change the win condition of the input game to capturing the opponent's king, and remove checks and checkmates?</p>
+<p>Edit: <a href="https://www.linkedin.com/in/mateen-kasim/" target="_blank" rel="noopener">Mateen Kasim</a> shared with me the counterexample to the sufficiency of checking moves pairwise in Fig. 11. Question: Is there still a polynomial time algorithm to compute <code>M</code> for chess? What if we fix the number of kings per team? What if we change the win condition of the input game to capturing the opponent's king, and remove checks and checkmates?</p>
 <figure>
   <img loading="lazy" src='/files/mateen-paradox.png' width=400>
   <figcaption>Fig. 11 - Three pairwise legal moves with an illegal ordering.</figcaption>
@@ -166,7 +166,7 @@
 <p>This game we've arrived at may not the most <em>fun</em> simultaneous chess variant, but it makes up for quality with quantity: we have a tool to turn many classes of input games into fair simultaneous games. Some of them might turn out to be fun, but it's hard to say for sure without playtesting them.</p>
 <h3 id="links">Links</h3>
 <ul>
-<li>Images created using <a href="https://www.chess.com/analysis">chess.com/analysis</a> and <a href="https://playtictactoe.org/">playtictactoe.org</a> and <a href="https://app.diagrams.net/">app.diagrams.net</a></li>
+<li>Images created using <a href="https://www.chess.com/analysis" target="_blank" rel="noopener">chess.com/analysis</a> and <a href="https://playtictactoe.org/" target="_blank" rel="noopener">playtictactoe.org</a> and <a href="https://app.diagrams.net/" target="_blank" rel="noopener">app.diagrams.net</a></li>
 </ul>
 <!-- 
 Empty Board:
@@ -181,7 +181,7 @@ Empty Board:
 <footer class="site-footer">
   <div class="wrap">
     <span>&copy; Alexander Varga</span>
-    <nav aria-label="Elsewhere"><a href="https://github.com/asvarga">GitHub</a><a href="https://www.linkedin.com/in/alexander-varga/">LinkedIn</a><a href="https://www.stackoverflow.com/users/1684606/alex-varga">Stack Overflow</a><a href="https://www.youtube.com/user/avarga93/videos">YouTube</a><a href="https://www.flickr.com/photos/124356640@N03">Flickr</a><a href="https://www.vimeo.com/user99108597">Vimeo</a></nav>
+    <nav aria-label="Elsewhere"><a href="https://github.com/asvarga" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/alexander-varga/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.stackoverflow.com/users/1684606/alex-varga" target="_blank" rel="noopener">Stack Overflow</a><a href="https://www.youtube.com/user/avarga93/videos" target="_blank" rel="noopener">YouTube</a><a href="https://www.flickr.com/photos/124356640@N03" target="_blank" rel="noopener">Flickr</a><a href="https://www.vimeo.com/user99108597" target="_blank" rel="noopener">Vimeo</a></nav>
   </div>
 </footer>
 </body>

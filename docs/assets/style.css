@@ -205,6 +205,18 @@ a:hover .arrow { transform: translateX(3px); }
 .blog-list .post-list h3 { font-size: 1.35rem; letter-spacing: -0.02em; }
 .blog-list .post-list p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
 .blog-list > section:first-child .year { margin-top: 0; }
+.blog-list .post-list > li { display: grid; grid-template-columns: minmax(0, 1fr) 11rem; gap: 1.5rem; align-items: start; }
+.blog-list .thumb {
+  display: block; aspect-ratio: 3 / 2; margin-top: 0.3rem; overflow: hidden;
+  border: 1px solid var(--line); border-radius: 0.6rem; background: var(--card); box-shadow: var(--shadow);
+  transition: border-color 0.15s, transform 0.15s;
+}
+.blog-list .thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.blog-list li:hover .thumb { border-color: var(--accent); transform: translateY(-2px); }
+@media (max-width: 34rem) {
+  .blog-list .post-list > li { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; }
+  .blog-list .thumb { grid-row: 1; aspect-ratio: 2 / 1; margin-top: 0; }
+}
 [hidden] { display: none !important; }
 
 /* ---------- Post ---------- */
