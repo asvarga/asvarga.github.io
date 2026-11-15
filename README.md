@@ -6,8 +6,9 @@ The site is plain HTML, CSS and a little JS in `docs/`. There is no build step
 and no framework: what's committed is what's served.
 
 - Preview: `main` (serves `docs/` at http://127.0.0.1:8000)
-- Publish: `deploy` (runs the Publish workflow, which pushes `docs/` plus the
-  latest SatSight demo to the `gh-pages` branch)
+- Publish: automatic on every push to `main` (the Publish workflow pushes
+  `docs/` plus the latest SatSight demo to the `gh-pages` branch). `deploy`
+  re-runs it on demand, e.g. to pick up a newer SatSight build.
 
 ## Layout
 

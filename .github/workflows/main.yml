@@ -1,9 +1,18 @@
-name: Publish (manual)
+name: Publish
 on:
+  # Every push to main publishes; the button (or `deploy`) re-publishes on demand,
+  # e.g. to pick up a newer SatSight demo.
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: write
+
+# One publish at a time; a newer push supersedes a queued one.
+concurrency:
+  group: publish
+  cancel-in-progress: false
 
 jobs:
   deploy:
