@@ -29,7 +29,8 @@
 document.querySelectorAll('a[href^="javascript:"][href*="divJumper.js"]').forEach((a) =>
   a.addEventListener("click", (e) => {
     e.preventDefault();
-    if (document.ranDivJumper) return; // already playing
+    // A second click takes the frog back off the page.
+    if (document.divJumper) return document.divJumper.stop();
     const s = document.createElement("script");
     s.id = "divJumper";
     s.src = "/site/div-jumper/divJumper.js";

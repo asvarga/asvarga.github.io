@@ -1,6 +1,9 @@
-
-
-if (!document.ranDivJumper) {
+// Div Jumper toggles: running this script while the frog is on the page
+// (a second click on the button, the footer's 🐸, or the bookmarklet)
+// takes the frog, its key handling and its game loop back off the page.
+if (document.divJumper) {
+	document.divJumper.stop();
+} else {
 	(function () {
 		var DOC = DOC = document.documentElement;
 		var BODY = BODY = document.body;
@@ -10,6 +13,8 @@ if (!document.ranDivJumper) {
 		var LAST_TIME = 0;
 		var TEST = null;
 		var CHAR = null;
+		var TIMER = null;
+		var STOPPED = false;
 
 		// Arrows move, as in every game here: up jumps, down drops through.
 		// Inside, they keep the letters the game was written with.
@@ -17,7 +22,7 @@ if (!document.ranDivJumper) {
 		// The frog's sprites sit beside this script, wherever it's served from.
 		var HERE = (document.currentScript && document.currentScript.src) || location.href;
 
-		document.addEventListener("keydown", function (evt) {
+		function onKeyDown(evt) {
 			var c = ARROWS[evt.key];
 			if (!c) return;
 			evt.preventDefault();
@@ -28,11 +33,13 @@ if (!document.ranDivJumper) {
 				}
 			}
 			evt.stopPropagation();
-		});
-		document.addEventListener("keyup", function (evt) {
+		}
+		function onKeyUp(evt) {
 			var c = ARROWS[evt.key];
 			if (DOWN[c]) { delete DOWN[c]; }
-		});
+		}
+		document.addEventListener("keydown", onKeyDown);
+		document.addEventListener("keyup", onKeyUp);
 
 
 		// Two poses, both facing left in the same 120x84 box: sitting, and mid-leap.
@@ -51,12 +58,13 @@ if (!document.ranDivJumper) {
 		elem.style.zIndex = "2147483647";
 		elem.addEventListener("load", function start() {
 			elem.removeEventListener("load", start); // swapping poses fires load again
+			if (STOPPED) return; // toggled off before the sprite finished loading
 			BODY.appendChild(elem);
 			window.scrollTo(0, BODY.scrollHeight);
 			// Start on the bottom of the page, at the right, facing into the page.
 			CHAR = new Character(elem, DOC.clientWidth - 100, 0, 84);
 			LAST_TIME = new Date().getTime();
-			setInterval(tick, 20);
+			TIMER = setInterval(tick, 20);
 		});
 
 		function tick() {
@@ -226,6 +234,20 @@ if (!document.ranDivJumper) {
 			return x;
 		}
 
+		// The off switch: undo everything above.
+		document.divJumper = {
+			stop: function () {
+				STOPPED = true;
+				clearInterval(TIMER);
+				document.removeEventListener("keydown", onKeyDown);
+				document.removeEventListener("keyup", onKeyUp);
+				if (elem.parentNode) elem.parentNode.removeChild(elem);
+				TICK_RESPONDERS.length = 0;
+				KEY_RESPONDERS.length = 0;
+				delete document.divJumper;
+				delete document.ranDivJumper;
+			},
+		};
 		document.ranDivJumper = true;
 	})();
 }
