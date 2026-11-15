@@ -54,7 +54,7 @@
 </ol>
 <figure>
   <img loading="lazy" src='/files/chess-1.png' width=400>
-  <figcaption>Fig. 1 - Both players request Bh6; what happens?</figcaption>
+  <figcaption>Fig. 1 - Both players request <code>Bh6</code>; what happens?</figcaption>
 </figure>
 
 <p>The interesting part of designing such a simultaneous game is determining the rules for resolving merge conflicts in step 3. For example, what happens when both players move a piece to the same square? Some possibilities include:</p>
@@ -84,14 +84,14 @@
   <figcaption>Fig. 3 - Part of a game tree with transitions for multiple players out of a single state.</figcaption>
 </figure>
 
-<p>Given how opaque this general game interface is, there are only so many things we can do with it to build a simultaneous game. Lets start with:</p>
+<p>Given how opaque this general game interface is, there are only so many things we can do with it to build a simultaneous game. Let's start with:</p>
 <blockquote>
 <p><strong>Rule 1:</strong> Players may only submit moves that are legal in the input game.</p>
 </blockquote>
 <p>This might seem like an obvious rule to avoid trivial output games, but certain simultaneous chess variants don't require this rule. Consider the following moves:</p>
 <figure>
   <img loading="lazy" src='/files/chess-2.png' width=400>
-  <figcaption>Fig. 4 - White preemptively tries to capture their own piece on f6.</figcaption>
+  <figcaption>Fig. 4 - White preemptively tries to capture their own piece on <code>f6</code>.</figcaption>
 </figure>
 
 <p>White is assuming that Black will capture on <code>f6</code>, so White tries to "premove" to capture back on the same square. Such chess variants need to specify what happens when Black doesn't capture on <code>f6</code>. However, allowing moves like this is impossible in general simultaneous games because "capturing one's own piece" isn't a legal transition in the input game. It isn't in the game tree so it can't be described or requested through the opaque game interface.</p>
@@ -125,7 +125,7 @@
 
 <p>In Fig. 8, White plays <code>Rf3</code> and Black plays <code>Rxf6</code>. If White goes first, Black's move fails because it is a capture. If Black goes first, White is captured and unable to move. Ultimately Black holds White in place and neither move is merged.</p>
 <p>All of these scenarios illustrate rule 2a. Rule 2b is in fact irrelevant for chess, because successful moves always commute.</p>
-<p>One might wonder what happens if two "stubborn" players repeatedly try the same rule and are both blocked. We have a couple options, including:</p>
+<p>One might wonder what happens if two "stubborn" players repeatedly try the same move and are both blocked. We have a couple options, including:</p>
 <ul>
 <li>Forbid repeated moves until a successful move is made.</li>
 <li>Apply a <a href="https://en.wikipedia.org/wiki/Threefold_repetition" target="_blank" rel="noopener">threefold repetition</a> rule as in chess which results in a draw.</li>
@@ -158,8 +158,8 @@
 <p>Let's apply this to the 12-rook scenario from Fig. 10. </p>
 <ol>
 <li>After one round of the loop, the white rook on <code>a7</code> will have moved, and no other moves will be resolved.</li>
-<li>In the second round of the loop, the black rook on <code>c8</code> will be blocked and resolved on line 3. This will free up the white rook on <code>b6</code> to move, so <code>M</code> will contain just that move.</li>
-<li>In the third round of the loop, the black rook on <code>d7</code> will be blocked and resolved on line 3. This will free up the white rook on <code>c5</code> to move, so <code>M</code> will contain just that move.</li>
+<li>In the second round of the loop, the black rook on <code>c8</code> will be blocked and resolved on line <code>3</code>. This will free up the white rook on <code>b6</code> to move, so <code>M</code> will contain just that move.</li>
+<li>In the third round of the loop, the black rook on <code>d7</code> will be blocked and resolved on line <code>3</code>. This will free up the white rook on <code>c5</code> to move, so <code>M</code> will contain just that move.</li>
 <li>Ultimately, all moves will be resolved and only the white rooks will have moved.</li>
 </ol>
 <h3 id="implementation">Implementation</h3>
@@ -172,7 +172,7 @@
 
 <p>For input games where this algorithm can be implemented with constant work per player, it can be feasible to run large numbers of players in real time on a GPU. I'm working on such a game, which was the original motivation for this investigation.</p>
 <h3 id="conclusion">Conclusion</h3>
-<p>This game we've arrived at may not the most <em>fun</em> simultaneous chess variant, but it makes up for quality with quantity: we have a tool to turn many classes of input games into fair simultaneous games. Some of them might turn out to be fun, but it's hard to say for sure without playtesting them.</p>
+<p>This game we've arrived at may not be the most <em>fun</em> simultaneous chess variant, but it makes up for quality with quantity: we have a tool to turn many classes of input games into fair simultaneous games. Some of them might turn out to be fun, but it's hard to say for sure without playtesting them.</p>
 <h3 id="links">Links</h3>
 <ul>
 <li>Images created using <a href="https://www.chess.com/analysis" target="_blank" rel="noopener">chess.com/analysis</a> and <a href="https://playtictactoe.org/" target="_blank" rel="noopener">playtictactoe.org</a> and <a href="https://app.diagrams.net/" target="_blank" rel="noopener">app.diagrams.net</a></li>

@@ -23,7 +23,7 @@
     <id>https://asvarga.com/blog/2026/03/24/nanobots/</id>
     <published>2026-03-24T00:00:00Z</published>
     <updated>2026-03-24T00:00:00Z</updated>
-    <summary>I built a compiler to let users program millions of nanobots that run in the GPU. Let me show you its features:)</summary>
+    <summary>I built a compiler to let users program millions of nanobots that run on the GPU. Let me show you its features:)</summary>
     <category term="Compilers"/>
     <category term="Game"/>
     <category term="Parallel Programming"/>
