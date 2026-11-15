@@ -9,9 +9,28 @@
 #
 #   main          # serve on http://127.0.0.1:8000, or the next free port
 #   main 9000     # serve on exactly this port (fails if it's taken)
+#
+# The SatSight demo (/site/satsight/) isn't committed: the Publish workflow
+# downloads it from SatSight's "web-latest" release at deploy time. So the
+# preview works the same, `main` downloads it the first time into the
+# gitignored docs/site/satsight/. Delete that folder to pick up a newer one.
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+satsight="$root/docs/site/satsight"
+if [ ! -f "$satsight/index.html" ]; then
+  echo "Fetching the SatSight web demo into docs/site/satsight …" >&2
+  tarball="$(mktemp -t satsight-web.XXXXXX)"
+  if curl -fsSL -o "$tarball" \
+      https://github.com/asvarga/SatSight/releases/download/web-latest/satsight-web.tar.gz \
+    && mkdir -p "$satsight" && tar -xzf "$tarball" -C "$satsight"; then
+    echo "  done" >&2
+  else
+    echo "  couldn't fetch it (offline?); /site/satsight/ will 404 in this preview" >&2
+  fi
+  rm -f "$tarball"
+fi
 
 # Python's `-m http.server` has no fallback when its port is busy (another
 # `main`, or anything else on 8000), so bind here and walk up to a free port.
