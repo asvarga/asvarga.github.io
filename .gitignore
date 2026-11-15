@@ -1,12 +1,12 @@
+# macOS Finder metadata.
 .DS_Store
-venv
-# Leftover local venv from the old MkDocs/ProperDocs build; safe to delete.
-/.venv
+# Python bytecode from ad-hoc scripts.
+__pycache__/
 # direnv's local cache for the nix dev shell (see .envrc / nix/flake.nix).
 .direnv/
 # Claude Code local overrides and worktrees.
 .claude/settings.local.json
 .claude/worktrees/
-# SatSight's wasm demo is fetched from its GitHub release at deploy time
-# (see .github/workflows/main.yml) rather than committed here.
+# SatSight's wasm demo is downloaded at preview and deploy time (see bin/main
+# and .github/workflows/main.yml) rather than committed here.
 /docs/site/satsight
