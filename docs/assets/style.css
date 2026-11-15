@@ -131,6 +131,24 @@ main > .wrap.narrow { max-width: calc(var(--measure) + 2rem); }
   :root:not([data-theme="light"]) .theme-toggle .moon { display: block; }
 }
 
+/* Phones: keep the name and the nav on one row where it fits (wraps below ~360px). */
+@media (max-width: 30rem) {
+  .site-header .wrap { gap: 0.4rem 0.5rem; padding-top: 0.75rem; padding-bottom: 0.75rem; }
+  .brand { font-size: 0.95rem; gap: 0.4rem; }
+  .brand svg { width: 1.3rem; height: 1.3rem; }
+  .site-nav { gap: 0; font-size: 0.9rem; }
+  .site-nav a { padding: 0.3rem 0.45rem; }
+  .theme-toggle { margin-left: 0.15rem; width: 1.9rem; height: 1.9rem; }
+}
+
+@media (max-width: 23rem) {
+  .brand { font-size: 0.9rem; gap: 0.3rem; }
+  .brand svg { width: 1.15rem; height: 1.15rem; }
+  .site-nav { font-size: 0.86rem; }
+  .site-nav a { padding: 0.3rem 0.36rem; }
+  .theme-toggle { width: 1.75rem; height: 1.75rem; }
+}
+
 /* ---------- Footer ---------- */
 .site-footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
 .site-footer .wrap {
@@ -297,7 +315,8 @@ a:hover .arrow { transform: translateX(3px); }
 .prose pre code { font-size: inherit; }
 /* Inline code and math share one tinted chip so they stand out from prose
    (and from links, which stay underlined). */
-.prose :not(pre) > code, .prose .math, .prose :not(.katex-display) > .katex {
+.prose :not(pre) > code, .prose .math, .prose :not(.katex-display) > .katex,
+.blog-list p code, .blog-list p :not(.katex-display) > .katex {
   color: var(--chip-fg); background: var(--chip-bg); border: 1px solid var(--chip-line);
   border-radius: 0.3rem; padding: 0.05em 0.32em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
