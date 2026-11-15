@@ -84,19 +84,19 @@
 <p>Looking at the tree, one can see that this will always yield paths of length logarithmic in the distance travelled (i-j). This is because a path followed by the algorithm can only go up the tree with hops of exponentially increasing size and then back down with hops of exponentially decreasing size. Therefore it can only fit in at most logarithmically many hops. We still must prove that all paths conform to the 3 phases, and it suffices to rule out the following action sequences: RG, RBG, BB, NN, GN, BN, RN. Each of these cases can be refuted as such:</p>
 <ul>
 <li>
-<p><strong>RG</strong>: The algorithm would prefer a single G which is equivalent.</p>
+<p><code>RG</code>: The algorithm would prefer a single G which is equivalent.</p>
 </li>
 <li>
-<p><strong>RBG</strong>: The algorithm would prefer a single B which is equivalent.</p>
+<p><code>RBG</code>: The algorithm would prefer a single B which is equivalent.</p>
 </li>
 <li>
-<p><strong>BB</strong>: The algorithm would prefer either GRB or BGR, depending on the bit left of the rightmost 1 in the binary representation of i.</p>
+<p><code>BB</code>: The algorithm would prefer either GRB or BGR, depending on the bit left of the rightmost 1 in the binary representation of i.</p>
 </li>
 <li>
-<p><strong>NN</strong>: The algorithm always does a G from odd indices.</p>
+<p><code>NN</code>: The algorithm always does a G from odd indices.</p>
 </li>
 <li>
-<p><strong>GN/BN/RN</strong>: After a G/B/R action that doesn’t get to j, we know that j&lt;i and G(j)≤G(i). Using the universal facts that R(i)&lt;j&lt;i ⇒ R(i)≤G(j)&lt;i (i.e. G arcs never cross R arcs) and G(i)=G(R(i))&lt;R(i), it follows that j≤R(i) and G(j)≤G(R(i)). This means the algorithm always prefers an R over an N after a non-N.</p>
+<p><code>GN/BN/RN</code>: After a G/B/R action that doesn’t get to j, we know that j&lt;i and G(j)≤G(i). Using the universal facts that R(i)&lt;j&lt;i ⇒ R(i)≤G(j)&lt;i (i.e. G arcs never cross R arcs) and G(i)=G(R(i))&lt;R(i), it follows that j≤R(i) and G(j)≤G(R(i)). This means the algorithm always prefers an R over an N after a non-N.</p>
 </li>
 </ul>
 <h2 id="final-thoughts">Final Thoughts</h2>

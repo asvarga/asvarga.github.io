@@ -46,10 +46,10 @@
 <p>So what is a transfinite list? Well a normal list is a mapping from natural numbers to values. To simplify matters for this post, we ignore the values themselves and consider only the <em>domain</em> of the mapping. For example, a normal list of length 3 will be represented as {0, 1, 2}. When encoded as linked lists, we can easily implement the following functions:</p>
 <ul>
 <li>
-<p><strong><code>put(n, L)</code>:</strong> Add n values to the front of list L. A value at position m ends up at position n+m.</p>
+<p><code>put(n, L)</code>: Add n values to the front of list L. A value at position m ends up at position n+m.</p>
 </li>
 <li>
-<p><strong><code>get(n, L)</code>:</strong> Remove n values from the front of list L. A value at position m ends up at m-n.</p>
+<p><code>get(n, L)</code>: Remove n values from the front of list L. A value at position m ends up at m-n.</p>
 </li>
 </ul>
 <p>For example, starting with the empty list {}, we might <code>put(5)</code> to get {0, 1, 2, 3, 4} and then <code>get(2)</code> to get {0, 1, 2}. Note that these are pure functions returning new values rather than editing the existing list. I’m abusing notation, and what we’re actually computing is <code>get(2, put(5, {}))</code>, which is equivalent to <code>put(3, {})</code>.</p>
@@ -58,13 +58,19 @@
 <p>Note that transfinite lists will be “sparse” because we can’t actually add an infinite number of values to the list; we’re interested in finitary encodings. For example, the list {0, 1, ω, ω+1, ω+2} has holes at all natural numbers from 2 up. We might say that the <em>length</em> of a list is the largest number in the domain plus 1 (or 0 if empty), while the <em>size</em> is the cardinality of the domain. These coincide iff the list is finite and non-sparse.</p>
 <h3 id="naive-implementation">Naive Implementation</h3>
 <p>Once the above example makes sense, take a moment to consider how we might implement this as a data structure. A first implementation is to store the derivative of the list, i.e. a <em>normal</em> list of gaps between values. So {0, 1, 2, 3, ω, ω+1, ω+2} would be represented as [1, 1, 1, ω, 1, 1]. This makes the implementation of <code>put(n)</code> trivial; we simply prepend n onto the derivative list. The implementation of <code>get</code> isn’t so complicated either:</p>
-<blockquote>
-<p>get(n, [d, …L]) := if (n = 0) then [d, …L] else get(n-d, […L])</p>
-</blockquote>
+<pre><code>get(n, [d, …L]) := if (n = 0) then [d, …L] else get(n-d, […L])</code></pre>
 <p>That is, we keep subtracting differences in the list from n until we reach 0. Note that this is a simplification in that it won’t quite work when n isn’t in the list, and we’ll eventually reach a call where 0&lt;n&lt;d. Using the example derivative list above with <code>get(ω)</code>, we’ll compute:</p>
-<blockquote>
-<p>get(ω, [1, 1, 1, ω, 1, 1]) = if (ω = 0) then [1, 1, 1, ω, 1, 1] else get(ω-1, [1, 1, ω, 1, 1]) = get(ω, [1, 1, ω, 1, 1]) = … = get(ω, [1, ω, 1, 1]) = … = get(ω, [ω, 1, 1]) = … = get(0, [1, 1]) = if (0 = 0) then [1, 1] else get(0-1, [1]) = [1, 1].</p>
-</blockquote>
+<pre><code>get(ω, [1, 1, 1, ω, 1, 1])
+  = if (ω = 0) then [1, 1, 1, ω, 1, 1] else get(ω-1, [1, 1, ω, 1, 1])
+  = get(ω, [1, 1, ω, 1, 1])
+  = …
+  = get(ω, [1, ω, 1, 1])
+  = …
+  = get(ω, [ω, 1, 1])
+  = …
+  = get(0, [1, 1])
+  = if (0 = 0) then [1, 1] else get(0-1, [1])
+  = [1, 1]</code></pre>
 <p>The resulting derivative list [1, 1] represents the list {0, 1, 2} as desired. Note that we must use “left subtraction” here. To see why, try <code>get(ω+1)</code> with the same list. After one step, we iterate on <code>get</code> with (ω+1)-1 which equals ω+1 with left subtraction, so n isn’t depleted and we eventually return [1].</p>
 <h3 id="efficient-implementation">Efficient Implementation</h3>
 <p>Now we’re ready for the interesting part. The above implementation works, but if we have many 1s in the derivative list before the ω, the algorithm will have to step through all of them, which seems wasteful. We might get around the problem temporarily by storing lists of derivative lists, letting us skip ahead to the next ω, but this only works for transfinite lists of lengths less than ω².</p>

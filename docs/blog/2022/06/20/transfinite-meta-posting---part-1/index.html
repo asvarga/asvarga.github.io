@@ -71,12 +71,12 @@
 <p>We might start towards a solution to the above problem by introducing big quotes as, say, square brackets like: “I claim that [{the color of the sky}] is different than [{the color of the ocean}]”. The big quotes tell us not to resolve their contents. This might be sufficient for our needs, but once we consider big splices, we’ll run into the same problem, and so we’ll need ever larger quotes.</p>
 <p>If you can’t tell from my previous blog posts, I like ordinals, and that’s what we need here. In order to discuss a quote that contains splices, without resolving those splices, you need a different kind of quote. We end up wanting a different size quote for each ordinal. This could be implemented directly, but I’ll cut to the real punchline:</p>
 <blockquote>
-<p>We can accomplish transfinite meta-programming by starting with a language using DeBruijn indices and extending the domain of indices to larger ordinals.</p>
+<p>We can accomplish transfinite meta-programming by starting with a language using De Bruijn indices and extending the domain of indices to larger ordinals.</p>
 </blockquote>
 <p>In the next post, I’ll explain how to extend a simple Lambda Calculus-like language in this way. For some vague intuition:</p>
 <ul>
 <li>
-<p>A DeBruijn index of ω corresponds to a splice.</p>
+<p>A De Bruijn index of ω corresponds to a splice.</p>
 </li>
 <li>
 <p>An index of ω+n corresponds to a splice containing an index of n into the meta-language.</p>

@@ -12,6 +12,9 @@
   --text: #1d1a17;
   --muted: #6e665f;
   --code-bg: #f5f1ec;
+  --chip-fg: #a53a0c;   /* inline code and math */
+  --chip-bg: #fff1e9;
+  --chip-line: #f6d3c1;
   --shadow: 0 1px 2px rgb(40 20 0 / 0.04), 0 4px 16px rgb(40 20 0 / 0.05);
   --img-filter: none;
   /* Fonts load from Google Fonts in each page's <head>; the system stacks are fallbacks. */
@@ -33,6 +36,9 @@
     --text: #ece7e2;
     --muted: #a39a92;
     --code-bg: #1f1b18;
+    --chip-fg: #ffb48f;
+    --chip-bg: #2b1a12;
+    --chip-line: #4a2b1d;
     --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px rgb(0 0 0 / 0.25);
     --img-filter: brightness(0.82) contrast(1.06); /* tame white diagrams */
     color-scheme: dark;
@@ -48,6 +54,9 @@
   --text: #ece7e2;
   --muted: #a39a92;
   --code-bg: #1f1b18;
+  --chip-fg: #ffb48f;
+  --chip-bg: #2b1a12;
+  --chip-line: #4a2b1d;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px rgb(0 0 0 / 0.25);
   --img-filter: brightness(0.82) contrast(1.06);
   color-scheme: dark;
@@ -286,7 +295,14 @@ a:hover .arrow { transform: translateX(3px); }
   padding: 0.9rem 1.1rem; overflow-x: auto; line-height: 1.5; font-size: 0.85rem;
 }
 .prose pre code { font-size: inherit; }
-.prose :not(pre) > code { background: var(--code-bg); border: 1px solid var(--line); border-radius: 0.3rem; padding: 0.05em 0.3em; }
+/* Inline code and math share one tinted chip so they stand out from prose
+   (and from links, which stay underlined). */
+.prose :not(pre) > code, .prose .math, .prose :not(.katex-display) > .katex {
+  color: var(--chip-fg); background: var(--chip-bg); border: 1px solid var(--chip-line);
+  border-radius: 0.3rem; padding: 0.05em 0.32em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.prose a > code { color: inherit; }
+.prose .math { font-family: "KaTeX_Main", "Latin Modern Roman", "Times New Roman", Georgia, serif; font-size: 1.08em; white-space: nowrap; }
 .prose table { border-collapse: collapse; display: block; overflow-x: auto; margin: 1.5rem 0; font-size: 0.95rem; }
 .prose th, .prose td { border: 1px solid var(--line); padding: 0.4rem 0.7rem; text-align: left; }
 .prose th { background: var(--code-bg); }
@@ -294,7 +310,10 @@ a:hover .arrow { transform: translateX(3px); }
 .prose details[open] { padding-bottom: 1rem; }
 .prose summary { cursor: pointer; font-weight: 600; color: var(--accent); }
 .prose details iframe { aspect-ratio: 1; max-width: 500px; }
-.prose .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.25rem 0; }
+.prose .katex-display {
+  overflow-x: auto; overflow-y: hidden; margin: 1.25rem 0; padding: 0.75rem 1rem;
+  color: var(--chip-fg); background: var(--chip-bg); border: 1px solid var(--chip-line); border-radius: 0.6rem;
+}
 .prose ul.task-list { list-style: none; padding-left: 0.5rem; }
 .prose .task-list-item input { margin-right: 0.5rem; accent-color: var(--accent-hi); }
 .prose .center { text-align: center; }
