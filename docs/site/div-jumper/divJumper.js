@@ -14,7 +14,7 @@ if (!document.ranDivJumper) {
 		// Arrows move, as in every game here: up jumps, down drops through.
 		// Inside, they keep the letters the game was written with.
 		var ARROWS = { ArrowUp: 'W', ArrowLeft: 'A', ArrowDown: 'S', ArrowRight: 'D' };
-		// The penguin sits beside this script, wherever it's served from.
+		// The frog's sprites sit beside this script, wherever it's served from.
 		var HERE = (document.currentScript && document.currentScript.src) || location.href;
 
 		document.addEventListener("keydown", function (evt) {
@@ -35,16 +35,26 @@ if (!document.ranDivJumper) {
 		});
 
 
+		// Two poses, both facing left in the same 120x84 box: sitting, and mid-leap.
+		var SIT = new URL("../images/frog.svg", HERE).href;
+		var LEAP = new URL("../images/frog-leap.svg", HERE).href;
+		new Image().src = LEAP; // preload, so the first hop doesn't flicker
+
 		var elem = document.createElement('img');
-		elem.src = new URL("../images/penguin.png", HERE).href;
-		// A page's own img styles mustn't move or squeeze the penguin.
+		elem.src = SIT;
+		elem.alt = "";
+		// A page's own img styles mustn't move or squeeze the frog.
 		elem.style.margin = "0";
 		elem.style.maxWidth = "none";
-		elem.addEventListener("load", () => {
+		elem.style.pointerEvents = "none";
+		elem.style.transformOrigin = "50% 100%"; // squash and tilt from the feet
+		elem.style.zIndex = "2147483647";
+		elem.addEventListener("load", function start() {
+			elem.removeEventListener("load", start); // swapping poses fires load again
 			BODY.appendChild(elem);
 			window.scrollTo(0, BODY.scrollHeight);
 			// Start on the bottom of the page, at the right, facing into the page.
-			CHAR = new Character(elem, DOC.clientWidth - 100, 0, 75);
+			CHAR = new Character(elem, DOC.clientWidth - 100, 0, 84);
 			LAST_TIME = new Date().getTime();
 			setInterval(tick, 20);
 		});
@@ -96,19 +106,19 @@ if (!document.ranDivJumper) {
 				KEY_RESPONDERS.push(this);
 				this.dy = 0;
 				this.on = this.under();
-
-				// console.log(elem.offsetHeight);
-				// elem.height = h;
-
-
+				this.facing = 1; // 1: left, as drawn; -1: mirrored to face right
+				this.jumpedAt = -Infinity;
+				this.landedAt = -Infinity;
+				this.pose();
 			}
 			tick(dt = 0) {
+				var wasUp = this.y > 0;
 				if (DOWN['D'] && !DOWN['A']) {
-					this.elem.style.transform = "rotateY(180deg)";
+					this.facing = -1;
 					this.setx(Math.min(DOC.clientWidth - this.elem.width / 2, this.x + dt * 0.5));
 				}
 				if (DOWN['A'] && !DOWN['D']) {
-					this.elem.style.transform = "rotateY(0deg)";
+					this.facing = 1;
 					this.setx(Math.max(this.elem.width / 2, this.x - dt * 0.5));
 				}
 
@@ -130,10 +140,31 @@ if (!document.ranDivJumper) {
 							this.sitOn(e2);
 						}
 					}
+					if (wasUp && this.y <= 0) this.landedAt = Date.now(); // hit the page bottom
 				}
+				this.pose();
 				this.follow();
 			}
-			// Scroll the page to keep the penguin in view (the arrow keys can't).
+			// Sitting or leaping sprite, a stretch on takeoff and a squash on landing,
+			// and a nose-down tilt on the way down.
+			pose() {
+				var now = Date.now();
+				var grounded = this.on || this.y <= 0;
+				var src = grounded ? SIT : LEAP;
+				if (this.elem.src !== src) this.elem.src = src;
+				var sx = 1, sy = 1, tilt = 0, k;
+				if (now - this.landedAt < 140) {
+					k = 1 - (now - this.landedAt) / 140;
+					sx = 1 + 0.12 * k; sy = 1 - 0.16 * k;
+				} else if (now - this.jumpedAt < 160) {
+					k = 1 - (now - this.jumpedAt) / 160;
+					sx = 1 - 0.08 * k; sy = 1 + 0.12 * k;
+				}
+				if (!grounded && this.dy < 0) tilt = Math.max(-18, this.dy * 18);
+				this.elem.style.transform =
+					"scaleX(" + this.facing * sx + ") scaleY(" + sy + ") rotate(" + tilt + "deg)";
+			}
+			// Scroll the page to keep the frog in view (the arrow keys can't).
 			follow() {
 				var r = this.elem.getBoundingClientRect();
 				var margin = Math.min(160, window.innerHeight / 4);
@@ -144,6 +175,7 @@ if (!document.ranDivJumper) {
 				}
 			}
 			sitOn(elem) {
+				if (!this.on) this.landedAt = Date.now();
 				this.on = elem;
 				this.dy = 0;
 				this.settop(elem.getBoundingClientRect().top - BODY.getBoundingClientRect().top - this.elem.height);
@@ -151,6 +183,7 @@ if (!document.ranDivJumper) {
 			jump(elem) {
 				this.dy = 1;
 				this.on = null;
+				this.jumpedAt = Date.now();
 			}
 			key(c) {
 				switch (c) {
@@ -160,8 +193,10 @@ if (!document.ranDivJumper) {
 				}
 			}
 			under() {
-				var rect = this.elem.getBoundingClientRect();
-				return getDiv(document.elementFromPoint((rect.left + rect.right) / 2, rect.bottom + 1));
+				// Measure the untransformed box, so squash and tilt never move the feet.
+				var x = this.elem.offsetLeft + this.elem.offsetWidth / 2 - window.scrollX;
+				var bottom = this.elem.offsetTop + this.elem.offsetHeight - window.scrollY;
+				return getDiv(document.elementFromPoint(x, bottom + 1));
 			}
 			remove() {
 				TICK_RESPONDERS.splice(TICK_RESPONDERS.indexOf(this), 1);

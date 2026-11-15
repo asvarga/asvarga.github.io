@@ -34,7 +34,7 @@ and no framework: what's committed is what's served.
 
 Links that leave the site get `target="_blank" rel="noopener"`.
 
-Div Jumper (the footer's 🐧) stands on divs up to 800px wide, images, buttons
+Div Jumper (the footer's 🐸) stands on divs up to 800px wide, images, buttons
 and the footer. Add a `data-platform` attribute to make anything else a
 platform, as the project cards do.
 
