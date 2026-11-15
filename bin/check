@@ -41,7 +41,8 @@ for page in pages:
         target = target.resolve()
         if target.is_dir():
             target = target / "index.html"
-        if not target.exists() and not any(f in "/" + str(target.relative_to(DOCS)) for f in FETCHED):
+        site_path = "/" + str(target.relative_to(DOCS)) + "/"
+        if not target.exists() and not site_path.startswith(FETCHED):
             problems.append(f"{rel}: broken link {url}")
 
 # 2. Every page with the site shell has the same header and footer.
