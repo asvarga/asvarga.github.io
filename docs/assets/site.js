@@ -22,6 +22,21 @@
   });
 })();
 
+// Div Jumper links (the footer's 🐧 and the button on its page) are bookmarklets
+// that load the game from asvarga.com, so they work when dragged to the
+// bookmarks bar on any site. Clicked here, load this site's own copy instead,
+// so a local preview (or a fresh deploy) plays the version it's serving.
+document.querySelectorAll('a[href^="javascript:"][href*="divJumper.js"]').forEach((a) =>
+  a.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (document.ranDivJumper) return; // already playing
+    const s = document.createElement("script");
+    s.id = "divJumper";
+    s.src = "/site/div-jumper/divJumper.js";
+    document.body.append(s);
+  }),
+);
+
 // Hover anchors on headings in long-form text, so sections can be linked to.
 document.querySelectorAll(".prose :is(h2, h3, h4)[id]").forEach((h) => {
   const a = document.createElement("a");
