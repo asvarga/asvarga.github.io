@@ -22,19 +22,6 @@
   });
 })();
 
-// The footer's 🐧 summons the Div Jumper penguin onto the current page. It's a
-// plain link to the Div Jumper page, so it still goes somewhere without JS.
-document.querySelectorAll("a.summon").forEach((a) =>
-  a.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (document.ranDivJumper) return; // already here
-    const s = document.createElement("script");
-    s.id = "divJumper";
-    s.src = "/site/div-jumper/divJumper.js";
-    document.body.append(s);
-  }),
-);
-
 // Hover anchors on headings in long-form text, so sections can be linked to.
 document.querySelectorAll(".prose :is(h2, h3, h4)[id]").forEach((h) => {
   const a = document.createElement("a");
