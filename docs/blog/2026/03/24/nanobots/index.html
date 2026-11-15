@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NanoBots · Alexander Varga</title>
+<meta name="description" content="I built a compiler to let users program millions of nanobots that run in the GPU. Let me show you its features :)">
+<meta property="og:title" content="NanoBots">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asvarga.com/blog/2026/03/24/nanobots/">
+<meta property="og:site_name" content="Alexander Varga">
+<meta property="og:description" content="I built a compiler to let users program millions of nanobots that run in the GPU. Let me show you its features :)">
+<link rel="canonical" href="https://asvarga.com/blog/2026/03/24/nanobots/">
+<link rel="icon" href="/files/triangle-wave.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/files/triangle-wave-icon.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="/assets/site.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 12L17 22L7.1 6.04L4.24 12H2L7 2L16.9 17.96L19.76 12H22Z"/></svg><span>Alexander Varga</span></a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/blog/" aria-current="page">Blog</a><a href="/site/">Projects</a><a href="/wiki/">Wiki</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </nav>
+  </div>
+</header>
+<main>
+<article class="wrap narrow">
+  <header class="post-head">
+    <p class="crumbs"><a href="/blog/">&larr; Blog</a></p>
+    <h1>NanoBots</h1>
+    <div class="meta"><time datetime="2026-03-24">March 24, 2026</time><span>3 min read</span><span class="tags"><a class="tag" href="/blog/#tag=compilers">Compilers</a><a class="tag" href="/blog/#tag=game">Game</a><a class="tag" href="/blog/#tag=parallelprogramming">Parallel Programming</a></span></div>
+  </header>
+  <div class="prose">
+<p>I built a <a href="https://quiltlang.github.io/demo/nanobots/">compiler</a> to let users program millions of nanobots that run in the GPU. Let me show you its features :)</p>
+<figure>
+  <img loading="lazy" src='/files/nanobots.png' width="100%">
+  <figcaption>Screenshot of simulation depicting multiple "states of matter"</figcaption>
+</figure>
+
+<h3 id="overview">Overview</h3>
+<p>The compiler can be found <a href="https://quiltlang.github.io/demo/nanobots/">here</a> (note: it may not work properly on mobile). On the left you'll find the grid of cells in which the simulation takes place. Many "nanobots" live in the grid and are represented by pixels. To the right is a text editor where you can program the nanobots. When the program is edited, it is compiled to WebGL shader code and executed on the GPU. Execution is completely deterministic and divergence-free for all programs in spite of the massive parallelism.</p>
+<p>The compiler itself is implemented in Rust and built for WASM, allowing a closed "development" loop right in the browser. Compiled GPU code is hot-swapped in without disruption and bot states are maintained when possible. The editor uses CodeMirror6 with custom syntax highlighting.</p>
+<p>I designed it over the course of several years and then implemented it in a day with Claude Code.</p>
+<h3 id="compilation-performance">Compilation + Performance</h3>
+<p>It would be very unwieldy to represent bytecode in GPU buffers and interpret it in GPU threads. This somewhat necessitates compilation of user programs to GPU shader code itself, and was the motivation for this project in the first place. This enables crazy performance. It's ultimately able to simulate 2.7 million bots @ 200 rounds/sec for a total of over <em>half a billion bot rounds/second</em> on my M1. This was in a 2040 x 2040 grid with the simple default turn-right program. There are certainly more optimizations to squeeze out on both the compiler and GPU fronts.</p>
+<p>In particular, we compile via an IR with register machine with basic blocks. Click the "GPU" button on the bottom right to inspect the generated WGSL code.</p>
+<h3 id="gas">Gas</h3>
+<p>The programs use a concept called "gas" or "fuel" to limit the execution time of each round and prevent divergence. Code is compiled to a register machine with basic blocks. Each operator in the the machine is assigned a gas quantity that approximates execution cost on standard hardware. Each block statically knows its total gas cost so we're able to generate code to decrement and check gas allotments at the top of each basic block and preempt the round. The identifier for the basic block is stored in the buffer to allow execution to resume in the next round.</p>
+<p>For an extreme example of gas in action, try entering the following "infinite" loop and stepping execution.</p>
+<pre><code class="language-py">MOVE_CMD = 0 # start heading north
+while true: 
+    MOVE_CMD = (MOVE_CMD + 1) % 4 # turn right
+</code></pre>
+<p>Each bot tries to turn indefinitely each round but is preempted after some consistent quantity of gas is utilized. Whatever <code>MOVE_CMD</code> was last set is what is committed to the game. This pattern is actually very useful for programming games. Bots can continually search for optimal moves and write them to the output register whenever they find a new best. They don't need to worry about running out of gas before finishing their work.</p>
+<p>I used a very simple model of gas here where the gas operations themselves (decrement + check) have no cost themselves, and programs don't have an ability to query gas allotments. It also isn't optimized at all; a reachability analysis could show which basic blocks are actual potential preemption points. This would allow gas checks to be elided and fewer queues to be required of a hypothetical GPU scheduler. Such a scheduler would improve warp divergence.</p>
+<h3 id="determinism">Determinism</h3>
+<p>The simulation is kept deterministic with rules similar to those in my <a href="/blog/2024/06/22/fair-chess-and-simultaneous-games/">Simultaneous Chess</a> post. It would technically be possible to combine these projects into a gigantic chess board with simultaneous moves. Each round is split into 2 phases:</p>
+<ol>
+<li>All bots propose a move. Those that are impossible even if no other bot moves are rejected immediately, i.e. moves to occupied cells or out of bounds.</li>
+<li>Moves are de-conflicted, i.e. if multiple bots try to move to the same cell, they get blocked.</li>
+</ol>
+<p>This is implemented by:</p>
+<ol>
+<li>Bots atomically increment a counter in the cell to which they wish to move in phase 1. </li>
+<li>Bots verify that this counter is set to exactly one in phase 2.</li>
+</ol>
+<p>This ruleset allows moves to be resolved on O(1) time per bot by avoiding unbounded chains of conflicts.</p>
+<figure>
+  <img loading="lazy" src='/files/sleepy-hexes.png' width="100%">
+  <figcaption>We leave you this morning with some emergent hexagonal structure</figcaption>
+</figure>
+  </div>
+  <footer class="post-foot">
+    <nav class="pager" aria-label="More posts"><a class="prev" href="/blog/2024/06/22/fair-chess-and-simultaneous-games/"><small>&larr; Older</small>Fair Chess and Simultaneous Games</a><a class="next" href="/blog/2026/05/02/function-with-4-fold-symmetry/"><small>Newer &rarr;</small>Function with 4-Fold Symmetry</a></nav>
+  </footer>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <span>&copy; Alexander Varga</span>
+    <nav aria-label="Elsewhere"><a href="https://github.com/asvarga">GitHub</a><a href="https://www.linkedin.com/in/alexander-varga/">LinkedIn</a><a href="https://www.stackoverflow.com/users/1684606/alex-varga">Stack Overflow</a><a href="https://www.youtube.com/user/avarga93/videos">YouTube</a><a href="https://www.flickr.com/photos/124356640@N03">Flickr</a><a href="https://www.vimeo.com/user99108597">Vimeo</a></nav>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 #
-# bin/main — serve the ProperDocs site locally with live reload.
+# bin/main — preview the site locally.
 #
-# `properdocs serve` rebuilds the site and refreshes the browser whenever a
-# source file under docs/ (or properdocs.yml) changes, so edits show up without
-# a manual rebuild.
+# The site is plain HTML/CSS/JS under docs/, with no build step, so this just
+# serves that folder. Refresh the browser after editing a file.
 #
 # With ./bin on PATH (see .envrc), just run `main` from anywhere in the repo.
 #
-#   main                 # serve on http://127.0.0.1:8000 with live reload
-#   main -a 0.0.0.0:9000 # any extra args are passed through to `properdocs serve`
-#   REBUILD=1 main       # recreate the venv from scratch before serving
-#
-# Dependency/venv bootstrap and the nix imaging-lib handoff live in bin/lib.sh.
-source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
+#   main          # serve on http://127.0.0.1:8000
+#   main 9000     # serve on another port
+set -euo pipefail
 
-exec "$venv/bin/properdocs" serve "$@"
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+port="${1:-8000}"
+
+echo "Serving $root/docs at http://127.0.0.1:$port" >&2
+exec python3 -m http.server "$port" --bind 127.0.0.1 --directory "$root/docs"

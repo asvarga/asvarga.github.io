@@ -1,9 +1,7 @@
 .DS_Store
 venv
-# Local venv created by bin/main from requirements.txt (see .envrc / nix/).
+# Leftover local venv from the old MkDocs/ProperDocs build; safe to delete.
 /.venv
-/site
-.cache
 # direnv's local cache for the nix dev shell (see .envrc / nix/flake.nix).
 .direnv/
 # Claude Code local overrides and worktrees.

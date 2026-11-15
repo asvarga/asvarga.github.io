@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transfinite Meta-Posting - Part 1 · Alexander Varga</title>
+<meta name="description" content="In the beginning, I wrote blog posts.">
+<meta property="og:title" content="Transfinite Meta-Posting - Part 1">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asvarga.com/blog/2022/06/20/transfinite-meta-posting---part-1/">
+<meta property="og:site_name" content="Alexander Varga">
+<meta property="og:description" content="In the beginning, I wrote blog posts.">
+<meta property="og:image" content="https://asvarga.com/files/medium/AVdZzA2lMTkWs5_gyItmsw.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://asvarga.com/blog/2022/06/20/transfinite-meta-posting---part-1/">
+<link rel="icon" href="/files/triangle-wave.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/files/triangle-wave-icon.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="/assets/site.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 12L17 22L7.1 6.04L4.24 12H2L7 2L16.9 17.96L19.76 12H22Z"/></svg><span>Alexander Varga</span></a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/blog/" aria-current="page">Blog</a><a href="/site/">Projects</a><a href="/wiki/">Wiki</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </nav>
+  </div>
+</header>
+<main>
+<article class="wrap narrow">
+  <header class="post-head">
+    <p class="crumbs"><a href="/blog/">&larr; Blog</a></p>
+    <h1>Transfinite Meta-Posting - Part 1</h1>
+    <div class="meta"><time datetime="2022-06-20">June 20, 2022</time><span>5 min read</span><span class="tags"><a class="tag" href="/blog/#tag=ordinal">Ordinal</a><a class="tag" href="/blog/#tag=meta">Meta</a></span></div>
+  </header>
+  <div class="prose">
+<p>In the beginning, I wrote blog posts.</p>
+<p>Once I ran out of ideas, I started to write blog posts about my experience writing blog posts. These were my first meta-posts.</p>
+<p>As my ego inflated ever larger, I began to post about my meta-posts.</p>
+<p>…</p>
+<p>It wasn’t long until I realized that I had discovered an endless trove of Content. I became the worlds most efficient content creator, each day reflecting on and posting about the creative process behind the previous day’s work. I was now a multi-stage poster.</p>
+<p>But it wasn’t long before other bloggers started to rip off my process. Their original posts may have been unique, but after a few days of iterated reflection stages their content was nearly indistinguishable from my own. I needed to stand out from these other multi-stage posters, so I wrote a new kind of reflective post.</p>
+<p>In that blog post I explained my infinite content creation process, and how I could have continued forever. This post wasn’t like those that came before it. It was about the infinite iteration itself, rather than being just another step in that iteration. It pushed the limit of content creation to entirely new levels. But this is not that blog post.</p>
+<p>The next day, I returned to my tried and true method of reflecting on the previous day. I detailed that limit-pushing post in all its glory, much as I have above.</p>
+<p>The next day I reflected again. And the next day. And the next.</p>
+<p>…</p>
+<p>And then I reflected on this second infinite iteration.</p>
+<p>etc.</p>
+<h3 id="now-do-programming">Now Do Programming</h3>
+<p>That was exhausting, thanks for sticking with me. But the moral of the story is:</p>
+<blockquote>
+<p>The semantics of natural language are closed under reflection and limits.</p>
+</blockquote>
+<p>That is to say, for any topic we can talk about: we can talk about talking about it, and we can talk about infinitely iterating processes of reflection.</p>
+<p>Such conversations aren’t very useful, but we <em>can</em> have them, and it’s <em>efficient</em> to do so. In particular, I can easily talk about talking without referring to the raw letters or phonemes from which conversation itself is built. So I tried to define a <em>formal</em> language with this property, and I think I’ve found one.</p>
+<p>The area of multi-stage programming which I punned at above starts this process. It presents infinite reflective towers of languages, each hosting the stage below it. At the bottom of the tower is a ground stage behaving like a normal programming language, which is analogous to the “normal” blog posts in the story above. MSP languages manage to do this efficiently without each stage needing to encode the syntax of the stage below it in it’s own syntax. To see how this nested representation might grow exponentially with the number of stages if we’re not careful, consider the Python program:</p>
+<p><img loading="lazy" alt="" src="/files/medium/AVdZzA2lMTkWs5_gyItmsw.png"></p>
+<p>The third line of output is an encoding of an encoding of an encoding of the number 2, and is over 2500 characters long. Multi-stage programming circumvents this explosion by introducing a concept of quotation, inspired by natural language. For example, I can say that the first word of this sentence is “For” rather than saying that it is formed by joining the sixth, fifteenth, and eighteenth letters of the English alphabet.</p>
+<p>What multi-stage programming has that natural language doesn’t (but should) is a notion of splicing/unquoting. In spoken language this ends up looking like “I was walking in the park and ran into {oh what’s his name? your friend whose name starts with an “S”} and he says “Hello”.” That sentence contains a nested quote for the greeting, and we could nest quotes arbitrarily deeply if we wanted: “I said “I said “I said “Hello””””. However, it also contains a splice in curly brackets. The idea is to resolve the contents of the brackets to a syntactic object like a name and splice it into the surrounding sentence. Depending on context, the above meta-sentence might resolve to “I was walking in the park and ran into Steve and he says “Hello”.”</p>
+<p>Maybe you recognize this as f-strings or template strings in Python or JavaScript. If so, try not to get too hung up on the presence of strings in my examples. Strings are natural and easy to write down, but the concepts I’m getting at are more general and relate broadly to the relationships between syntax like strings, blog posts, or syntax trees and their semantics.</p>
+<p>Now we run into a problem. How do we actually talk about splices themselves? If we were to try to say something like “I claim that {the color of the sky} is different than {the color of the ocean}”, this would resolve to “I claim that blue is different than blue” which isn’t so. We failed to properly quote the splice, and it interacted with the quote. We’re gonna need a bigger quote.</p>
+<p>This same problem arises in multi-stage programming. Partial evaluation is a technique to turn a 1-stage program into a multi-stage program by carefully inserting quotes and splices. But at which stage does the partial evaluator live? What type might we assign it? How can it possibly output splices without interacting with them? The same questions apply for programs that interpret multi-stage programs. These programs exist “above” all of the stages in traditional MSP.</p>
+<h3 id="bigger-quotes">Bigger Quotes</h3>
+<p>We might start towards a solution to the above problem by introducing big quotes as, say, square brackets like: “I claim that [{the color of the sky}] is different than [{the color of the ocean}]”. The big quotes tell us not to resolve their contents. This might be sufficient for our needs, but once we consider big splices, we’ll run into the same problem, and so we’ll need ever larger quotes.</p>
+<p>If you can’t tell from my previous blog posts, I like ordinals, and that’s what we need here. In order to discuss a quote that contains splices, without resolving those splices, you need a different kind of quote. We end up wanting a different size quote for each ordinal. This could be implemented directly, but I’ll cut to the real punchline:</p>
+<blockquote>
+<p>We can accomplish transfinite meta-programming by starting with a language using DeBruijn indices and extending the domain of indices to larger ordinals.</p>
+</blockquote>
+<p>In the next post, I’ll explain how extend a simple Lambda Calculus-like language in this way. For some vague intuition:</p>
+<ul>
+<li>
+<p>A DeBruijn index of ω corresponds to a splice.</p>
+</li>
+<li>
+<p>An index of ω+n corresponds to a splice containing an index of n into the meta-language.</p>
+</li>
+<li>
+<p>An index of n+ω indexes into the current language by n but then splices to the meta-language anyways, so ends up equivalent to an index of n+ω = ω, or a normal splice.</p>
+</li>
+<li>
+<p>With indices up to ω² we can do all of multi-stage programming.</p>
+</li>
+</ul>
+<p>As an additional teaser, here is a trace of an unstaging function written in my language to prove that it works: <a href="https://github.com/asvarga/wiki/blob/main/other/Trace.tfdbi">https://github.com/asvarga/wiki/blob/main/other/Trace.tfdbi</a>. Yes, it uses the transfinite lists data structure from my last post :)</p>
+  </div>
+  <footer class="post-foot">
+    <nav class="pager" aria-label="More posts"><a class="prev" href="/blog/2022/05/30/efficient-transfinite-lists/"><small>&larr; Older</small>Efficient Transfinite Lists</a><a class="next" href="/blog/2022/07/18/transfinite-meta-programming---part-2/"><small>Newer &rarr;</small>Transfinite Meta-Programming - Part 2</a></nav>
+  </footer>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <span>&copy; Alexander Varga</span>
+    <nav aria-label="Elsewhere"><a href="https://github.com/asvarga">GitHub</a><a href="https://www.linkedin.com/in/alexander-varga/">LinkedIn</a><a href="https://www.stackoverflow.com/users/1684606/alex-varga">Stack Overflow</a><a href="https://www.youtube.com/user/avarga93/videos">YouTube</a><a href="https://www.flickr.com/photos/124356640@N03">Flickr</a><a href="https://www.vimeo.com/user99108597">Vimeo</a></nav>
+  </div>
+</footer>
+</body>
+</html>

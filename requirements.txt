@@ -1,4 +1,0 @@
-properdocs
-mkdocs-exclude
-mkdocs-material[imaging]
-mkdocs-redirects

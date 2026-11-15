@@ -2,24 +2,16 @@ name: Publish (manual)
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  build:
-    name: Deploy docs
+  deploy:
+    name: Deploy site
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Install system dependencies
-        run: sudo apt-get install -y libcairo2-dev libfreetype6-dev libffi-dev libjpeg-dev libpng-dev libz-dev
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
 
       - name: Fetch latest SatSight web demo
         # SatSight (github.com/asvarga/SatSight) builds this on every push to
@@ -32,5 +24,12 @@ jobs:
             https://github.com/asvarga/SatSight/releases/download/web-latest/satsight-web.tar.gz
           tar -xzf /tmp/satsight-web.tar.gz -C docs/site/satsight
 
-      - name: Deploy docs
-        run: properdocs gh-deploy --force
+      - name: Publish docs/ to gh-pages
+        # The site is plain HTML: docs/ is published exactly as committed.
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com

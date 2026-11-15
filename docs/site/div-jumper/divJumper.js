@@ -11,8 +11,16 @@ if (!document.ranDivJumper) {
 		var TEST = null;
 		var CHAR = null;
 
+		// Arrows move, as in every game here: up jumps, down drops through.
+		// Inside, they keep the letters the game was written with.
+		var ARROWS = { ArrowUp: 'W', ArrowLeft: 'A', ArrowDown: 'S', ArrowRight: 'D' };
+		// The penguin sits beside this script, wherever it's served from.
+		var HERE = (document.currentScript && document.currentScript.src) || location.href;
+
 		document.addEventListener("keydown", function (evt) {
-			var c = String.fromCharCode(event.keyCode);
+			var c = ARROWS[evt.key];
+			if (!c) return;
+			evt.preventDefault();
 			if (!DOWN[c]) {
 				DOWN[c] = true;
 				for (var i = 0; i < KEY_RESPONDERS.length; i++) {
@@ -22,13 +30,16 @@ if (!document.ranDivJumper) {
 			evt.stopPropagation();
 		});
 		document.addEventListener("keyup", function (evt) {
-			var c = String.fromCharCode(event.keyCode);
+			var c = ARROWS[evt.key];
 			if (DOWN[c]) { delete DOWN[c]; }
 		});
 
 
 		var elem = document.createElement('img');
-		elem.src = "https://asvarga.github.io/site/images/penguin.png";
+		elem.src = new URL("../images/penguin.png", HERE).href;
+		// A page's own img styles mustn't move or squeeze the penguin.
+		elem.style.margin = "0";
+		elem.style.maxWidth = "none";
 		elem.addEventListener("load", () => {
 			BODY.appendChild(elem);
 			window.scrollTo(0, BODY.scrollHeight);
@@ -93,7 +104,7 @@ if (!document.ranDivJumper) {
 			tick(dt = 0) {
 				if (DOWN['D'] && !DOWN['A']) {
 					this.elem.style.transform = "rotateY(180deg)";
-					this.setx(Math.min(BODY.offsetWidth - this.elem.width / 2, this.x + dt * 0.5));
+					this.setx(Math.min(DOC.clientWidth - this.elem.width / 2, this.x + dt * 0.5));
 				}
 				if (DOWN['A'] && !DOWN['D']) {
 					this.elem.style.transform = "rotateY(0deg)";
