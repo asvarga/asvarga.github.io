@@ -13,6 +13,7 @@
   --muted: #6e665f;
   --code-bg: #f5f1ec;
   --shadow: 0 1px 2px rgb(40 20 0 / 0.04), 0 4px 16px rgb(40 20 0 / 0.05);
+  --img-filter: none;
   /* Fonts load from Google Fonts in each page's <head>; the system stacks are fallbacks. */
   --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: "Geist Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
@@ -33,6 +34,7 @@
     --muted: #a39a92;
     --code-bg: #1f1b18;
     --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px rgb(0 0 0 / 0.25);
+    --img-filter: brightness(0.82) contrast(1.06); /* tame white diagrams */
     color-scheme: dark;
   }
 }
@@ -47,6 +49,7 @@
   --muted: #a39a92;
   --code-bg: #1f1b18;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px rgb(0 0 0 / 0.25);
+  --img-filter: brightness(0.82) contrast(1.06);
   color-scheme: dark;
 }
 
@@ -302,6 +305,10 @@ a:hover .arrow { transform: translateX(3px); }
 .kbd-help { font: 0.85rem var(--mono); color: var(--muted); text-align: center; }
 .gallery { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); margin: 1.5rem 0; }
 .gallery img { margin: 0; width: 100%; border-radius: 0.5rem; border: 1px solid var(--line); background: #fff; }
+
+/* Content images: dimmed a little in dark mode (bright white diagrams glare), full on hover. */
+.prose img, .blog-list .thumb img, .project-grid .shot img { filter: var(--img-filter); transition: filter 0.2s; }
+.prose img:hover, .blog-list li:hover .thumb img, .project-grid .card:hover .shot img { filter: none; }
 
 /* ---------- Lightbox (assets/site.js; opt in with data-lightbox) ---------- */
 img.zoomable { cursor: zoom-in; }
