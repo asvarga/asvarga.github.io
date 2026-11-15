@@ -17,7 +17,7 @@ and no framework: what's committed is what's served.
 | `docs/blog/` | Blog index; posts live at `blog/YYYY/MM/DD/<slug>/index.html` |
 | `docs/site/` | Projects page and each project's own folder |
 | `docs/wiki/` | Notes |
-| `docs/assets/style.css` | The one stylesheet (colour tokens, light and dark) |
+| `docs/assets/style.css` | The one stylesheet (colour and font tokens, light and dark) |
 | `docs/assets/site.js` | Theme toggle, heading anchors, blog tag filter |
 | `docs/files/` | Images and other files linked from posts |
 | `docs/404.html` | Not-found page; also forwards old MkDocs URLs |
@@ -33,6 +33,10 @@ and no framework: what's committed is what's served.
 4. Point the neighbouring posts' Older/Newer links at it.
 
 Links that leave the site get `target="_blank" rel="noopener"`.
+
+Fonts come from Google Fonts via the `<link>` in each page's `<head>`:
+Bricolage Grotesque for the big headings (`--display`), Geist for text
+(`--sans`) and Geist Mono for dates, tags and code (`--mono`).
 
 Posts that use math load KaTeX in their `<head>` (see
 `blog/2026/05/02/function-with-4-fold-symmetry/`) and write `\( … \)` or
