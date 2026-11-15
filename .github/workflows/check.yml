@@ -8,7 +8,7 @@ permissions:
 jobs:
   check:
     name: Check site
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       # Links resolve, every page shares the header/footer, feed and sitemap are fresh.
