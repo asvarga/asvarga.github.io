@@ -37,6 +37,70 @@ document.querySelectorAll('a[href^="javascript:"][href*="divJumper.js"]').forEac
   }),
 );
 
+// Lightbox: images inside any element with a data-lightbox attribute open large
+// in a popup, with previous/next through that element's images. An image can
+// name a bigger file to show with data-full; otherwise its own src is used.
+(() => {
+  const groups = document.querySelectorAll("[data-lightbox]");
+  if (!groups.length) return;
+  const dlg = document.createElement("dialog");
+  dlg.className = "lightbox";
+  dlg.setAttribute("aria-label", "Image viewer");
+  dlg.innerHTML =
+    '<img alt="">' +
+    '<button type="button" class="lb-btn lb-close" aria-label="Close">&times;</button>' +
+    '<button type="button" class="lb-btn lb-prev" aria-label="Previous image">&lsaquo;</button>' +
+    '<button type="button" class="lb-btn lb-next" aria-label="Next image">&rsaquo;</button>' +
+    '<p class="lb-count" aria-live="polite"></p>';
+  document.body.append(dlg);
+  const big = dlg.querySelector("img");
+  const count = dlg.querySelector(".lb-count");
+  let list = [];
+  let at = 0;
+  const show = (n) => {
+    at = (n + list.length) % list.length;
+    const img = list[at];
+    big.src = img.dataset.full || img.currentSrc || img.src;
+    big.alt = img.alt;
+    count.textContent = list.length > 1 ? `${at + 1} / ${list.length}` : "";
+    dlg.classList.toggle("single", list.length < 2);
+  };
+  groups.forEach((group) => {
+    const imgs = [...group.querySelectorAll("img")];
+    imgs.forEach((img, n) => {
+      img.classList.add("zoomable");
+      img.tabIndex = 0;
+      img.setAttribute("role", "button");
+      img.setAttribute("aria-label", (img.alt ? img.alt + ": " : "") + "view larger");
+      const open = () => {
+        list = imgs;
+        show(n);
+        dlg.showModal();
+      };
+      img.addEventListener("click", open);
+      img.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          open();
+        }
+      });
+    });
+  });
+  dlg.querySelector(".lb-prev").addEventListener("click", () => show(at - 1));
+  dlg.querySelector(".lb-next").addEventListener("click", () => show(at + 1));
+  dlg.querySelector(".lb-close").addEventListener("click", () => dlg.close());
+  // A click on the dark backdrop (not the image or a button) closes it.
+  dlg.addEventListener("click", (e) => {
+    if (e.target === dlg) dlg.close();
+  });
+  dlg.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") show(at - 1);
+    else if (e.key === "ArrowRight") show(at + 1);
+  });
+  // Don't hold on to a large image after closing.
+  dlg.addEventListener("close", () => big.removeAttribute("src"));
+})();
+
 // Hover anchors on headings in long-form text, so sections can be linked to.
 document.querySelectorAll(".prose :is(h2, h3, h4)[id]").forEach((h) => {
   const a = document.createElement("a");

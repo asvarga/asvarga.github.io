@@ -39,6 +39,11 @@ Div Jumper (the footer's 🐸) stands on divs up to 800px wide, images, buttons
 and the footer. Add a `data-platform` attribute to make anything else a
 platform, as the project cards do.
 
+Image galleries: put `data-lightbox` on a container and clicking any image in
+it opens a large popup with previous/next (see Collision Trees and 3D
+Fireworks). Give an image `data-full="…"` to show a bigger file than the one
+on the page.
+
 Fonts come from Google Fonts via the `<link>` in each page's `<head>`:
 Bricolage Grotesque for the big headings (`--display`), Geist for text
 (`--sans`) and Geist Mono for dates, tags and code (`--mono`).
