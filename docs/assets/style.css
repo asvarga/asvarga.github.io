@@ -155,7 +155,11 @@ main > .wrap.narrow { max-width: calc(var(--measure) + 2rem); }
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
   gap: 0.75rem 2rem; padding-top: 1.5rem; padding-bottom: 2rem;
 }
-.site-footer nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; }
+.site-footer nav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.95rem; }
+/* Social links are brand icons (Simple Icons, CC0); the name is the label and tooltip. */
+.site-footer .social { display: inline-flex; transition: color 0.15s, transform 0.15s; }
+.site-footer .social svg { width: 1.1rem; height: 1.1rem; }
+.site-footer .social:hover, .site-footer .social:focus-visible { transform: translateY(-1px); }
 .site-footer a { color: var(--muted); text-decoration: none; }
 .site-footer a:hover { color: var(--accent); }
 /* The footer's ⓘ: publish time and commit in a tooltip (filled by site.js). */
