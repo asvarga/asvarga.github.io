@@ -179,6 +179,8 @@ if (!document.ranDivJumper) {
 			// A footer is a floor at any width; anything else wider than 800px is
 			// probably a layout wrapper rather than something to stand on.
 			if (tag === "FOOTER") return true;
+			// Pages can mark anything as a platform with a data-platform attribute.
+			if (x.hasAttribute && x.hasAttribute("data-platform")) return true;
 			return tag in SEATS && x.offsetWidth <= 800;//BODY.scrollWidth;
 		}
 

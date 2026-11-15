@@ -34,6 +34,10 @@ and no framework: what's committed is what's served.
 
 Links that leave the site get `target="_blank" rel="noopener"`.
 
+Div Jumper (the footer's 🐧) stands on divs up to 800px wide, images, buttons
+and the footer. Add a `data-platform` attribute to make anything else a
+platform, as the project cards do.
+
 Fonts come from Google Fonts via the `<link>` in each page's `<head>`:
 Bricolage Grotesque for the big headings (`--display`), Geist for text
 (`--sans`) and Geist Mono for dates, tags and code (`--mono`).
