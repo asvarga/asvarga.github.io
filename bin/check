@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+"""bin/check — sanity checks for the hand-written site in docs/.
+
+    check        # exits 1 and lists problems if anything fails
+
+Every page carries its own copy of the header and footer (there's no build
+step), so this catches the ways hand edits drift:
+  - internal links and images (href/src) that point at missing files;
+  - pages whose header differs from the others (beyond which nav link is
+    current) or whose footer differs;
+  - a stale blog feed or sitemap (fix with `bin/feeds`).
+Runs in CI before every publish.
+"""
+import re
+import subprocess
+import sys
+from collections import Counter
+from pathlib import Path
+from urllib.parse import unquote
+
+ROOT = Path(__file__).resolve().parent.parent
+DOCS = ROOT / "docs"
+# Built apps that keep their own markup and asset paths.
+APPS = ("site/gproof/", "site/motp/", "site/satsight/")
+# Fetched at preview/deploy time, so absent from a fresh checkout.
+FETCHED = ("/site/satsight/",)
+
+problems = []
+pages = sorted(p for p in DOCS.rglob("*.html") if not str(p.relative_to(DOCS)).startswith(APPS))
+
+# 1. Internal links and images resolve.
+for page in pages:
+    rel = page.relative_to(DOCS)
+    for url in re.findall(r'(?:href|src|data-full)="([^"]+)"', page.read_text(errors="ignore")):
+        if re.match(r"^(https?:|mailto:|javascript:|#|data:)", url):
+            continue
+        path = unquote(url.split("#")[0].split("?")[0])
+        if not path:
+            continue
+        target = (DOCS / path.lstrip("/")) if path.startswith("/") else (page.parent / path)
+        target = target.resolve()
+        if target.is_dir():
+            target = target / "index.html"
+        if not target.exists() and not any(f in "/" + str(target.relative_to(DOCS)) for f in FETCHED):
+            problems.append(f"{rel}: broken link {url}")
+
+# 2. Every page with the site shell has the same header and footer.
+def block(text, tag):
+    m = re.search(rf"<{tag} class=\"site-{tag}\">.*?</{tag}>", text, re.S)
+    return m and re.sub(r' aria-current="page"', "", m.group(0))
+
+for tag in ("header", "footer"):
+    blocks = {p: block(p.read_text(), tag) for p in pages}
+    blocks = {p: b for p, b in blocks.items() if b}
+    common, _ = Counter(blocks.values()).most_common(1)[0]
+    for p, b in blocks.items():
+        if b != common:
+            problems.append(f"{p.relative_to(DOCS)}: {tag} differs from the other pages")
+
+# 3. Feed and sitemap are up to date.
+feeds = subprocess.run([sys.executable, str(ROOT / "bin/feeds"), "--check"], capture_output=True, text=True)
+if feeds.returncode:
+    problems.append(feeds.stdout.strip() or "feeds check failed")
+
+if problems:
+    print(f"{len(problems)} problem(s):")
+    print("\n".join("  " + p for p in problems))
+    sys.exit(1)
+print(f"ok: {len(pages)} pages, links resolve, shared header/footer, feeds fresh")

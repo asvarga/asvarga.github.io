@@ -22,6 +22,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
+      - name: Check site
+        # Broken links, drifted headers/footers or a stale feed stop the publish.
+        run: python3 bin/check
+
       - name: Fetch latest SatSight web demo
         # SatSight (github.com/asvarga/SatSight) builds this on every push to
         # main and republishes it as the "web-latest" release asset. Pulling

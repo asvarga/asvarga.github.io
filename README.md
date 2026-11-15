@@ -6,6 +6,10 @@ The site is plain HTML, CSS and a little JS in `docs/`. There is no build step
 and no framework: what's committed is what's served.
 
 - Preview: `main` (serves `docs/` at http://127.0.0.1:8000)
+- Check: `check` (broken links, headers/footers that drifted apart, stale
+  feed or sitemap; runs before every publish and on pull requests)
+- Feed and sitemap: `feeds` regenerates `docs/blog/feed.xml` and
+  `docs/sitemap.xml` after adding or renaming pages
 - Publish: automatic on every push to `main` (the Publish workflow pushes
   `docs/` plus the latest SatSight demo to the `gh-pages` branch). `deploy`
   re-runs it on demand, e.g. to pick up a newer SatSight build.
@@ -32,6 +36,7 @@ and no framework: what's committed is what's served.
 3. Give its blog-index entry a thumbnail: a ~640px-wide 3:2 image in
    `docs/files/thumbs/<slug>.jpg`.
 4. Point the neighbouring posts' Older/Newer links at it.
+5. Run `feeds` (updates the feed and sitemap), then `check`.
 
 Links that leave the site get `target="_blank" rel="noopener"`.
 
