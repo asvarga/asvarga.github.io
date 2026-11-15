@@ -121,6 +121,7 @@ if (document.divJumper) {
 			}
 			tick(dt = 0) {
 				var wasUp = this.y > 0;
+				var wasX = this.x, wasY = this.y;
 				if (DOWN['D'] && !DOWN['A']) {
 					this.facing = -1;
 					this.setx(Math.min(DOC.clientWidth - this.elem.width / 2, this.x + dt * 0.5));
@@ -151,7 +152,9 @@ if (document.divJumper) {
 					if (wasUp && this.y <= 0) this.landedAt = Date.now(); // hit the page bottom
 				}
 				this.pose();
-				this.follow();
+				// Only chase the frog while it moves, so a reader can scroll away
+				// (e.g. back up to the button) while it sits still.
+				if (this.x !== wasX || this.y !== wasY) this.follow();
 			}
 			// Sitting or leaping sprite, a stretch on takeoff and a squash on landing,
 			// and a nose-down tilt on the way down.
