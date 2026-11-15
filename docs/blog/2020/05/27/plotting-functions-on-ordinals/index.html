@@ -63,18 +63,18 @@
 <p><img loading="lazy" alt="" src="/files/medium/sE8UiqRu1NfzxXdXMut6kA.png"></p>
 <p>For example, ω+3 = ω^ω^0+ω^0+ω^0+ω^0. Such a polynomial can be interpreted as an ordinal tree where the value of each node is the sum of ω to the power of the values of its child nodes:</p>
 <p><img loading="lazy" alt="" src="/files/medium/Vn5f1pMrpCW2xWc8SU5TLA.png"></p>
-<p>This tree can be represented succinctly as a string of balanced parentheses. Since eventually we’ll have unbalanced parentheses, let’s use “\” and “/” as open and close parens to protect our eyes:</p>
+<p>This tree can be represented succinctly as a string of balanced parentheses. Since eventually we’ll have unbalanced parentheses, let’s use <code>\</code> and <code>/</code> as open and close parens to protect our eyes:</p>
 <p><img loading="lazy" alt="" src="/files/medium/ZPVvLo6Q5dFezsx-771j7A.png"></p>
-<p>So for example, BP(ω+3) = BP(ω^ω^0+ω^0+ω^0+ω^0) = \\//\/\/\/. Now this can be converted to a bitstring by replacing “\”s by 1s and “/”s by 0s, and prepending a “0.”, which can then be interpreted as a real number:</p>
-<p>ω+3 → \\//\/\/\/ → 0.1100101010 → ~0.79102</p>
+<p>So for example, BP(ω+3) = BP(ω^ω^0+ω^0+ω^0+ω^0) = <code>\\//\/\/\/</code>. Now this can be converted to a bitstring by replacing <code>\</code>s by 1s and <code>/</code>s by 0s, and prepending a “0.”, which can then be interpreted as a real number:</p>
+<p>ω+3 → <code>\\//\/\/\/</code> → 0.1100101010 → ~0.79102</p>
 <p>It turns out that the above satisfies desideratum 1 because the lexicographic order of the BP-strings respects the order of the ordinals. Since all ordinals get mapped into the 0–1 interval, we can also easily satisfy desideratum 3 by stretching the results to ℝ⁺ with the function s(<em>x</em>) = -log₂(1-<em>x</em>):</p>
-<p>ω+3 → \\//\/\/\/ → 0.1100101010 → ~0.79102 → ~2.25853</p>
+<p>ω+3 → <code>\\//\/\/\/</code> → 0.1100101010 → ~0.79102 → ~2.25853</p>
 <p>We’re almost there. There’s just one nasty problem with this. If we plot it, we can see that desideratum 2 isn’t met: the ticks for 1, 2, 3, … don’t reach all the way to the tick for ω:</p>
 <p><img loading="lazy" alt="" src="/files/medium/wobSL78rvfbAdKDckM4RKQ.png"></p>
-<p>This is because our BP function is defined for ordinal trees in general, including “illegal” unsorted ones that don’t satisfy the <em>i</em> &lt; <em>j</em> ⇒ αᵢ ≥ αⱼ condition, like 1+ω. The current function leaves room for 1+ω at \/\\// between all natural numbers at (\/)*n and ω at \\//.</p>
-<p>This can be fixed by <em>removing all redundant closing parentheses</em>. We consider a close paren to be redundant if, were it an open paren, the corresponding ordinal would be illegal. Since it must be a close paren, we can just omit it and still be able to recover the ordinal from the unbalanced parentheses (UP). So for example, 2 is represented as \/\/, but that last close paren is redundant because UP strings starting with \/\\ can only correspond to illegal ordinals like 1+ω. Our updated UP function maps 2 to \/\, 3 to \/\\, and natural numbers n to \/(\)*(n-1).</p>
-<p>ω+3 → \\//\/\\ → 0.11001011 → ~0.79297 → ~2.27208</p>
-<p>Now the sequence [<em>t</em>(1), <em>t</em>(2), <em>t</em>(3), …] is [\/, \/\, \/\\, …] which is [0.10, 0.101, 0.1011, …], which approaches 0.1100 = <em>t</em>(ω) as desired.</p>
+<p>This is because our BP function is defined for ordinal trees in general, including “illegal” unsorted ones that don’t satisfy the <em>i</em> &lt; <em>j</em> ⇒ αᵢ ≥ αⱼ condition, like 1+ω. The current function leaves room for 1+ω at <code>\/\\//</code> between all natural numbers at <code>(\/)*n</code> and ω at <code>\\//</code>.</p>
+<p>This can be fixed by <em>removing all redundant closing parentheses</em>. We consider a close paren to be redundant if, were it an open paren, the corresponding ordinal would be illegal. Since it must be a close paren, we can just omit it and still be able to recover the ordinal from the unbalanced parentheses (UP). So for example, 2 is represented as <code>\/\/</code>, but that last close paren is redundant because UP strings starting with <code>\/\\</code> can only correspond to illegal ordinals like 1+ω. Our updated UP function maps 2 to <code>\/\</code>, 3 to <code>\/\\</code>, and natural numbers n to <code>\/(\)*(n-1)</code>.</p>
+<p>ω+3 → <code>\\//\/\\</code> → 0.11001011 → ~0.79297 → ~2.27208</p>
+<p>Now the sequence [<em>t</em>(1), <em>t</em>(2), <em>t</em>(3), …] is [<code>\/</code>, <code>\/\</code>, <code>\/\\</code>, …] which is [0.10, 0.101, 0.1011, …], which approaches 0.1100 = <em>t</em>(ω) as desired.</p>
 <p><img loading="lazy" alt="" src="/files/medium/3csFSNKbwz72AThvF4gtaQ.png"></p>
 <p>This UP function can be implemented by keeping track of bounds on recursed arguments and omitting closing parentheses when that bound is reached:</p>
 <p><img loading="lazy" alt="" src="/files/medium/ODZLPmQJqWxmcUA4KLKdzw.png"></p>

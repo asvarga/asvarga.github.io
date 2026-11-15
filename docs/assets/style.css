@@ -321,6 +321,8 @@ a:hover .arrow { transform: translateX(3px); }
   border-radius: 0.3rem; padding: 0.05em 0.32em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
 .prose a > code { color: inherit; }
+/* Inline code never splits mid-token (checked: no span overflows at 320px). */
+.prose :not(pre) > code { white-space: nowrap; }
 .prose .math { font-family: "KaTeX_Main", "Latin Modern Roman", "Times New Roman", Georgia, serif; font-size: 1.08em; white-space: nowrap; }
 .prose table { border-collapse: collapse; display: block; overflow-x: auto; margin: 1.5rem 0; font-size: 0.95rem; }
 .prose th, .prose td { border: 1px solid var(--line); padding: 0.4rem 0.7rem; text-align: left; }
