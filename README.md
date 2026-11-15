@@ -10,6 +10,9 @@ and no framework: what's committed is what's served.
   feed or sitemap; runs before every publish and on pull requests)
 - Feed and sitemap: `feeds` regenerates `docs/blog/feed.xml` and
   `docs/sitemap.xml` after adding or renaming pages
+- Dependencies: Dependabot opens weekly PRs for the GitHub Actions; the weekly
+  "Update dependencies" workflow opens PRs for the cdnjs libraries the pages
+  load (`bump-cdn`, also runnable by hand) and for `nix/flake.lock`
 - Publish: automatic on every push to `main` (the Publish workflow pushes
   `docs/` plus the latest SatSight demo to the `gh-pages` branch). `deploy`
   re-runs it on demand, e.g. to pick up a newer SatSight build.

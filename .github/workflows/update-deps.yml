@@ -1,0 +1,58 @@
+name: Update dependencies
+
+# Weekly pull requests for what Dependabot can't see (it handles the Actions
+# themselves; see .github/dependabot.yml):
+#  - cdnjs libraries the pages load (KaTeX, Ace, EaselJS…), via bin/bump-cdn
+#  - the nix dev shell's flake.lock
+# Pull requests opened with the workflow token don't trigger other workflows,
+# so the CDN job runs bin/check itself before opening one.
+on:
+  schedule:
+    - cron: "17 9 * * 1" # Mondays
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  cdn:
+    name: CDN libraries
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: Bump cdnjs libraries
+        run: |
+          {
+            echo "Updates the third-party libraries the pages load from cdnjs (via \`bin/bump-cdn\`)."
+            echo
+            echo '```'
+            python3 bin/bump-cdn
+            echo '```'
+            echo
+            echo "\`bin/check\` passed. Try the affected pages in a preview (\`main\`) before merging:"
+            echo "KaTeX → the 4-fold post and blog index; Ace → Hybrid Environments; EaselJS/TweenJS → Ackermann Blocks."
+          } > "$RUNNER_TEMP/body.md"
+          cat "$RUNNER_TEMP/body.md"
+      - name: Check site
+        run: python3 bin/check
+      - uses: peter-evans/create-pull-request@v8
+        with:
+          branch: deps/cdn
+          title: Update CDN libraries
+          commit-message: Update CDN libraries
+          body-path: ${{ runner.temp }}/body.md
+          delete-branch: true
+
+  flake:
+    name: nix flake.lock
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+      - uses: DeterminateSystems/update-flake-lock@v29
+        with:
+          path-to-flake-dir: nix
+          branch: deps/flake-lock
+          pr-title: Update nix flake.lock
+          commit-msg: Update nix flake.lock

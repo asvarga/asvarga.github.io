@@ -1,0 +1,10 @@
+# Weekly pull requests for the GitHub Actions the workflows use.
+# CDN libraries in the pages and the nix flake are bumped by
+# .github/workflows/update-deps.yml instead (Dependabot can't see them).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly }
+    groups:
+      actions: { patterns: ["*"] }

@@ -52,9 +52,15 @@ function step() {
 }
 
 function stepAgain() {
-	if (running && createjs.Tween._tweens.length == 1) {
-		all.stepTweened();
-	}
+	// Auto-play: take the next step once every tween from this one has finished.
+	// Checked just after the finishing tween is removed, via the public API
+	// (TweenJS 1.x no longer keeps the old private _tweens array).
+	if (!running) return;
+	setTimeout(function () {
+		if (running && !createjs.Tween.hasActiveTweens()) {
+			all.stepTweened();
+		}
+	}, 0);
 }
 
 function ack(L) {

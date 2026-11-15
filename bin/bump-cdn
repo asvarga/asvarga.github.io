@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+"""bin/bump-cdn — update the cdnjs libraries the pages load to their latest versions.
+
+    bump-cdn           # rewrite docs/ to the latest versions, print what changed
+    bump-cdn --check   # only report what's out of date (exit 1 if anything is)
+
+Pages load third-party scripts from cdnjs (e.g. KaTeX, Ace, EaselJS) by
+versioned URL. Dependabot can't see those, so the weekly "Update
+dependencies" workflow runs this and opens a pull request. Each new URL is
+fetched before it's written, so a release that renamed a file is skipped
+rather than shipped broken. Libraries that are deliberately held back can be
+listed in HOLD with the reason.
+"""
+import json
+import re
+import sys
+import urllib.request
+from pathlib import Path
+
+DOCS = Path(__file__).resolve().parent.parent / "docs"
+URL = re.compile(r"https://cdnjs\.cloudflare\.com/ajax/libs/([^/\"']+)/([0-9][^/\"']*)/([^\"'\s]+)")
+HOLD = {}  # e.g. {"ace": "1.x: 2.0 changed the editor API"}
+
+
+def get(url):
+    req = urllib.request.Request(url, headers={"User-Agent": "asvarga.com bump-cdn"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return r.status, r.read()
+
+
+def latest(lib):
+    _, body = get(f"https://api.cdnjs.com/libraries/{lib}?fields=version")
+    return json.loads(body).get("version")
+
+
+def exists(url):
+    try:
+        return get(url)[0] == 200
+    except Exception:
+        return False
+
+
+def main():
+    check = "--check" in sys.argv[1:]
+    pages = [p for p in DOCS.rglob("*.html")]
+    uses = {}  # lib -> {version: set(files)}
+    for p in pages:
+        for lib, ver, path in URL.findall(p.read_text(errors="ignore")):
+            uses.setdefault(lib, {}).setdefault(ver, set()).add(path)
+
+    plan = {}  # lib -> (old versions, new version)
+    for lib, versions in sorted(uses.items()):
+        if lib in HOLD:
+            print(f"{lib}: held ({HOLD[lib]})")
+            continue
+        new = latest(lib)
+        stale = [v for v in versions if v != new]
+        if not new or not stale:
+            print(f"{lib}: {', '.join(versions)} is current")
+            continue
+        files = set().union(*versions.values())
+        missing = [f for f in sorted(files) if not exists(f"https://cdnjs.cloudflare.com/ajax/libs/{lib}/{new}/{f}")]
+        if missing:
+            print(f"{lib}: {new} is out but lacks {', '.join(missing)}; skipped")
+            continue
+        plan[lib] = (stale, new)
+        print(f"{lib}: {', '.join(stale)} -> {new}")
+
+    if check:
+        sys.exit(1 if plan else 0)
+    changed = 0
+    for p in pages:
+        s = p.read_text(errors="ignore")
+        t = s
+        for lib, (stale, new) in plan.items():
+            for old in stale:
+                t = t.replace(f"/ajax/libs/{lib}/{old}/", f"/ajax/libs/{lib}/{new}/")
+        if t != s:
+            p.write_text(t)
+            changed += 1
+    print(f"updated {changed} page(s)")
+
+
+if __name__ == "__main__":
+    main()
