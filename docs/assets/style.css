@@ -176,6 +176,7 @@ main > .wrap.narrow { max-width: calc(var(--measure) + 2rem); }
   border: 5px solid transparent; border-top-color: var(--text);
 }
 .build-info:hover .build-tip, .build-info:focus-visible .build-tip { opacity: 1; transform: none; }
+.build-tip:empty { display: none; } /* nothing to show until build.json loads */
 
 /* The footer's 🐸: the Div Jumper bookmarklet, faint until hovered. */
 .site-footer .summon {

@@ -41,6 +41,17 @@ jobs:
         # Read by the footer's ⓘ (assets/site.js): which commit, published when.
         run: printf '{"commit":"%s","time":"%s"}\n' "$GITHUB_SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > docs/build.json
 
+      - name: Cache-bust the shared CSS and JS
+        # Pages cache assets for 10 minutes, so a freshly published page could
+        # pair new HTML with an old stylesheet. Versioning the links per commit
+        # makes each page load the CSS/JS it was published with.
+        run: |
+          v="${GITHUB_SHA::7}"
+          find docs -name '*.html' -exec sed -i \
+            -e "s#\"/assets/style.css\"#\"/assets/style.css?v=$v\"#g" \
+            -e "s#\"/assets/site.js\"#\"/assets/site.js?v=$v\"#g" {} +
+          grep -rl "style.css?v=$v" docs --include='*.html' | wc -l
+
       - name: Publish docs/ to gh-pages
         # The site is plain HTML: docs/ is published exactly as committed.
         uses: peaceiris/actions-gh-pages@v4

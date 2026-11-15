@@ -26,6 +26,8 @@
 // that load the game from asvarga.com, so they work when dragged to the
 // bookmarks bar on any site. Clicked here, load this site's own copy instead,
 // so a local preview (or a fresh deploy) plays the version it's serving.
+// The publish step versions site.js (?v=<commit>); pass that on to the game.
+const assetVersion = document.currentScript ? new URL(document.currentScript.src).search : "";
 document.querySelectorAll('a[href^="javascript:"][href*="divJumper.js"]').forEach((a) =>
   a.addEventListener("click", (e) => {
     e.preventDefault();
@@ -33,7 +35,7 @@ document.querySelectorAll('a[href^="javascript:"][href*="divJumper.js"]').forEac
     if (document.divJumper) return document.divJumper.stop();
     const s = document.createElement("script");
     s.id = "divJumper";
-    s.src = "/site/div-jumper/divJumper.js";
+    s.src = "/site/div-jumper/divJumper.js" + assetVersion;
     document.body.append(s);
   }),
 );
