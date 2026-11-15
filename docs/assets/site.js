@@ -104,6 +104,32 @@ document.querySelectorAll('a[href^="javascript:"][href*="divJumper.js"]').forEac
   dlg.addEventListener("close", () => big.removeAttribute("src"));
 })();
 
+// Footer ⓘ: when and from which commit the site was published. The Publish
+// workflow writes /build.json; it's fetched the first time the icon is hovered,
+// focused or tapped, and the icon then links to that commit.
+(() => {
+  const icon = document.querySelector(".build-info");
+  if (!icon) return;
+  const tip = icon.querySelector(".build-tip");
+  let loaded = false;
+  const load = async () => {
+    if (loaded) return;
+    loaded = true;
+    try {
+      const r = await fetch("/build.json", { cache: "no-cache" });
+      if (!r.ok) throw new Error(r.status);
+      const { commit, time } = await r.json();
+      const when = new Date(time).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+      tip.textContent = `Published ${when} · ${commit.slice(0, 7)}`;
+      icon.href = `https://github.com/asvarga/asvarga.github.io/commit/${commit}`;
+      icon.setAttribute("aria-label", tip.textContent);
+    } catch {
+      tip.textContent = "Local preview (not published)";
+    }
+  };
+  ["pointerenter", "focus", "touchstart"].forEach((ev) => icon.addEventListener(ev, load, { passive: true }));
+})();
+
 // Hover anchors on headings in long-form text, so sections can be linked to.
 document.querySelectorAll(".prose :is(h2, h3, h4)[id]").forEach((h) => {
   const a = document.createElement("a");

@@ -37,6 +37,10 @@ jobs:
             https://github.com/asvarga/SatSight/releases/download/web-latest/satsight-web.tar.gz
           tar -xzf /tmp/satsight-web.tar.gz -C docs/site/satsight
 
+      - name: Stamp build info
+        # Read by the footer's ⓘ (assets/site.js): which commit, published when.
+        run: printf '{"commit":"%s","time":"%s"}\n' "$GITHUB_SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > docs/build.json
+
       - name: Publish docs/ to gh-pages
         # The site is plain HTML: docs/ is published exactly as committed.
         uses: peaceiris/actions-gh-pages@v4

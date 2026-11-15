@@ -158,7 +158,26 @@ main > .wrap.narrow { max-width: calc(var(--measure) + 2rem); }
 .site-footer nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; }
 .site-footer a { color: var(--muted); text-decoration: none; }
 .site-footer a:hover { color: var(--accent); }
-/* The footer's 🐧: the Div Jumper bookmarklet, faint until hovered. */
+/* The footer's ⓘ: publish time and commit in a tooltip (filled by site.js). */
+.site-footer .build-info {
+  position: relative; display: inline-flex; vertical-align: -0.15em; margin-left: 0.25rem;
+  color: var(--muted); opacity: 0.65; transition: opacity 0.15s, color 0.15s;
+}
+.site-footer .build-info svg { width: 0.95em; height: 0.95em; }
+.site-footer .build-info:hover, .site-footer .build-info:focus-visible { opacity: 1; color: var(--accent); }
+.build-tip {
+  position: absolute; bottom: calc(100% + 0.5rem); left: -0.6rem; z-index: 10;
+  white-space: nowrap; padding: 0.35rem 0.6rem; border-radius: 0.45rem;
+  background: var(--text); color: var(--bg); font: 0.75rem/1.4 var(--mono); box-shadow: var(--shadow);
+  opacity: 0; transform: translateY(3px); pointer-events: none; transition: opacity 0.15s, transform 0.15s;
+}
+.build-tip::after { /* the little pointer */
+  content: ""; position: absolute; top: 100%; left: 0.85rem;
+  border: 5px solid transparent; border-top-color: var(--text);
+}
+.build-info:hover .build-tip, .build-info:focus-visible .build-tip { opacity: 1; transform: none; }
+
+/* The footer's 🐸: the Div Jumper bookmarklet, faint until hovered. */
 .site-footer .summon {
   display: inline-block; opacity: 0.35; filter: grayscale(1);
   transition: opacity 0.2s, filter 0.2s, transform 0.2s;
