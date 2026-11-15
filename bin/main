@@ -7,12 +7,36 @@
 #
 # With ./bin on PATH (see .envrc), just run `main` from anywhere in the repo.
 #
-#   main          # serve on http://127.0.0.1:8000
-#   main 9000     # serve on another port
+#   main          # serve on http://127.0.0.1:8000, or the next free port
+#   main 9000     # serve on exactly this port (fails if it's taken)
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-port="${1:-8000}"
 
-echo "Serving $root/docs at http://127.0.0.1:$port" >&2
-exec python3 -m http.server "$port" --bind 127.0.0.1 --directory "$root/docs"
+# Python's `-m http.server` has no fallback when its port is busy (another
+# `main`, or anything else on 8000), so bind here and walk up to a free port.
+exec python3 - "$root/docs" "${1:-}" <<'PY'
+import errno, functools, http.server, sys
+
+docs, asked = sys.argv[1], sys.argv[2]
+ports = [int(asked)] if asked else range(8000, 8100)
+handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=docs)
+
+for port in ports:
+    try:
+        server = http.server.ThreadingHTTPServer(("127.0.0.1", port), handler)
+        break
+    except OSError as e:
+        if e.errno != errno.EADDRINUSE:
+            raise
+        print(f"Port {port} is in use", file=sys.stderr)
+else:
+    sys.exit(f"Try another port, e.g. `main {int(asked) + 1}`, or just `main`" if asked
+             else "No free port found in 8000-8099")
+
+print(f"Serving {docs} at http://127.0.0.1:{port}  (Ctrl-C to stop)", file=sys.stderr)
+try:
+    server.serve_forever()
+except KeyboardInterrupt:
+    pass
+PY
