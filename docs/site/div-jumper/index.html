@@ -43,7 +43,18 @@
   .pf.d h3, .pf.d p { color: #fff; }
   .pf.e { background: repeating-linear-gradient(135deg, var(--accent-soft) 0 10px, transparent 10px 20px); border: 1px solid var(--line); }
   .pf.f { background: var(--code-bg); border: 1px solid var(--line); font-family: var(--mono); }
-  .pf.hero { background: var(--card); border: 1px solid var(--accent); box-shadow: var(--shadow); align-items: flex-start; gap: 0.6rem; font-size: 0.95rem; color: var(--text); }
+  /* The call to action: green so it reads as "go", and a platform too (under 800px wide). */
+  .play {
+    --go: #15803d; --go-soft: #e9f8ef; --go-line: #22c55e;
+    max-width: 48rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    margin: 0 0 1.5rem; padding: 0.85rem 1rem; border-radius: 0.8rem;
+    background: var(--go-soft); border: 2px solid var(--go-line); box-shadow: var(--shadow);
+  }
+  .play p { margin: 0; flex: 1 1 18rem; }
+  .play-btn { background: var(--go); border-color: var(--go); color: #fff; font-size: 1.05rem; padding: 0.7rem 1.3rem; }
+  .play-btn:hover { background: #166534; border-color: #166534; }
+  :root[data-theme="dark"] .play { --go-soft: #10281a; --go-line: #22c55e; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .play { --go-soft: #10281a; } }
   @media (max-width: 52rem) {
     .jumper-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(36px, auto); }
     .jumper-grid > .pf { grid-area: auto !important; }
@@ -67,9 +78,13 @@
     <p class="crumbs"><a href="/site/">&larr; Projects</a></p>
     <h1>Div Jumper</h1>
   </div>
+  <div class="play">
+    <a class="btn play-btn" id="button" href="javascript:var s=document.createElement('script');document.body.appendChild(s);s.id='divJumper';s.src='https://asvarga.com/site/div-jumper/divJumper.js';void(0);">▶ Div Jumper</a>
+    <p><strong>Click to play on this page</strong>, or drag the button to your bookmarks bar to play on any site.</p>
+  </div>
   <section class="jumper-grid" aria-label="Platforms">
     <div class="pf e" style="grid-area: 1 / 1 / span 2 / span 2"><span class="big">🐧</span></div>
-    <div class="pf hero" style="grid-area: 1 / 3 / span 3 / span 5"><p>Play on this page, or drag the button to your bookmarks bar and play on any site.</p><a class="btn primary" id="button" href="javascript:var s=document.createElement('script');document.body.appendChild(s);s.id='divJumper';s.src='https://asvarga.com/site/div-jumper/divJumper.js';void(0);">Div Jumper</a></div>
+    <div class="pf b" style="grid-area: 1 / 3 / span 2 / span 5"><h3>🎯 Goal</h3><p>Climb all the way to the ☀️ button at the top.</p></div>
     <div class="pf c" style="grid-area: 1 / 8 / span 1 / span 5"><p>↑ The title and the ☀️ button are platforms too</p></div>
     <div class="pf b" style="grid-area: 3 / 1 / span 3 / span 2"><span class="big">🎈</span></div>
     <div class="pf a" style="grid-area: 3 / 8 / span 2 / span 5"><h3>Almost there…</h3></div>
