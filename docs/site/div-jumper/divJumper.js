@@ -43,11 +43,8 @@ if (!document.ranDivJumper) {
 		elem.addEventListener("load", () => {
 			BODY.appendChild(elem);
 			window.scrollTo(0, BODY.scrollHeight);
-			// Start at the bottom right, facing into the page.
+			// Start on the bottom of the page, at the right, facing into the page.
 			CHAR = new Character(elem, DOC.clientWidth - 100, 0, 75);
-			// Start standing on the page's footer, if it has one.
-			var footer = document.querySelector("footer");
-			if (footer && canSit(footer)) CHAR.sitOn(footer);
 			LAST_TIME = new Date().getTime();
 			setInterval(tick, 20);
 		});
