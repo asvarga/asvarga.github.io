@@ -76,9 +76,9 @@
 <p>Now doing <strong>get(ω)</strong> from any of the hollow nodes on the left will follow the path (()) and end up at the same correct node, yielding:</p>
 <p><img loading="lazy" alt="" src="/files/medium/be7w-BcqXrffl6dOVTbfAQ.png"></p>
 <p>Cool, but can we actually build this structure when we do <strong>put(n, L)</strong>? Yep, easily! While we <em>build</em> a new path for n like (), we simultaneously <em>follow</em> the same path from the existing node for L. Whenever the path goes right, if the <em>follow</em> path has an edge going left, we add one in the <em>build</em> path to the same node.</p>
-<p>For example, the diagram below depicts a <strong>put(1, L) </strong>using a path of (). The (dashed) <em>build</em> path follows the (bold) <em>follow</em> path, copying its (dotted) left edge to the topmost node.</p>
+<p>For example, the diagram below depicts a <strong>put(1, L)</strong> using a path of (). The (dashed) <em>build</em> path follows the (bold) <em>follow</em> path, copying its (dotted) left edge to the topmost node.</p>
 <p><img loading="lazy" alt="" src="/files/medium/bvLEiD3_WvufTMNOYUZqaA.png"></p>
-<p>The implementation of <strong>put</strong> is shown below. The function <strong>ord2path</strong> converts an ordinal to a list of parentheses. The functions <strong>l</strong> and <strong>r</strong> return the left and right element respectively when passed a pair, or else return null. The yellow box shows where the <em>build </em>path copies the left edge of the <em>follow</em> path.</p>
+<p>The implementation of <strong>put</strong> is shown below. The function <strong>ord2path</strong> converts an ordinal to a list of parentheses. The functions <strong>l</strong> and <strong>r</strong> return the left and right element respectively when passed a pair, or else return null. The yellow box shows where the <em>build</em> path copies the left edge of the <em>follow</em> path.</p>
 <p><img loading="lazy" alt="" src="/files/medium/OypdlGxnXj2Acu5pbuc6xQ.png"></p>
 <h3 id="example">Example</h3>
 <p>I don’t have a proof that this works, so I’ll distract you with another intuition-building example:</p>
