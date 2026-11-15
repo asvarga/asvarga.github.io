@@ -20,8 +20,35 @@
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 <script defer src="/assets/site.js"></script>
 <style>
-  .jumper-intro { text-align: center; }
-  .words { margin: 1.25rem 0; padding: 1rem 1.25rem; background: var(--card); border: 1px solid var(--line); border-radius: 0.6rem; color: var(--muted); }
+  /* Platforms only: the game stands on divs up to 800px wide (and the footer). */
+  html { background: var(--bg); }
+  body { min-height: 0; }            /* keep the footer right under the grid on tall screens */
+  main { padding-bottom: 4rem; }
+  .jumper-head { max-width: 48rem; margin-bottom: 1rem; }
+  .jumper-head h1 { margin-bottom: 0; }
+  .jumper-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: 36px; gap: 14px; }
+  .pf {
+    border-radius: 0.7rem; padding: 0.4rem 0.8rem; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: center; gap: 0.15rem;
+    font-size: 0.85rem; line-height: 1.35; color: var(--muted);
+  }
+  .pf h3 { margin: 0; font-size: 1rem; color: var(--text); }
+  .pf p { margin: 0; }
+  .pf .big { font-size: 1.8rem; text-align: center; }
+  .pf.a { background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); }
+  .pf.b { background: var(--accent-soft); }
+  .pf.b h3 { color: var(--accent); }
+  .pf.c { border: 2px dashed var(--line); }
+  .pf.d { background: var(--accent-hi); color: #fff; }
+  .pf.d h3, .pf.d p { color: #fff; }
+  .pf.e { background: repeating-linear-gradient(135deg, var(--accent-soft) 0 10px, transparent 10px 20px); border: 1px solid var(--line); }
+  .pf.f { background: var(--code-bg); border: 1px solid var(--line); font-family: var(--mono); }
+  .pf.hero { background: var(--card); border: 1px solid var(--accent); box-shadow: var(--shadow); align-items: flex-start; gap: 0.6rem; font-size: 0.95rem; color: var(--text); }
+  @media (max-width: 52rem) {
+    .jumper-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(36px, auto); }
+    .jumper-grid > .pf { grid-area: auto !important; }
+    .jumper-grid > .hero { grid-column: 1 / -1 !important; }
+  }
 </style>
 </head>
 <body>
@@ -35,38 +62,35 @@
   </div>
 </header>
 <main>
-<article class="wrap narrow">
-  <header class="post-head">
+<article class="wrap">
+  <div class="post-head jumper-head">
     <p class="crumbs"><a href="/site/">&larr; Projects</a></p>
     <h1>Div Jumper</h1>
-  </header>
-  <div class="prose">
-<div class="jumper-intro">
-  <p>Click the button to play on this page, or drag it to your bookmarks bar to play on any site.</p>
-  <p class="kbd-help">Arrow keys move &nbsp;·&nbsp; ↑ jumps (you can multi-jump) &nbsp;·&nbsp; ↓ drops through</p>
-  <p><a class="btn primary" id="button" href="javascript:var s=document.createElement('script');document.body.appendChild(s);s.id='divJumper';s.src='https://asvarga.com/site/div-jumper/divJumper.js';void(0);">Div Jumper</a></p>
-</div>
-<p>The penguin stands on the boxes below. Hop around!</p>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
-<div class="words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum gravida arcu eu fringilla. Etiam aliquam lectus quis malesuada fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac nisi tempor, placerat arcu et, sagittis enim. Phasellus vitae lorem eu odio fringilla malesuada et in dolor.</div>
   </div>
+  <section class="jumper-grid" aria-label="Platforms">
+    <div class="pf e" style="grid-area: 1 / 1 / span 2 / span 2"><span class="big">🐧</span></div>
+    <div class="pf hero" style="grid-area: 1 / 3 / span 3 / span 5"><p>Play on this page, or drag the button to your bookmarks bar and play on any site.</p><a class="btn primary" id="button" href="javascript:var s=document.createElement('script');document.body.appendChild(s);s.id='divJumper';s.src='https://asvarga.com/site/div-jumper/divJumper.js';void(0);">Div Jumper</a></div>
+    <div class="pf c" style="grid-area: 1 / 8 / span 1 / span 5"><p>↑ The title and the ☀️ button are platforms too</p></div>
+    <div class="pf b" style="grid-area: 3 / 1 / span 3 / span 2"><span class="big">🎈</span></div>
+    <div class="pf a" style="grid-area: 3 / 8 / span 2 / span 5"><h3>Almost there…</h3></div>
+    <div class="pf d" style="grid-area: 5 / 4 / span 2 / span 4"><h3>Nice hops!</h3></div>
+    <div class="pf a" style="grid-area: 6 / 9 / span 3 / span 4"><h3>Anywhere</h3><p>Drag the button to your bookmarks bar to bring the penguin to any site.</p></div>
+    <div class="pf b" style="grid-area: 7 / 1 / span 3 / span 3"><h3>🏔️ Halfway</h3></div>
+    <div class="pf e" style="grid-area: 8 / 6 / span 3 / span 3"><h3>Keep climbing ↑</h3></div>
+    <div class="pf c" style="grid-area: 10 / 4 / span 2 / span 2"><span class="big">🐟</span></div>
+    <div class="pf f" style="grid-area: 10 / 9 / span 3 / span 4"><h3>Multi-jump</h3><p>Works too, but every step here takes just one jump.</p></div>
+    <div class="pf a" style="grid-area: 11 / 1 / span 4 / span 3"><h3>↓ Drop</h3><p>Fall through the platform you’re on.</p></div>
+    <div class="pf d" style="grid-area: 12 / 6 / span 2 / span 3"><h3>↑ Jump</h3></div>
+    <div class="pf b" style="grid-area: 13 / 9 / span 4 / span 4"><h3>Platforms</h3><p>Every div up to 800px wide is one. So is the footer.</p></div>
+    <div class="pf a" style="grid-area: 14 / 4 / span 3 / span 3"><h3>← → Walk</h3></div>
+    <div class="pf e" style="grid-area: 15 / 7 / span 2 / span 2"><h3>Hop!</h3></div>
+    <div class="pf d" style="grid-area: 16 / 1 / span 1 / span 3"><p>🐧 Start here ↑</p></div>
+  </section>
 </article>
 </main>
 <footer class="site-footer">
   <div class="wrap">
-    <span>&copy; Alexander Varga</span>
+    <span>&copy; Alexander Varga <a class="summon" href="/site/div-jumper/" title="Summon the penguin" aria-label="Summon the Div Jumper penguin">🐧</a></span>
     <nav aria-label="Elsewhere"><a href="https://github.com/asvarga" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/alexander-varga/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.stackoverflow.com/users/1684606/alex-varga" target="_blank" rel="noopener">Stack Overflow</a><a href="https://www.youtube.com/user/avarga93/videos" target="_blank" rel="noopener">YouTube</a><a href="https://www.flickr.com/photos/124356640@N03" target="_blank" rel="noopener">Flickr</a><a href="https://www.vimeo.com/user99108597" target="_blank" rel="noopener">Vimeo</a></nav>
   </div>
 </footer>

@@ -128,6 +128,11 @@ main > .wrap.narrow { max-width: calc(var(--measure) + 2rem); }
 .site-footer nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; }
 .site-footer a { color: var(--muted); text-decoration: none; }
 .site-footer a:hover { color: var(--accent); }
+.site-footer .summon {
+  display: inline-block; margin-left: 0.35rem; opacity: 0.35; filter: grayscale(1);
+  transition: opacity 0.2s, filter 0.2s, transform 0.2s;
+}
+.site-footer .summon:hover, .site-footer .summon:focus-visible { opacity: 1; filter: none; transform: translateY(-2px) rotate(-8deg); }
 
 /* ---------- Shared bits ---------- */
 .eyebrow {

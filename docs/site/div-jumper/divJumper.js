@@ -44,6 +44,9 @@ if (!document.ranDivJumper) {
 			BODY.appendChild(elem);
 			window.scrollTo(0, BODY.scrollHeight);
 			CHAR = new Character(elem, 100, 0, 75);
+			// Start standing on the page's footer, if it has one.
+			var footer = document.querySelector("footer");
+			if (footer && canSit(footer)) CHAR.sitOn(footer);
 			LAST_TIME = new Date().getTime();
 			setInterval(tick, 20);
 		});
@@ -130,6 +133,17 @@ if (!document.ranDivJumper) {
 						}
 					}
 				}
+				this.follow();
+			}
+			// Scroll the page to keep the penguin in view (the arrow keys can't).
+			follow() {
+				var r = this.elem.getBoundingClientRect();
+				var margin = Math.min(160, window.innerHeight / 4);
+				if (r.top < margin) {
+					window.scrollBy(0, r.top - margin);
+				} else if (r.bottom > window.innerHeight - margin) {
+					window.scrollBy(0, r.bottom - (window.innerHeight - margin));
+				}
 			}
 			sitOn(elem) {
 				this.on = elem;
@@ -163,7 +177,11 @@ if (!document.ranDivJumper) {
 		}
 
 		function canSit(x) {
-			return x.tagName.toUpperCase() in SEATS && x.offsetWidth <= 800;//BODY.scrollWidth;
+			var tag = x.tagName.toUpperCase();
+			// A footer is a floor at any width; anything else wider than 800px is
+			// probably a layout wrapper rather than something to stand on.
+			if (tag === "FOOTER") return true;
+			return tag in SEATS && x.offsetWidth <= 800;//BODY.scrollWidth;
 		}
 
 		function getDiv(x) {
