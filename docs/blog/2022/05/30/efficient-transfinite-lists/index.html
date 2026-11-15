@@ -40,7 +40,7 @@
     <h1>Efficient Transfinite Lists</h1>
     <div class="meta"><time datetime="2022-05-30">May 30, 2022</time><span>6 min read</span><span class="tags"><a class="tag" href="/blog/#tag=datastructure">Data Structures</a><a class="tag" href="/blog/#tag=ordinal">Ordinal</a></span></div>
   </header>
-  <div class="prose">
+  <div class="prose" data-lightbox>
 <p>My last two posts were about <a href="/blog/2020/05/27/plotting-functions-on-ordinals/">ordinals</a> and <a href="/blog/2020/10/21/pure-lists-with-ologi-indexing/">pure lists</a>, and they got a combined whopping 11 claps, so I’m selling out and writing a post about both. In particular, this post is about a data structure I discovered for lists of transfinite length. A repo is linked at the bottom.</p>
 <h3 id="definitions">Definitions</h3>
 <p>So what is a transfinite list? Well a normal list is a mapping from natural numbers to values. To simplify matters for this post, we ignore the values themselves and consider only the <em>domain</em> of the mapping. For example, a normal list of length 3 will be represented as {0, 1, 2}. When encoded as linked lists, we can easily implement the following functions:</p>

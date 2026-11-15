@@ -74,8 +74,10 @@ document.querySelectorAll('a[href^="javascript:"][href*="divJumper.js"]').forEac
       img.setAttribute("role", "button");
       img.setAttribute("aria-label", (img.alt ? img.alt + ": " : "") + "view larger");
       const open = () => {
-        list = imgs;
-        show(n);
+        // Page only through images the reader can see: nothing from a
+        // collapsed <details> (e.g. a puzzle's hidden solution).
+        list = imgs.filter((i) => i === img || !i.closest("details:not([open])"));
+        show(list.indexOf(img));
         dlg.showModal();
       };
       img.addEventListener("click", open);

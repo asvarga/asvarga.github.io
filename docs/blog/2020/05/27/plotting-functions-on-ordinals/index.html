@@ -40,7 +40,7 @@
     <h1>Plotting Functions on Ordinals</h1>
     <div class="meta"><time datetime="2020-05-27">May 27, 2020</time><span>5 min read</span><span class="tags"><a class="tag" href="/blog/#tag=ordinal">Ordinal</a><a class="tag" href="/blog/#tag=math">Math</a></span></div>
   </header>
-  <div class="prose">
+  <div class="prose" data-lightbox>
 <p>Let’s say we’ve defined a function <em>f</em> from ordinals to ordinals and want to plot it like we might plot a function from integers to integers. We want to line up our ordinals on the x- and y-axes, and plot a point at (<em>x</em>, <em>f</em>(<em>x</em>)) for each ordinal <em>x</em>. Well where should we actually put those ordinals on the axes? This simple question is the topic of this post.</p>
 <p><img loading="lazy" alt="" src="/files/medium/EqnHBQWeWIUpATGui2DiVw.png"></p>
 <p>When we’re plotting functions from integers to integers, we simply space out all integers evenly on the axes. This clearly won’t work for our case because we’ll only be able to fit the first ω ordinals. What we need is literally a function <em>t</em> from ordinals to the (positive) real number line telling us where to put tick marks on the axes. This is akin to the trick people use to plot really big finite numbers: use a log-log plot to squish the really big numbers into a manageable and visually appealing domain using <em>t</em>(<em>x</em>) := log(<em>x</em>).</p>

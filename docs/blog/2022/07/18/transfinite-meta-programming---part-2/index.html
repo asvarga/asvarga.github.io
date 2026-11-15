@@ -40,7 +40,7 @@
     <h1>Transfinite Meta-Programming - Part 2</h1>
     <div class="meta"><time datetime="2022-07-18">July 18, 2022</time><span>15 min read</span><span class="tags"><a class="tag" href="/blog/#tag=ordinal">Ordinal</a><a class="tag" href="/blog/#tag=meta">Meta</a></span></div>
   </header>
-  <div class="prose">
+  <div class="prose" data-lightbox>
 <p>In <a href="/blog/2022/06/20/transfinite-meta-posting---part-1/">Part 1</a> I attempted to give some intuition for the process of iterating reflection to infinity and beyond: any time we can iterate reflection infinitely, we can reflect on this infinite process. In this post, I’ll be formalizing this notion in a simple programming language, and I recommend reading that last post before this one. Code is linked at the bottom.</p>
 <p>I will show how this formalization arises naturally by starting with the Lambda Calculus with De Bruijn indices and conservatively extending these indices to arbitrary ordinals. I will try to break the large language and program changes into many small changes with the hope that this will minimize the amount of explanation required.</p>
 <p>Since we are dealing with meta-programming and quotes, it is important to distinguish concepts within the language from those outside of it. I will use markdown code blocks to name terms of the language from the outside. I will call the language used to implement the full language the "implementation language". I used Scala as the implementation language, but this should be irrelevant for this post. Also note that while I resort to operational nomenclature to help convey concepts, the language presented here (and its implementation) are purely functional.</p>
