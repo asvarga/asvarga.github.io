@@ -7,9 +7,11 @@ and no framework: what's committed is what's served.
 
 - Preview: `main` (serves `docs/` at http://127.0.0.1:8000)
 - Check: `check` (broken links, headers/footers that drifted apart, stale
-  feed or sitemap; runs before every publish and on pull requests)
-- Feed and sitemap: `feeds` regenerates `docs/blog/feed.xml` and
-  `docs/sitemap.xml` after adding or renaming pages
+  feed, sitemap or search index; runs before every publish and on pull requests)
+- Feed, sitemap and search index: `feeds` regenerates `docs/blog/feed.xml`,
+  `docs/sitemap.xml` and `docs/search.json` after adding, renaming or editing
+  pages. `search.json` lets other sites search this one: every post, project
+  and note with its text, plus the projects that have no page here
 - Dependencies: Dependabot opens weekly PRs for the GitHub Actions; the weekly
   "Update dependencies" workflow opens PRs for the cdnjs libraries the pages
   load (`bump-cdn`, also runnable by hand) and for `nix/flake.lock`
@@ -39,7 +41,7 @@ and no framework: what's committed is what's served.
 3. Give its blog-index entry a thumbnail: a ~640px-wide 3:2 image in
    `docs/files/thumbs/<slug>.jpg`.
 4. Point the neighbouring posts' Older/Newer links at it.
-5. Run `feeds` (updates the feed and sitemap), then `check`.
+5. Run `feeds` (updates the feed, sitemap and search index), then `check`.
 
 Links that leave the site get `target="_blank" rel="noopener"`.
 

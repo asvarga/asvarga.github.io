@@ -1,20 +1,27 @@
 #!/usr/bin/env python3
-"""bin/feeds — regenerate docs/blog/feed.xml (Atom) and docs/sitemap.xml.
+"""bin/feeds — regenerate docs/blog/feed.xml (Atom), docs/sitemap.xml and
+docs/search.json.
 
-The site has no build step; these two files are derived from the pages, so
-re-run this after adding or renaming a page or post (`bin/check` fails if
-they're stale):
+The site has no build step; these files are derived from the pages, so
+re-run this after adding, renaming or editing a page or post (`bin/check`
+fails if they're stale):
 
-    feeds            # rewrite both files
-    feeds --check    # exit 1 if either file is out of date (used by bin/check)
+    feeds            # rewrite all three files
+    feeds --check    # exit 1 if any file is out of date (used by bin/check)
 
 Posts are the pages under docs/blog/YYYY/MM/DD/<slug>/. The sitemap lists
 every page that has the site shell (a canonical link to itself) except
 redirects, the 404 page and anything marked <meta name="robots" content="noindex">.
+search.json is a search index for other sites (GitHub Pages serves it with
+CORS open): every sitemap page but the listings, with its kind, title, date,
+tags, summary and text, plus each project card on the Projects page that has
+no page of its own (`external: true` when it leaves the site).
 """
 import html
+import json
 import re
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -70,8 +77,9 @@ def feed():
 """
 
 
-def sitemap():
-    urls = []
+def pages():
+    """(url, html) of every page in the sitemap, in path order."""
+    out = []
     for f in sorted(DOCS.rglob("*.html")):
         page = f.read_text(errors="ignore")
         url = canonical(page)
@@ -79,13 +87,111 @@ def sitemap():
         if (not url.startswith(SITE) or url != SITE + rel or 'http-equiv="refresh"' in page
                 or f.name == "404.html" or 'content="noindex"' in page):
             continue
-        urls.append(url)
-    body = "".join(f"  <url><loc>{escape(u)}</loc></url>\n" for u in urls)
+        out.append((url, page))
+    return out
+
+
+def sitemap():
+    body = "".join(f"  <url><loc>{escape(u)}</loc></url>\n" for u, _ in pages())
     return f'<?xml version="1.0" encoding="utf-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}</urlset>\n'
 
 
+class MainText(HTMLParser):
+    """The words a reader sees in <main>, without its header, footer and nav."""
+
+    SKIP = {"header", "footer", "nav", "script", "style", "svg", "button", "template"}
+    VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
+    # Inside a run of text, so no space at their edges ("post," not "post ,").
+    INLINE = {"a", "abbr", "b", "code", "em", "i", "kbd", "mark", "q", "s", "small", "span", "strong", "sub", "sup", "u", "var"}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.main = self.skip = 0
+        self.parts = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "main":
+            self.main += 1
+        elif self.main and tag not in self.VOID:
+            if self.skip or tag in self.SKIP:
+                self.skip += 1
+            elif tag not in self.INLINE:
+                self.parts.append(" ")
+
+    def handle_endtag(self, tag):
+        if tag == "main":
+            self.main -= 1
+        elif self.main and tag not in self.VOID:
+            if self.skip:
+                self.skip -= 1
+            elif tag not in self.INLINE:
+                self.parts.append(" ")
+
+    def handle_data(self, data):
+        if self.main and not self.skip:
+            self.parts.append(data)
+
+
+# Enough of any page to find it by; a long dump (the example trace) stops here.
+TEXT_LIMIT = 20000
+
+
+def main_text(page):
+    parser = MainText()
+    parser.feed(page)
+    return " ".join("".join(parser.parts).split())[:TEXT_LIMIT]
+
+
+def strip_tags(s):
+    return " ".join(html.unescape(re.sub(r"<[^>]+>", " ", s)).split())
+
+
+# The listings: they link to everything else, so they'd only crowd results.
+LISTINGS = {f"{SITE}/", f"{SITE}/blog/", f"{SITE}/site/", f"{SITE}/wiki/"}
+KINDS = {"blog": "post", "site": "project", "wiki": "note"}
+
+
+def search():
+    """Everything another site needs to search this one: each post, project and
+    note with its text, plus the projects that have no page here (built apps and
+    external ones), from their cards on the Projects page."""
+    entries = {}
+    for url, page in pages():
+        if url in LISTINGS:
+            continue
+        section = url.removeprefix(SITE + "/").split("/")[0]
+        date = re.search(r'<time datetime="(\d{4}-\d{2}-\d{2})"', page)
+        tags = [strip_tags(t) for t in re.findall(r'class="tag"[^>]*>(.*?)<', page.split('<div class="prose"')[0])]
+        entries[url] = dict(
+            url=url,
+            kind=KINDS.get(section, "page"),
+            title=html.unescape(re.search(r"<title>(.*?)</title>", page).group(1)).rsplit(" · ", 1)[0],
+            date=date.group(1) if date and section == "blog" else None,
+            tags=tags,
+            summary=meta(page, "description"),
+            text=main_text(page),
+        )
+    projects = (DOCS / "site/index.html").read_text()
+    for card in re.findall(r'<li class="card"[^>]*>(.*?)</li>', projects, re.S):
+        link = re.search(r'<h3>.*?<a href="([^"]+)"[^>]*>(.*?)</a>', card, re.S)
+        if not link:
+            continue
+        href, title = html.unescape(link.group(1)), strip_tags(link.group(2))
+        url = SITE + href if href.startswith("/") else href
+        summary = strip_tags((re.search(r"<p>(.*?)</p>", card, re.S) or [None, ""])[1])
+        tags = [strip_tags(t).lstrip("#") for t in re.findall(r'<span class="tag">(.*?)</span>', card)]
+        if url in entries:
+            entries[url]["tags"] = sorted(set(entries[url]["tags"]) | set(tags))
+            continue
+        entries[url] = dict(url=url, kind="project", title=title, date=None, tags=tags, summary=summary, text=summary)
+        if not url.startswith(SITE + "/"):
+            entries[url]["external"] = True
+    return json.dumps(dict(version=1, site=SITE, entries=sorted(entries.values(), key=lambda e: e["url"])),
+                      ensure_ascii=False, indent=1) + "\n"
+
+
 def main():
-    files = {DOCS / "blog/feed.xml": feed(), DOCS / "sitemap.xml": sitemap()}
+    files = {DOCS / "blog/feed.xml": feed(), DOCS / "sitemap.xml": sitemap(), DOCS / "search.json": search()}
     if "--check" in sys.argv[1:]:
         stale = [str(p.relative_to(DOCS)) for p, text in files.items() if not p.exists() or p.read_text() != text]
         if stale:
