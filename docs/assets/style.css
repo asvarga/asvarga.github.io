@@ -402,9 +402,25 @@ img.zoomable:focus-visible { outline: 2px solid var(--accent-hi); outline-offset
 
 /* ---------- 404 ---------- */
 .notfound { text-align: center; padding: 4rem 0; }
-.notfound h1 { font-size: clamp(3rem, 12vw, 6rem); margin: 0; color: var(--accent-hi); letter-spacing: -0.03em; }
+.notfound h1 { font-size: clamp(4rem, 20vw, 9rem); line-height: 1; margin: 0; color: var(--accent-hi); letter-spacing: -0.03em; }
+/* The digits drift, unless the frog is standing on them (.holding-still). */
+.notfound .digit { display: inline-block; animation: nf-drift 6s ease-in-out infinite; }
+.notfound .digit:nth-child(2) { animation-duration: 7s; animation-delay: -2s; }
+.notfound .digit:nth-child(3) { animation-duration: 5.5s; animation-delay: -4s; }
+.notfound.holding-still .digit { animation: none; }
+@keyframes nf-drift {
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  33% { transform: translate(0.04em, -0.08em) rotate(4deg); }
+  66% { transform: translate(-0.03em, 0.05em) rotate(-3deg); }
+}
+.notfound .nf-lede { font-size: clamp(1.1rem, 2.6vw, 1.3rem); margin: 1rem 0 0.4rem; }
+.notfound .nf-path { color: var(--muted); margin: 0; overflow-wrap: anywhere; }
+.notfound .nf-search { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); margin: 1.5rem 0 0; min-height: 1.5em; }
+.notfound .nf-search output { color: var(--accent); }
+.notfound .nf-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 2rem; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; }
   .card:hover, .btn:hover { transform: none; }
+  .notfound .digit { animation: none; }
 }

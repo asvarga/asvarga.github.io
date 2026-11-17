@@ -45,10 +45,39 @@
 </header>
 <main>
 <div class="wrap notfound">
-  <h1>404</h1>
-  <p>That page drifted off somewhere.</p>
-  <p><a class="btn" href="/">Go home</a></p>
+  <h1 aria-label="404"><span class="digit" data-platform>4</span><span class="digit" data-platform>0</span><span class="digit" data-platform>4</span></h1>
+  <p class="nf-lede">That page drifted off somewhere.</p>
+  <p class="nf-path">Nothing lives at <code id="nf-path">this address</code>.</p>
+  <p class="nf-search" aria-live="polite"><span id="nf-label">searching page</span> <output id="nf-count">1…</output></p>
+  <p class="nf-actions"><a class="btn primary" href="/">Go home</a><a class="btn" href="/blog/">Read something that exists</a><a class="btn nf-frog" href="javascript:var s=document.createElement('script');document.body.appendChild(s);s.id='divJumper';s.src='https://asvarga.com/site/div-jumper/divJumper.js';void(0);" title="The frog will have a look">🐸 Send the frog</a></p>
 </div>
+<script>
+// The search: count through every page, then the transfinite ones, and still
+// come up empty. With reduced motion, skip straight to the verdict.
+(function () {
+  var p = location.pathname;
+  try { p = decodeURI(p); } catch (e) {}
+  document.getElementById("nf-path").textContent = p;
+  var label = document.getElementById("nf-label");
+  var out = document.getElementById("nf-count");
+  var steps = ["1", "2", "3", "4", "17", "404", "10⁶", "10¹⁰⁰", "ω", "ω+1", "ω+404", "ω·2", "ω²", "ω^ω", "ε₀"];
+  function done() {
+    label.textContent = "searched every page up to";
+    out.textContent = "ε₀. Not there.";
+  }
+  // The frog needs solid ground, so the digits hold still while it's here.
+  document.querySelector(".nf-frog").addEventListener("click", function () {
+    document.querySelector(".notfound").classList.toggle("holding-still");
+  });
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return done();
+  var i = 0;
+  (function tick() {
+    out.textContent = steps[i] + "…";
+    if (++i < steps.length) setTimeout(tick, i < 8 ? 180 : 500);
+    else setTimeout(done, 900);
+  })();
+})();
+</script>
 </main>
 <footer class="site-footer">
   <div class="wrap">
