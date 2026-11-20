@@ -275,9 +275,6 @@ a:hover .arrow { transform: translateX(3px); }
 /* Masonry: site.js spans each card over as many 4px rows as it is tall (plus
    the gap), so short cards don't leave holes and order stays left to right. */
 .project-grid.masonry { grid-auto-rows: 4px; row-gap: 0; align-items: start; }
-/* Cards in a few heights: square and tall ones crop their picture taller. */
-.project-grid .card.square .shot { aspect-ratio: 1; }
-.project-grid .card.tall .shot { aspect-ratio: 4 / 5; }
 
 /* ---------- Blog index ---------- */
 .filter { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: -1rem 0 2.25rem; }
