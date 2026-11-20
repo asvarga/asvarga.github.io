@@ -197,6 +197,9 @@ main > .wrap.narrow { max-width: calc(var(--measure) + 2rem); }
 .page-head { margin-bottom: 2.5rem; }
 .page-head h1 { font-size: clamp(2.1rem, 6vw, 2.8rem); letter-spacing: -0.02em; margin: 0; }
 .page-head p { color: var(--muted); font-size: 1.1rem; margin: 0.6rem 0 0; max-width: 40rem; }
+.feed-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.feed-link { display: inline-flex; align-items: center; gap: 0.35rem; font: 0.85rem/1 var(--mono); color: var(--muted); text-decoration: none; }
+.feed-link:hover, .feed-link:focus-visible { color: var(--accent); }
 .meta { font: 0.85rem/1.5 var(--mono); color: var(--muted); display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.6rem; }
 .meta > * + *::before { content: "·"; margin-right: 0.6rem; opacity: 0.6; }
 .tags { display: inline-flex; flex-wrap: wrap; gap: 0.35rem; }
