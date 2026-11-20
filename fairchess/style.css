@@ -1,0 +1,372 @@
+/* Fair Chess's own look; art/arcade.css has what every pond arcade game shares. */
+:root {
+  --light: #e9e2c9;
+  --dark: #6f9a83;
+  --white-req: #f6c85f;
+  --black-req: #ff7eb6;
+  --stop: #ff5a4f;
+  --held: #ff9f43;
+  --size: min(92vw, calc(100vh - 11.5rem), 40rem);
+}
+
+body {
+  background: radial-gradient(circle at 50% 40%, #234044, var(--night) 70%);
+}
+
+#stage {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.4rem;
+  padding-top: 0.5rem;
+}
+
+#board {
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgb(0 0 0 / 45%), 0 0 0 3px rgb(244 241 228 / 12%);
+  touch-action: manipulation;
+  user-select: none;
+}
+
+#squares {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template: repeat(8, 1fr) / repeat(8, 1fr);
+}
+
+.sq {
+  position: relative;
+  background: var(--light);
+  cursor: pointer;
+}
+
+.sq.dark {
+  background: var(--dark);
+}
+
+.sq .coord {
+  position: absolute;
+  font-size: calc(var(--size) / 48);
+  font-weight: 700;
+  color: rgb(30 50 45 / 55%);
+  pointer-events: none;
+}
+
+.sq .rank {
+  top: 3%;
+  left: 5%;
+}
+
+.sq .file {
+  bottom: 2%;
+  right: 6%;
+}
+
+.sq.from {
+  box-shadow: inset 0 0 0 calc(var(--size) / 120) var(--accent);
+  background-image: linear-gradient(rgb(246 200 95 / 35%), rgb(246 200 95 / 35%));
+}
+
+.sq.target::after {
+  content: "";
+  position: absolute;
+  inset: 37%;
+  border-radius: 50%;
+  background: rgb(20 40 40 / 30%);
+}
+
+.sq.target.take::after {
+  inset: 4%;
+  background: none;
+  border: calc(var(--size) / 110) solid rgb(20 40 40 / 30%);
+}
+
+.sq.cursor {
+  outline: calc(var(--size) / 160) solid var(--black-req);
+  outline-offset: calc(var(--size) / -160);
+  z-index: 1;
+}
+
+.sq.chosen {
+  background-image: linear-gradient(rgb(246 200 95 / 55%), rgb(246 200 95 / 55%));
+}
+
+#pieces {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.piece {
+  position: absolute;
+  width: 12.5%;
+  height: 12.5%;
+  display: grid;
+  place-items: center;
+  font-size: calc(var(--size) / 9.5);
+  line-height: 1;
+  font-family: "Noto Sans Symbols 2", "Segoe UI Symbol", "DejaVu Sans", serif;
+  transition: left 0.42s cubic-bezier(0.5, 0, 0.3, 1), top 0.42s cubic-bezier(0.5, 0, 0.3, 1), opacity 0.4s, transform 0.4s;
+}
+
+.piece.w {
+  color: #fffdf3;
+  text-shadow: 0 0 1px #1d2b29, 0 0 1px #1d2b29, 0 0 2px #1d2b29, 0 2px 3px rgb(0 0 0 / 35%);
+}
+
+.piece.b {
+  color: #1d2422;
+  text-shadow: 0 0 1px #f4f1e4, 0 2px 3px rgb(0 0 0 / 30%);
+}
+
+.piece.gone {
+  opacity: 0;
+  transform: scale(0.4) rotate(25deg);
+}
+
+.piece.shake {
+  animation: shake 0.35s;
+}
+
+@keyframes shake {
+  25% {
+    translate: -4% 0;
+  }
+  75% {
+    translate: 4% 0;
+  }
+}
+
+#arrows {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#arrows line {
+  stroke-width: 0.16;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+
+#arrows .w {
+  stroke: var(--white-req);
+  fill: var(--white-req);
+}
+
+#arrows .b {
+  stroke: var(--black-req);
+  fill: var(--black-req);
+}
+
+#arrows line.stop,
+#arrows line.held {
+  stroke-dasharray: 0.18 0.14;
+}
+
+#arrows .stop,
+#arrows .head.stop {
+  stroke: var(--stop);
+  fill: var(--stop);
+}
+
+#arrows .held,
+#arrows .head.held {
+  stroke: var(--held);
+  fill: var(--held);
+}
+
+#arrows line.made {
+  opacity: 0.55;
+}
+
+#arrows .old {
+  opacity: 0.35;
+}
+
+#arrows text {
+  font-size: 0.55px;
+  font-weight: 800;
+  text-anchor: middle;
+  dominant-baseline: central;
+  fill: #fff;
+  stroke: var(--stop);
+  stroke-width: 0.08px;
+  paint-order: stroke;
+}
+
+#arrows text.held {
+  stroke: var(--held);
+}
+
+/* Each step of the merge, beside the board where there's room. */
+#trace {
+  position: fixed;
+  top: 4rem;
+  right: 16px;
+  bottom: 4.5rem;
+  width: min(22rem, calc((100vw - var(--size)) / 2 - 32px));
+  overflow-y: auto;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  line-height: 1.4;
+  font-size: 0.92rem;
+}
+
+#trace[hidden] {
+  display: none;
+}
+
+#trace h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+#trace p {
+  margin: 0 0 0.6rem;
+  color: var(--dim);
+}
+
+#trace p:empty {
+  display: none;
+}
+
+#trace ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+#trace li {
+  padding: 0.35rem 0.55rem;
+  border-left: 3px solid var(--line);
+  animation: arrive 0.3s;
+}
+
+#trace li.made {
+  border-color: #7bd389;
+}
+
+#trace li.blocked {
+  border-color: var(--stop);
+}
+
+#trace li.held {
+  border-color: var(--held);
+}
+
+#trace li.orders {
+  font-variant-numeric: tabular-nums;
+  color: var(--dim);
+}
+
+#trace li.done {
+  border-color: var(--accent);
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    translate: 0.6rem 0;
+  }
+}
+
+@media (max-width: 1150px) {
+  #trace {
+    display: none;
+  }
+}
+
+.figlist {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.4rem;
+  margin: 0.9rem 0 0.6rem;
+  padding: 0;
+}
+
+.figlist button {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  line-height: 1.25;
+}
+
+.figlist small {
+  display: block;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+#figures a {
+  color: var(--accent);
+}
+
+#promote {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
+#promote[hidden] {
+  display: none;
+}
+
+#promote button {
+  font-size: 1.2rem;
+  padding: 0.15rem 0.5rem;
+}
+
+#grid {
+  grid-template-columns: 1fr;
+}
+
+#help ul {
+  padding-left: 1.2rem;
+  margin: 0.4rem 0;
+}
+
+#help li {
+  margin: 0.3rem 0;
+}
+
+#help a {
+  color: var(--accent);
+}
+
+#message {
+  position: static;
+  min-height: 2.2em;
+  width: var(--size);
+  max-width: none;
+}
+
+#message:empty {
+  display: block;
+  visibility: hidden;
+}
+
+@media (max-width: 520px) {
+  :root {
+    --size: min(96vw, calc(100vh - 13rem));
+  }
+}
+
+#arrows text.stop,
+#arrows text.held {
+  fill: #fff;
+}

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transfinite Zippers · Alexander Varga</title>
+<meta name="description" content="In my previous post, I described an approach for extending multi-stage programming (MSP) to infinity and beyond. We start with a simple computing “machine” M[0] such as the lambda calculus. Each machine M[a] has a…">
+<meta property="og:title" content="Transfinite Zippers">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asvarga.com/blog/2023/03/05/transfinite-zippers/">
+<meta property="og:site_name" content="Alexander Varga">
+<meta property="og:description" content="In my previous post, I described an approach for extending multi-stage programming (MSP) to infinity and beyond. We start with a simple computing “machine” M[0] such as the lambda calculus. Each machine M[a] has a…">
+<meta property="og:image" content="https://asvarga.com/files/medium/ZT01j3Vf5mPfTD3I5ELU9g.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://asvarga.com/blog/2023/03/05/transfinite-zippers/">
+<link rel="icon" href="/files/triangle-wave.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/files/triangle-wave-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;family=Geist:wght@300..800&amp;family=Geist+Mono:wght@400..700&amp;display=swap">
+<link rel="alternate" type="application/atom+xml" title="Alexander Varga" href="/blog/feed.xml">
+<link rel="stylesheet" href="/assets/style.css?v=9ca24ec">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="/assets/site.js?v=9ca24ec"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 12L17 22L7.1 6.04L4.24 12H2L7 2L16.9 17.96L19.76 12H22Z"/></svg><span>Alexander Varga</span></a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/blog/" aria-current="page">Blog</a><a href="/wiki/Me/">Me</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </nav>
+  </div>
+</header>
+<main>
+<article class="wrap narrow">
+  <header class="post-head">
+    <p class="crumbs"><a href="/blog/">&larr; Blog</a></p>
+    <h1>Transfinite Zippers</h1>
+    <div class="meta"><time datetime="2023-03-05">March 5, 2023</time><span>5 min read</span><span class="tags"><a class="tag" href="/blog/#tag=ordinal">Ordinal</a><a class="tag" href="/blog/#tag=datastructure">Data Structures</a></span></div>
+  </header>
+  <div class="prose" data-lightbox>
+<p><strong>Try it:</strong> <a href="/zippers/">Transfinite Zippers</a>, an interactive version of this post that runs in your browser.</p>
+<p>In my <a href="/blog/2022/07/18/transfinite-meta-programming---part-2/">previous post</a>, I described an approach for extending multi-stage programming (MSP) to infinity and beyond. We start with a simple computing “machine” M[0] such as the lambda calculus. Each machine M[a] has a successor machine M[a+1] which is capable of building and reasoning about programs from M[a], yielding towers of nested machines. From there, we note that MSP itself can’t be implemented in any such finite M[n], but must exist in some limit machine M[ω], yielding transfinite towers of machines M[a] for each ordinal a.</p>
+<p>In <a href="/blog/2022/05/30/efficient-transfinite-lists/">another post</a>, I defined a data structure used by such transfinite machines to encode mappings of variable indices to bound values. This post describes a new and improved data structure for these mappings.</p>
+<p>During the evaluation of a program in which a function was passed the values A, B, C, D, in that order, we might see a mapping like:</p>
+<figure><img loading="lazy" alt="Figure 1" src="/files/medium/ZT01j3Vf5mPfTD3I5ELU9g.png"><figcaption>Figure 1</figcaption></figure>
+<p>The orange house holds the most recently bound value, in this case D, which can be immediately retrieved. The orange buckets hold other values we can access at offsets {1: C, 2: B, 3: A}. The pink diamonds build the intermediate list structure, and the green circles can be ignored for now. We effectively have a simple linked list. From here, we might do a <code>move(1)</code> to get to the mapping:</p>
+<figure><img loading="lazy" alt="Figure 2" src="/files/medium/hYbzCz4yEpmMidTGzS94PA.png"><figcaption>Figure 2</figcaption></figure>
+<p>The house now points to the value C for retrieval. Note how we have retained access to D by pointing to the left. We effectively have a pair of linked lists, sometimes called a zipper list. Another <code>move(1)</code> gets us to:</p>
+<figure><img loading="lazy" alt="Figure 3" src="/files/medium/xklnYz9u4Vfl_MNX1uu1dw.png"><figcaption>Figure 3</figcaption></figure>
+<p>This encodes a function from index differences to values {-2: D, -1: C, 0: B, 1: A}. Now it’s time to jump to a new machine with a <code>move(ω)</code>, followed by a <code>set(E)</code> to help keep track of where we are:</p>
+<figure><img loading="lazy" alt="Figure 4" src="/files/medium/hFxCq10IywgTClfOw9dwgg.png"><figcaption>Figure 4</figcaption></figure>
+<p>This movement is what happens when the interpreter begins processing a <code>[`ω]</code> quote. The values A, B, C, D live in the successor machine to that of E. Note that that value E is stored at a new place beyond the reach of any number of <code>move(1)</code>s. I’ll explain the meaning of the green and blue circles soon, but to make it clearer that we’re starting to build up a tree structure, let’s do some <code>move(+/-1)</code>s in the new machine:</p>
+<figure><img loading="lazy" alt="Figure 5" src="/files/medium/hsSABIJ4e6oQjFLwHtHl6A.png"><figcaption>Figure 5</figcaption></figure>
+<p>We can now see some hierarchical structure to the values. If we think of this as part of a family tree focusing on F, values G and E are its 0th cousins, also known as siblings, and values A-D are its 1st cousins. This data structure stores the additional information of a “chosen child” for each “uncle”. For example, B is chosen, because that was the value in focus when we last left that machine. Now let’s move back to that machine with a <code>move(ω)</code>:</p>
+<figure><img loading="lazy" alt="Figure 6" src="/files/medium/H7ejZtqS__oh42yDS_0tKg.png"><figcaption>Figure 6</figcaption></figure>
+<p>We’re now once again focused on B, and the F where we were is left chosen by its parent. We effectively have a rose tree with zipper lists of children. This movement corresponds to a <code>[,ω]</code> unquote. Now we might do some local processing with a <code>move(-1)</code> followed by quoting with another <code>move(-ω)</code>:</p>
+<figure><img loading="lazy" alt="Figure 7" src="/files/medium/ID-J6hNR4fwUNvk4cY79LQ.png"><figcaption>Figure 7</figcaption></figure>
+<p>Unsurprisingly, we find ourselves at F again, but this is a crucial improvement over <a href="/blog/2022/05/30/efficient-transfinite-lists/">transfinite lists</a> which would have forgotten the local context/values/siblings in this machine. I won’t try to justify it here, but this retentive behavior is what is needed to enable programs to not just build, but reason about programs without losing information about bound variables.</p>
+<p>Now we move beyond MSP by jumping to an entirely different infinite tower of machines with a <code>move(-ω²)</code> corresponding to a <code>[`ω²]</code> “big” quote:</p>
+<figure><img loading="lazy" alt="Figure 8" src="/files/medium/ihXrltgsch0qoG8g3mtH3w.png"><figcaption>Figure 8</figcaption></figure>
+<p>Actually, this is lonely and weird, so let’s <code>move(ω²)</code> back:</p>
+<figure><img loading="lazy" alt="Figure 9" src="/files/medium/Hwjo3dU2GtedW9jPlucCbw.png"><figcaption>Figure 9</figcaption></figure>
+<p>Okay, that’s a little more familiar, so it’s time to talk about the green and blue circles. From where we stand at F, we see a winding vine of green circles taking us upwards to our ancestors in the tree. This vine is actually a trie of left and right movements, and these movements correspond to left and right parens in the bounded parentheses notation for ordinals that I wrote about <a href="/blog/2020/05/27/plotting-functions-on-ordinals/">here</a>. As I did there, I’ll replace left and right parentheses with <code>\</code> and <code>/</code> respectively. Note that this ordinal notation only gets us up to ε₀ but the technique described here can be extended to higher ordinal notations fitting certain criteria.</p>
+<p>In figures 1–3, we were moving by integer multiples of 1, which is represented by <code>\/</code>. This tells us to move up the trie following first a <code>\</code> and then a <code>/</code> edge to reach a dark pink diamond, move along the zipper by the integer multiple to a light pink diamond, and then follow the reversed path downwards, rebuilding the vine in the new location.</p>
+<p>In figures 4–7, we were moving between machines by integer multiples of ω, which is represented by <code>\\//</code>, and so we follow that path up and down to get to 1st cousins. In figures 8–9, we moved by integer multiples of ω², which is represented by <code>\\/\//</code>, which is the longest path we see above us from F, and takes us to its 2nd cousin H.</p>
+<p>The blue circles with the horizontal lines enable this by keeping around the unfocused structure. They are <em>created</em> when following a path upwards whenever we move left and store the right path we leave behind. They are <em>used</em> when following a left path downwards and get reattached to the right of a green trie node.</p>
+<p>Instead of trying to explain why this works, I’ll let the diagrams speak for themselves. Let’s finish with a <code>move(-ω^ω)</code>:</p>
+<figure><img loading="lazy" alt="Figure 10" src="/files/medium/EBn-glO66Z4HOE3E5IM0iA.png"><figcaption>Figure 10</figcaption></figure>
+<p>And a <code>move(ω^ω)</code> back:</p>
+<figure><img loading="lazy" alt="Figure 11" src="/files/medium/JxWfKczmc5ftIF8mUq6DCQ.png"><figcaption>Figure 11</figcaption></figure>
+<p>Note that we still have two important properties that the transfinite lists had. First, the data structures are pure and immutable which is needed for use in recursively defined interpreters. Second, the amount of work done for each movement is proportional to the size of the <em>representation</em> of the ordinal, and is independent of the size of the whole data structure. It may look like lots of changes are happening from figure 10 to 11, but observe that the structures pointed to by blue circles in figure 10 are entirely untouched in figure 11.</p>
+<p>We effectively end up with zipper versions of the type family:</p>
+<figure><img loading="lazy" alt="Figure 12" src="/files/medium/ZZ01nYCn8uRJ3oOIHojjJg.png"><figcaption>Figure 12</figcaption></figure>
+<p>I’ll end by returning to the family tree analogy. If a <code>move(ω^n)</code> takes us to our nth cousins through n generations of ancestors, a <code>move(ω^ω)</code> takes us through individuals ancestral to yet distinct from all of our ancestors. These individuals can have siblings and relatives of their own. I’m told certain belief systems have names for such individuals.</p>
+<p>Thanks to my wife <a href="https://www.linkedin.com/in/mary-kate-bell-5b620a77/" target="_blank" rel="noopener">Mary Kate Bell</a> for consulting on the diagram vibes, and to <a href="https://www.linkedin.com/in/stefano-gentili-a20b2218b/" target="_blank" rel="noopener">Stefano Gentili</a> for helping me understand what on earth I was defining in the first place.</p>
+  </div>
+  <footer class="post-foot">
+    <nav class="pager" aria-label="More posts"><a class="prev" href="/blog/2022/07/18/transfinite-meta-programming---part-2/"><small>&larr; Older</small>Transfinite Meta-Programming - Part 2</a><a class="next" href="/blog/2024/06/22/fair-chess-and-simultaneous-games/"><small>Newer &rarr;</small>Fair Chess and Simultaneous Games</a></nav>
+  </footer>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <span>&copy; Alexander Varga <a class="build-info" href="https://github.com/asvarga/asvarga.github.io/commits/main" target="_blank" rel="noopener" aria-label="When this site was published"><svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r="0.6" fill="currentColor"/></svg><span class="build-tip" role="tooltip"></span></a></span>
+    <nav aria-label="Elsewhere"><a class="social" href="https://github.com/asvarga" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a><a class="social" href="https://www.linkedin.com/in/alexander-varga/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><a class="social" href="https://www.stackoverflow.com/users/1684606/alex-varga" target="_blank" rel="noopener" aria-label="Stack Overflow" title="Stack Overflow"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M15.725 0l-1.72 1.277 6.39 8.588 1.716-1.277L15.725 0zm-3.94 3.418l-1.369 1.644 8.225 6.85 1.369-1.644-8.225-6.85zm-3.15 4.465l-.905 1.94 9.702 4.517.904-1.94-9.701-4.517zm-1.85 4.86l-.44 2.093 10.473 2.201.44-2.092-10.473-2.203zM1.89 15.47V24h19.19v-8.53h-2.133v6.397H4.021v-6.396H1.89zm4.265 2.133v2.13h10.66v-2.13H6.154Z"/></svg></a><a class="social" href="https://www.youtube.com/user/avarga93/videos" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a><a class="social" href="https://www.flickr.com/photos/124356640@N03" target="_blank" rel="noopener" aria-label="Flickr" title="Flickr"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5.334 6.666C2.3884 6.666 0 9.055 0 12c0 2.9456 2.3884 5.334 5.334 5.334 2.9456 0 5.332-2.3884 5.332-5.334 0-2.945-2.3864-5.334-5.332-5.334zm13.332 0c-2.9456 0-5.332 2.389-5.332 5.334 0 2.9456 2.3864 5.334 5.332 5.334C21.6116 17.334 24 14.9456 24 12c0-2.945-2.3884-5.334-5.334-5.334Z"/></svg></a><a class="social" href="https://www.vimeo.com/user99108597" target="_blank" rel="noopener" aria-label="Vimeo" title="Vimeo"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M23.9765 6.4168c-.105 2.338-1.739 5.5429-4.894 9.6088-3.2679 4.247-6.0258 6.3699-8.2898 6.3699-1.409 0-2.578-1.294-3.553-3.881l-1.9179-7.1138c-.719-2.584-1.488-3.878-2.312-3.878-.179 0-.806.378-1.8809 1.132l-1.129-1.457a315.06 315.06 0 003.501-3.1279c1.579-1.368 2.765-2.085 3.5539-2.159 1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.5069.5389 2.45 1.1309 3.674 1.7759 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.8679 3.434-5.7568 6.7619-5.6368 2.4729.06 3.6279 1.664 3.4929 4.7969z"/></svg></a><a class="social" href="/blog/feed.xml" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><circle cx="5" cy="19" r="2.2"/><path d="M2.8 9.5v3a8.7 8.7 0 0 1 8.7 8.7h3A11.7 11.7 0 0 0 2.8 9.5zm0-6v3a14.7 14.7 0 0 1 14.7 14.7h3A17.7 17.7 0 0 0 2.8 3.5z"/></svg></a><a class="summon" href="javascript:var s=document.createElement('script');document.body.appendChild(s);s.id='divJumper';s.src='https://asvarga.com/div-jumper/divJumper.js';void(0);" title="Summon the frog" aria-label="Div Jumper: summon the frog">🐸</a></nav>
+  </div>
+</footer>
+</body>
+</html>
