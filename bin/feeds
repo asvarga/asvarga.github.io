@@ -147,7 +147,7 @@ def strip_tags(s):
 
 
 # The listings: they link to everything else, so they'd only crowd results.
-LISTINGS = {f"{SITE}/", f"{SITE}/blog/", f"{SITE}/site/", f"{SITE}/wiki/"}
+LISTINGS = {f"{SITE}/", f"{SITE}/blog/", f"{SITE}/wiki/"}
 KINDS = {"blog": "post", "site": "project", "wiki": "note"}
 
 

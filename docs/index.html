@@ -31,7 +31,7 @@
   <div class="wrap">
     <a class="brand" href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 12L17 22L7.1 6.04L4.24 12H2L7 2L16.9 17.96L19.76 12H22Z"/></svg><span>Alexander Varga</span></a>
     <nav class="site-nav" aria-label="Site">
-      <a href="/site/">Projects</a><a href="/blog/">Blog</a><a href="/wiki/Me/">Me</a>
+      <a href="/#projects">Projects</a><a href="/blog/">Blog</a><a href="/wiki/Me/">Me</a>
       <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
     </nav>
   </div>
@@ -42,66 +42,124 @@
     <p class="eyebrow">Hi, I’m</p>
     <h1>Alexander Varga<span class="hi">.</span></h1>
     <p class="lede">Experiments with meta-programming, applied logic, programming languages, compilers, simulation, formal methods, …</p>
-    <div class="actions">
-      <a class="btn" href="/site/">Projects</a>
-      <a class="btn" href="/blog/">Blog</a>
-      <a class="btn" href="/wiki/Me/">Me</a>
-      <a class="btn primary" href="https://quiltlang.github.io/" target="_blank" rel="noopener">Quilt ↗</a>
-    </div>
   </section>
   <svg class="wave" viewBox="0 0 1200 22" preserveAspectRatio="none" aria-hidden="true"><path d="M0 11 L15 2 L45 20 L60 11 L75 2 L105 20 L120 11 L135 2 L165 20 L180 11 L195 2 L225 20 L240 11 L255 2 L285 20 L300 11 L315 2 L345 20 L360 11 L375 2 L405 20 L420 11 L435 2 L465 20 L480 11 L495 2 L525 20 L540 11 L555 2 L585 20 L600 11 L615 2 L645 20 L660 11 L675 2 L705 20 L720 11 L735 2 L765 20 L780 11 L795 2 L825 20 L840 11 L855 2 L885 20 L900 11 L915 2 L945 20 L960 11 L975 2 L1005 20 L1020 11 L1035 2 L1065 20 L1080 11 L1095 2 L1125 20 L1140 11 L1155 2 L1185 20 L1200 11" fill="none" stroke="currentColor" stroke-width="1.5" vector-effect="non-scaling-stroke"/></svg>
-  <div class="home-grid">
-    <section>
-      <div class="section-head"><h2>Featured projects</h2><a href="/site/">All projects <span class="arrow">&rarr;</span></a></div>
-      <ul class="cards">
+  <ul class="cards project-grid" id="projects">
     <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/quilt.jpg" alt="" loading="lazy"></div>
       <h3><span class="emoji" aria-hidden="true">🧵</span> <a href="https://quiltlang.github.io/" target="_blank" rel="noopener">Quilt</a> <span class="ext" aria-label="(external)">↗</span></h3>
       <p>Polyglot metaprogramming language.</p>
-      
+      <div class="links"><span class="tag">#languages</span></div>
     </li>
     <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/nanobots.jpg" alt="" loading="lazy"></div>
       <h3><span class="emoji" aria-hidden="true">🤖</span> <a href="https://quiltlang.github.io/demo/nanobots/" target="_blank" rel="noopener">NanoBots</a> <span class="ext" aria-label="(external)">↗</span></h3>
       <p>Compile gas-metered state machines to run on the GPU, right in your browser.</p>
-      <div class="links"><a href="/blog/2026/03/24/nanobots/">Blog post </a></div>
+      <div class="links"><span class="tag">#languages</span><span class="tag">#gpu</span><span class="tag">#pretty</span><a href="/blog/2026/03/24/nanobots/">Blog post </a></div>
     </li>
     <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/satsight.jpg" alt="" loading="lazy"></div>
       <h3><span class="emoji" aria-hidden="true">🔍</span> <a href="/site/satsight/">SatSight</a> </h3>
       <p>Solve puzzles like Sudoku, Akari and graph coloring by reduction to SAT, then watch the solver’s discoveries projected back into the puzzle, with the CDCL search steppable one event at a time. Runs in your browser via WebAssembly.</p>
-      <div class="links"><a href="https://github.com/asvarga/SatSight" target="_blank" rel="noopener">GitHub <span class="ext" aria-label="(external)">↗</span></a></div>
+      <div class="links"><span class="tag">#proofs</span><span class="tag">#algorithms</span><a href="https://github.com/asvarga/SatSight" target="_blank" rel="noopener">GitHub <span class="ext" aria-label="(external)">↗</span></a></div>
     </li>
     <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/gproof.jpg" alt="" loading="lazy"></div>
       <h3><span class="emoji" aria-hidden="true">🕸️</span> <a href="/site/gproof/">Graphical Proof Assistant</a> </h3>
       <p>Graph-based proof assistant using my “Hybrid UI”. I made this tool to help me experiment with type systems.</p>
-      <div class="links"><a href="https://vimeo.com/355226173" target="_blank" rel="noopener">Video <span class="ext" aria-label="(external)">↗</span></a></div>
+      <div class="links"><span class="tag">#proofs</span><span class="tag">#pretty</span><a href="https://vimeo.com/355226173" target="_blank" rel="noopener">Video <span class="ext" aria-label="(external)">↗</span></a></div>
     </li>
-      </ul>
-    </section>
-    <section>
-      <div class="section-head"><h2>Recent writing</h2><a href="/blog/">All posts <span class="arrow">&rarr;</span></a></div>
-      <ul class="post-list">
-        <li>
-          <div class="meta"><time datetime="2026-05-02">May 2, 2026</time><span class="tags"><span class="tag">Puzzle</span><span class="tag">Math</span></span></div>
-          <h3><a href="/blog/2026/05/02/function-with-4-fold-symmetry/">Function with 4-Fold Symmetry</a></h3>
-        </li>
-        <li>
-          <div class="meta"><time datetime="2026-03-24">March 24, 2026</time><span class="tags"><span class="tag">Compilers</span><span class="tag">Game</span><span class="tag">Parallel Programming</span></span></div>
-          <h3><a href="/blog/2026/03/24/nanobots/">NanoBots</a></h3>
-        </li>
-        <li>
-          <div class="meta"><time datetime="2024-06-22">June 22, 2024</time><span class="tags"><span class="tag">Game</span><span class="tag">Parallel Programming</span></span></div>
-          <h3><a href="/blog/2024/06/22/fair-chess-and-simultaneous-games/">Fair Chess and Simultaneous Games</a></h3>
-        </li>
-        <li>
-          <div class="meta"><time datetime="2023-03-05">March 5, 2023</time><span class="tags"><span class="tag">Ordinal</span><span class="tag">Data Structures</span></span></div>
-          <h3><a href="/blog/2023/03/05/transfinite-zippers/">Transfinite Zippers</a></h3>
-        </li>
-        <li>
-          <div class="meta"><time datetime="2022-07-18">July 18, 2022</time><span class="tags"><span class="tag">Ordinal</span><span class="tag">Meta</span></span></div>
-          <h3><a href="/blog/2022/07/18/transfinite-meta-programming---part-2/">Transfinite Meta-Programming - Part 2</a></h3>
-        </li>
-      </ul>
-    </section>
-  </div>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/ordinal-arithmetic.svg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">♾️</span> <a href="https://github.com/asvarga/ordinal-arithmetic" target="_blank" rel="noopener">Verified Ordinal Arithmetic</a> <span class="ext" aria-label="(external)">↗</span></h3>
+      <p>Ordinal arithmetic with properties verified in Liquid Haskell (Haskell + refinement types). I proved that my Cantor Normal Form representation of ordinals is closed under the operations needed to implement the Num and Ord typeclasses.</p>
+      <div class="links"><span class="tag">#proofs</span><span class="tag">#algorithms</span></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/ordinals.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">📈</span> <a href="/site/ordinals/">Plotting on Ordinals</a> </h3>
+      <p>Put 1, 2, 3, …, ω, …, ω^ω, … on a line: follow any ordinal from tree to parentheses to tick, zoom the ruler, and plot functions on it.</p>
+      <div class="links"><span class="tag">#algorithms</span><span class="tag">#pretty</span><a href="/blog/2020/05/27/plotting-functions-on-ordinals/">Blog post </a></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/tflists.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">⛓️</span> <a href="/site/tflists/">Efficient Transfinite Lists</a> </h3>
+      <p>A list whose places are ordinals, built from pairs: put and get by 1, ω or ω^ω, and watch get follow its parentheses up the shortcuts.</p>
+      <div class="links"><span class="tag">#algorithms</span><a href="/blog/2022/05/30/efficient-transfinite-lists/">Blog post </a></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/zippers.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">🤐</span> <a href="/site/zippers/">Transfinite Zippers</a> </h3>
+      <p>A map from ordinal offsets to values that remembers where you left every list: step through the post's figures, then move by 1, ω, ω² or ω^ω yourself.</p>
+      <div class="links"><span class="tag">#algorithms</span><a href="/blog/2023/03/05/transfinite-zippers/">Blog post </a></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/rainbow.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">🌈</span> <a href="/site/rainbow/">Rainbow Lists</a> </h3>
+      <p>A linked list with O(log i) indexing and O(1) push: pick an item and watch the seek hop along its rainbow of shortcuts.</p>
+      <div class="links"><span class="tag">#algorithms</span><span class="tag">#pretty</span><a href="/blog/2020/10/21/pure-lists-with-ologi-indexing/">Blog post </a></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/fairchess.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">♟️</span> <a href="/site/fairchess/">Fair Chess</a> </h3>
+      <p>Chess without a first move: both players choose in secret, and a move is made only if it's legal whichever went first. Play the computer or a friend, and step through the post's figures.</p>
+      <div class="links"><span class="tag">#games</span><span class="tag">#algorithms</span><a href="/blog/2024/06/22/fair-chess-and-simultaneous-games/">Blog post </a></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/fireworks.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">🎆</span> <a href="/site/fireworks/">3D Fireworks</a> </h3>
+      <p>Graphics course final project with thousands of particles and real-time lighting.</p>
+      <div class="links"><span class="tag">#gpu</span><span class="tag">#pretty</span></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/hybrid-env.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">🔀</span> <a href="/site/hybrid-env/">Hybrid Environments</a> </h3>
+      <p>A programming language combining static and dynamic scoping. It’s fun but probably a horrible idea; try it in the browser!</p>
+      <div class="links"><span class="tag">#languages</span></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/collision-trees-race.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">🌳</span> <a href="/site/collision-trees/">Collision Trees</a> </h3>
+      <p>Computational art from self-colliding trees with a surprising variety of emergent behaviors. Now interactive: write the rules, plant seeds and watch them race.</p>
+      <div class="links"><span class="tag">#algorithms</span><span class="tag">#pretty</span></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/ackermann.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">🧱</span> <a href="/site/ackermann/">Ackermann Blocks</a> </h3>
+      <p>Interactive Ackermann function visualizer.</p>
+      <div class="links"><span class="tag">#algorithms</span></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/turing-turtle.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">🐢</span> <a href="https://www.youtube.com/watch?v=lBxgJZyGVoQ" target="_blank" rel="noopener">Turing Turtle</a> <span class="ext" aria-label="(external)">↗</span></h3>
+      <p>Puzzle game with Turing machine programming.</p>
+      <div class="links"><span class="tag">#games</span><span class="tag">#algorithms</span><a href="https://www.youtube.com/watch?v=lBxgJZyGVoQ" target="_blank" rel="noopener">4 min video <span class="ext" aria-label="(external)">↗</span></a><a href="https://www.youtube.com/watch?v=E6qZlcyR4uc" target="_blank" rel="noopener">1 min video <span class="ext" aria-label="(external)">↗</span></a></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/splotch.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">🎨</span> <a href="/site/splotch/">Paint Splotch Shadertoy</a> </h3>
+      <p>Watching this simulated paint dry isn’t boring, I promise!</p>
+      <div class="links"><span class="tag">#gpu</span></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/string-reuse.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">♻️</span> <a href="https://github.com/asvarga/String-Reuse-Visualizer" target="_blank" rel="noopener">String Reuse Visualizer</a> <span class="ext" aria-label="(external)">↗</span></h3>
+      <p>Visualize how text transformers reuse chars in memory.</p>
+      <div class="links"><span class="tag">#languages</span></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/div-jumper-frog.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">🐸</span> <a href="/site/div-jumper/">Div Jumper</a> </h3>
+      <p>A platformer in a bookmarklet: play it on this site, or drag it to your bookmarks bar and play on any site.</p>
+      <div class="links"><span class="tag">#games</span></div>
+    </li>
+    <li class="card" data-platform>
+      <div class="shot"><img src="/files/projects/motp.jpg" alt="" loading="lazy"></div>
+      <h3><span class="emoji" aria-hidden="true">🚀</span> <a href="/site/motp/">Mars of the Penguins</a> </h3>
+      <p>An unfinished game about programming a colony of bots.</p>
+      <div class="links"><span class="tag">#games</span></div>
+    </li>
+  </ul>
 </div>
 </main>
 <footer class="site-footer">

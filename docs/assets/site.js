@@ -167,3 +167,22 @@ document.querySelectorAll(".prose :is(h2, h3, h4)[id]").forEach((h) => {
   addEventListener("hashchange", apply);
   apply();
 })();
+
+// Project cards: a masonry layout. Each card spans as many 4px grid rows as its
+// height plus the column gap, and re-spans whenever its height changes (images
+// loading, text wrapping at a new width). Without this, they're an even grid.
+(() => {
+  const grid = document.querySelector(".project-grid");
+  if (!grid || !("ResizeObserver" in window)) return;
+  const ROW = 4;
+  grid.classList.add("masonry");
+  const span = (card) => {
+    const gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
+    card.style.gridRowEnd = "span " + Math.ceil((card.getBoundingClientRect().height + gap) / ROW);
+  };
+  const seen = new ResizeObserver((entries) => entries.forEach((e) => span(e.target)));
+  [...grid.children].forEach((card) => {
+    span(card);
+    seen.observe(card);
+  });
+})();

@@ -231,8 +231,6 @@ a:hover .arrow { transform: translateX(3px); }
 .btn.primary { background: var(--accent-hi); border-color: var(--accent-hi); color: #fff; }
 .btn.primary:hover { background: var(--accent); border-color: var(--accent); }
 .wave { display: block; width: 100%; height: 22px; color: var(--accent-hi); opacity: 0.35; margin: 0 0 3rem; }
-.home-grid { display: grid; gap: 3.5rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }
-@media (max-width: 52rem) { .home-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* Post list (home + blog index) */
 .post-list { list-style: none; margin: 0; padding: 0; }
@@ -243,9 +241,8 @@ a:hover .arrow { transform: translateX(3px); }
 .post-list h3 a:hover { color: var(--accent); }
 .post-list p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.97rem; }
 
-/* Cards (featured projects + projects page) */
+/* Cards */
 .cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); list-style: none; margin: 0; padding: 0; }
-.home-grid .cards { grid-template-columns: minmax(0, 1fr); }
 .card {
   position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 0.8rem;
   padding: 1.1rem 1.25rem; box-shadow: var(--shadow); transition: border-color 0.15s, transform 0.15s;
@@ -262,7 +259,7 @@ a:hover .arrow { transform: translateX(3px); }
 .card .links a:hover { text-decoration: underline; }
 .card .ext { font-size: 0.8em; color: var(--muted); }
 
-/* ---------- Projects page: a gallery of tiles, each led by a full-bleed preview ---------- */
+/* ---------- Projects (home page): a gallery of tiles, each led by a full-bleed preview ---------- */
 .project-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr)); gap: 1.25rem; }
 .project-grid .card { padding: 0; overflow: hidden; gap: 0.35rem; }
 .project-grid .card > :not(.shot) { margin-left: 1.15rem; margin-right: 1.15rem; }
@@ -274,6 +271,9 @@ a:hover .arrow { transform: translateX(3px); }
 .project-grid .card:hover .shot img { transform: scale(1.045); }
 .project-grid .card .links { padding-bottom: 1.05rem; }
 .project-grid h3 { font-size: 1.12rem; }
+/* Masonry: site.js spans each card over as many 4px rows as it is tall (plus
+   the gap), so short cards don't leave holes and order stays left to right. */
+.project-grid.masonry { grid-auto-rows: 4px; row-gap: 0; align-items: start; }
 
 /* ---------- Blog index ---------- */
 .filter { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: -1rem 0 2.25rem; }
