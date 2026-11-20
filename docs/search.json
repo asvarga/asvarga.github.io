@@ -7,7 +7,9 @@
    "kind": "project",
    "title": "Ackermann Blocks",
    "date": null,
-   "tags": [],
+   "tags": [
+    "algorithms"
+   ],
    "summary": "Interactive Ackermann function visualizer.",
    "text": "The size of the block piles represent equations using the Ackermann function A. For example, when the piles are [2, 1, 1, 1], that represents A(2, A(1, A(1, 1))). The default settings show A(3, 1) reducing to 13. About the Ackermann function. Space step · P play/pause · R restart · ← slower · → faster"
   },
@@ -124,7 +126,10 @@
    "kind": "project",
    "title": "Collision Trees",
    "date": null,
-   "tags": [],
+   "tags": [
+    "algorithms",
+    "pretty"
+   ],
    "summary": "Computational art from self-colliding trees.",
    "text": "The rules describing how these images are created are simple to describe. Grow a tree of branching lines in the obvious way, but whenever multiple branches collide, cut off the branches that reached there last. These simple rules lead to a surprising variety of behaviors. I give some implementation details at the bottom. Try it yourself: pick a preset or write your own rules, drop seeds, and watch the branches race. Open it full screen. The pictures below are the originals. All of the trees in this first group only vary in the number and angle of their branches at each branching point. For example, each such tree can be parameterized by a list of angles like [+π/4, −π/4], in addition to a parameter for tree depth. See if you can figure out how each of their behaviors arise, given that they all start from a single vertical line. This tree breaks the pattern above by exponentially decaying the length of branches: These are Fibonacci Trees. Try counting the leaves of the various dendrites sticking out the top of the first image: These images have multiple groups of trees growing at different speeds, racing to fill the plane. Compare to my continuous simulation of the same dynamic. Here is one that my sister printed out and colored in: Some animations of growth: Implementation The original idea for a self-colliding tree was conceived of by another member of the “Aesthetic Function Graphposting” Facebook group. My contribution was to improve the algorithm in the following ways so that I could further explore the parameter space: Performance: All line segments are stored in a hash table indexed by their middle coordinates rounded to a pair of integers. Since each segment is limited to a length of 1, the algorithm only needs to check a segment for intersection with nearby coordinates. Generality: Allowing for multiple branches and branches at different angles, as well as the additional experiments above. Collision conditions: The above generalities mean that branches that collide don’t always reach that point at the same time and therefore don’t all die. This requires keeping track of distance from the root. Float errors: Care was taken to prevent unpredictable floating point errors when line segments start/end at “the same point”."
   },
@@ -142,7 +147,9 @@
    "kind": "project",
    "title": "Div Jumper",
    "date": null,
-   "tags": [],
+   "tags": [
+    "games"
+   ],
    "summary": "A platformer in a bookmarklet: play it on any site.",
    "text": "← Home Div Jumper ▶ Div Jumper Click to play on this page, or drag the button to your bookmarks bar to play on any site. 🐸 🎯 Goal Climb all the way to the ☀️ button at the top. ↑ The title and the ☀️ button are platforms too 🎈 Almost there… Nice hops! Anywhere Drag the button to your bookmarks bar to bring the frog to any site. 🏔️ Halfway Keep climbing ↑ 🪰 Multi-jump Works too, but every step here takes just one jump. ↓ Drop Fall through the platform you’re on. ↑ Jump Platforms Every div up to 800px wide is one. So is the footer. ← → Walk Hop! 🐸 Start here ↑"
   },
@@ -151,7 +158,10 @@
    "kind": "project",
    "title": "Fair Chess",
    "date": null,
-   "tags": [],
+   "tags": [
+    "algorithms",
+    "games"
+   ],
    "summary": "Chess without a first move: both players choose in secret, and a move is made only if it's legal whichever went first. Play the computer or a friend, and step through the post's figures.",
    "text": ""
   },
@@ -160,16 +170,33 @@
    "kind": "project",
    "title": "3D Fireworks",
    "date": null,
-   "tags": [],
+   "tags": [
+    "gpu",
+    "pretty"
+   ],
    "summary": "Graphics course final project: thousands of GPU particles with real-time lighting.",
    "text": "My team’s final project for our Graphics class was a real-time scene with fireworks over a randomly generated infinite city, with a custom lighting system and a controllable camera. I worked mainly on the fireworks for this project, writing GLSL code for the GPU. Each firework has 213 = 8192 particles, and their positions and colors are all averaged to create lights in real time. Additional color and position buffers are used to hold binary trees of averages, sort of like a heap. Particle information takes 13 frames to percolate down the tree to the root overall average, but this is extremely efficient on the GPU. Note in the pictures that particles exist in the space of the scene as opposed to being a 2D overlay. As such, they can be occluded by the buildings and light up the buildings with the correct color and direction. (Sound on!)"
+  },
+  {
+   "url": "https://asvarga.com/gproof/",
+   "kind": "project",
+   "title": "Graphical Proof Assistant",
+   "date": null,
+   "tags": [
+    "proofs",
+    "pretty"
+   ],
+   "summary": "Graph-based proof assistant using my “Hybrid UI”. I made this tool to help me experiment with type systems.",
+   "text": "Graph-based proof assistant using my “Hybrid UI”. I made this tool to help me experiment with type systems."
   },
   {
    "url": "https://asvarga.com/hybrid-env/",
    "kind": "project",
    "title": "Hybrid Environments",
    "date": null,
-   "tags": [],
+   "tags": [
+    "languages"
+   ],
    "summary": "A tiny language combining static and dynamic scoping, runnable in the browser.",
    "text": "The Challenge Make a language... with as few special forms as possible. where as much as possible is first class. with a simple interpreter. that is usable. My solution is a combination of far too many quotes, and something I call \"hydrid environments\". I made a minimal interpreter to demonstrate the ideas in javascript. If nothing else, it's kinda fun. How to run the code snippets Click into an editor and press command-enter or ctrl-enter to run it. Everything runs in a USER environment, so snippets may need to be run in order. You can edit the code, but It's possible to mess everything up. If you do, refresh. Things that are bad Code isn't sanitized or sandboxed. Printing and error messages are horrible. No comments. Basics It's a little lispy. 'noop' is a variadic function that just returns. This is useful for doing multiple things in sequence, because arguments are reduced strictly in order before being passed to operators/functions. (noop (println (+ 1 2)) (println (+ (println \"First\") (println \"Second\"))) ) Output Result Quotes Quotes let us treat code as data and data as code. They're used a lot in this language. They're best thought of as objects that contain code and reduce to themselves, rather than a special form or a mechanism for delaying intepretation. Printing things can be uninformative, but the 'json' function sometimes helps. (noop (println (+ 1 2)) (println '(+ 1 2)) (println (json '(+ 1 2))) ) Output Result Hooks Hooks are another type of thing. They are: @run: reduces to the current interpreter. @nv: reduces to the current environment. @snv and @dnv: shorthand for @nv's static and dynamic parent environments (more on this later). The interpreter itself is just a function in the language called \"run\". It takes two arguments, a quote expression and an environment, and returns the result of reducing the expression in that environment. So, (run '@run nv) == run, and (run '@nv nv) == nv, for any nv. (noop (println @run) (println @nv) (println (@run '(+ 1 2) @nv)) (println (== (@run '@run @nv) @run)) (println (== (@run '@nv @nv) @nv)) ) Output Result Closures Closures are what you'd think of as lambdas, but take their static environment as an explicit argument. The arguent list and body must be quoted to prevent them from being interpreted. It's a mess but we'll fix it soon. (noop (println (Closure '(x y) '(+ (* x x) (* y y)) @nv)) (println ((Closure '(x y) '(+ (* x x) (* y y)) @nv) 3 4)) ) Output Result Let This language doesn't have a 'let' special form, or any other special forms, but we'll make one soon. We do get 'elet' though, which takes an explicit environment and an identifier to assign a value. (noop (elet @nv 'x 321) (println x) (println (+ x 4000)) ) Output Result Hybrid Environments This is also a mess, and we'll fix it now by writing a simple 'let' function using hybrid environments. When a Closure is appied to arguments, a hybrid environment is made consisting of 3 parts. d: a personal dict for this application to store values. snv: the static environment that the Closure remembered, which was captured when the Closure was created. dnv: the dynamic environment which is the one from which the Closure was called. Now we can write 'let' by using @dnv to get and modify the environment from which the 'let' Closure is called. (noop \"let without explicit nv\" (elet @nv 'let (Closure '(key val) '(elet @dnv key val) @nv)) (let 'y 654000) (println (+ y x)) ) Output Result Some Fun Stuff It's a little complicated, but we only have to do it once, and now we can simply use 'let'. Now we can fix that Closure mess, by writing 'lam'. Let's make some other fun stuff while we're at it, including short-circuiting functions, swap, and named functions. Demos below. (noop \"closure without explicit nv\" (let 'lam (Closure '(args body) '(Closure args body @dnv) @nv)) \"easily reduce value inside a quote\" (let 'run (lam '(body) '(@run body @dnv))) \"like run but in new scope\" (let 'block (lam '(body) '((Closure '() body @dnv)))) \"short-circuiting if from _if\" (let 'if (lam '(x y z) '(@run (_if x y z) @dnv))) \"swap the values of 2 identifiers\" (let 'swap (lam '(ida idb) '(noop (let 'tmp (eget @dnv ida)) (elet @dnv ida (eget @dnv idb)) (elet @dnv idb tmp)))) \"named closures\" (let 'function (lam '(name args body nv) '(last (let 'd (dict)) (let 'C (Closure args body (Env d nv))) (dset d name C) C))) \"function without explicit nv\" (let 'fun (lam '(name args body) '(elet @dnv name (function name args body @dnv)))) (println \"success\") ) Output Result (noop \"runs quote with new hybrid env\" (block '(noop (let 'sqr (lam '(x) '(* x x))) \"sqr in scope\" (println (sqr 6)) )) \"sqr out of scope\" (println sqr) (println \"\") \"never prints 3\" (println (if (println 1) '(println 2) '(println 3))) (println \"\") \"swap\" (let 'a 4) (let 'b 5) (println (+ a (+ \", \" b))) (swap 'a 'b) (println (+ a (+ \", \" b))) (println \"\") \"factorial\" (fun 'fact '(x) '(if (== x 0) '1 '(* x (fact (- x 1))))) (println (fact 5)) ) Output Result Experiment Here's a place to experiment. 'last' is a variadic function like 'noop', but it returns its last argument. You may want to (last \"do stuff here\" \"base environment keys\" (println (json (keys (e-d base)))) \"user environment keys\" (println (json (keys (e-d @nv)))) (date) ) Output Result First Attempt My first attempt at giving applications access to both the static and dynamic environments was to pass both to the interpret function, along with the code to be interpreted. This doesn't work though, because it makes it impossible to get the dynamic parent of the dynamic parent of an environment. For example, if interp/@run took (code, snv, dnv), the short circuiting 'if' would look like: (let 'if (lam '(x y z) '(@run (_if x y z) @dnv false))) (if true '(if true '1 '2) '3) The outer 'if' would want to run the inner 'if' in the dynamic environment from which it was called. However, it wouldn't have access to that environment's dynamic parent, which the inner 'if' needs. Goals This achieves the original goals of making a language... with as few special forms as possible: There are none, unless you count quotes, but they're more like objects. where as much as possible is first class: The current interpreter and environment are accessible and manipulable. Identifiers and expressions can be \"used\" by quoting them. with a simple interpreter: The interpreter has only 4 cases: expressions, identifiers, hooks, and everything else which reduces to itself. that is usable: For normal, less meta use, it's not bad at all, and only really gets tricky when writing \"special forms\". There's often an extra or missing quote. This is easier to debug in my version with better printing. But Why? Hybrid environments are clearly neither safe, sane, nor fast. All code has access to all code. However, I think there is value in its lack of value. Starting with a fully powerful, small, horrible language gives perspective on what is necessary to make any language safer, saner, and faster. I'm particlarly interested in \"safer\". Is it possible to sandbox in such a chaotic language? One might have to perform static analysis dynamically. The language might need a full \"understanding\" of it's own semantics so it could reason about itself, along with the \"assertive force\" to trust itself. Uses Ace for the editors"
   },
@@ -178,7 +205,10 @@
    "kind": "project",
    "title": "Plotting on Ordinals",
    "date": null,
-   "tags": [],
+   "tags": [
+    "algorithms",
+    "pretty"
+   ],
    "summary": "Put 1, 2, 3, …, ω, …, ω^ω, … on a line: follow any ordinal from tree to parentheses to tick, zoom the ruler, and plot functions on it.",
    "text": "Ordinal x Digit weight r From to a tick, step by step Cantor normal form A sum of powers of ω, largest first, each exponent itself in this form. A tree The root (at the bottom) is x. Each node is ω to the power of the sum of the nodes on it, so a bare leaf is ω0 = 1. Parentheses Binary digits A number in [0, 1) The order of the digits is the order of the ordinals, so the numbers rise with them (desideratum 1). Stretched to the ruler Closing in on Plot a function Drag the ruler to pan; scroll, pinch or + − to zoom; click a tick to pick it. ← → step to the ordinal before or after, N switches the parentheses, 0 fits. Type ordinals with w or ω, + * ^ and brackets: w^(w+1)*2+3, or 2^w^w. The ruler has every ordinal of up to 12 nodes, so ticks get finer as you zoom. Ordinal arithmetic and the parentheses are ported from the post's ordinals-python ↗, whose plots weight the digits by the golden ratio (r = 0.618)."
   },
@@ -187,16 +217,33 @@
    "kind": "project",
    "title": "Rainbow Lists",
    "date": null,
-   "tags": [],
+   "tags": [
+    "algorithms",
+    "pretty"
+   ],
    "summary": "A linked list with O(log i) indexing and O(1) push: pick an item and watch the seek hop along its rainbow of shortcuts.",
    "text": "Length n Get item i The path, hop by hop How the head got its pointers Push builds a node's pointers in O(1): each is a walk of at most three pointers older nodes already have. Hover a row to see its walk. Hops to every item of this list For each i (across), the hops the seek takes from the head. Click to pick an item. What each seek costs As the distance d grows (item i is d = i from the head): the hops followed, and the work done, counting arithmetic and any planning. Click a row to pick its seek. Seek Hops Work Why Click or tap a node to get it; hover one to see its pointers. Arrows move, Enter seeks. Colors as in the post: next, red (2k−1 back), green (2k back, the largest power of two dividing the index), blue (2k+1 back), yellow (for push, and for the greedy, planned and optimal seeks). Nodes count up from the tail, which is node 1, so item i is node n − i."
+  },
+  {
+   "url": "https://asvarga.com/satsight/",
+   "kind": "project",
+   "title": "SatSight",
+   "date": null,
+   "tags": [
+    "proofs",
+    "algorithms"
+   ],
+   "summary": "Solve puzzles like Sudoku, Akari and graph coloring by reduction to SAT, then watch the solver’s discoveries projected back into the puzzle, with the CDCL search steppable one event at a time. Runs in your browser via WebAssembly.",
+   "text": "Solve puzzles like Sudoku, Akari and graph coloring by reduction to SAT, then watch the solver’s discoveries projected back into the puzzle, with the CDCL search steppable one event at a time. Runs in your browser via WebAssembly."
   },
   {
    "url": "https://asvarga.com/splotch/",
    "kind": "project",
    "title": "Paint Splotch Shadertoy",
    "date": null,
-   "tags": [],
+   "tags": [
+    "gpu"
+   ],
    "summary": "Simulated paint splotches racing to fill the plane, on Shadertoy.",
    "text": "Press play to run. Don’t use full screen! Paint splotches spread at different speeds and can’t move through each other. The resulting boundary for 2 splotches is part circle, part exponential spiral. With even 3 splotches, the equations get really complicated. Compare to my Collision Trees, a discrete take on the same dynamic. View/edit the code on Shadertoy. Not working? Check the software requirements. In Chrome, you may have to turn on “Use hardware acceleration when available” in the settings."
   },
@@ -205,7 +252,9 @@
    "kind": "project",
    "title": "Efficient Transfinite Lists",
    "date": null,
-   "tags": [],
+   "tags": [
+    "algorithms"
+   ],
    "summary": "A list whose places are ordinals, built from pairs: put and get by 1, ω or ω^ω, and watch get follow its parentheses up the shortcuts.",
    "text": "Places The hollow nodes, counted from the head. Tap one to get it. Differences The post's naive list: the gaps between places, which get would walk one by one. put(n) Builds n's path in front of the head (orange), following the same path through the old list (bold). Where it goes right it copies the old path's left edge (gold). get(n) Follows n's path from the head (green). Ask for something that isn't a place, like get(1) before an ω, and it falls off. Lists to start from The post's code From asvarga/tf-lists ↗, in Racket, where a list is a pair or '(). l and r give a pair's left and right, or '(). The gold line is the copy. This page runs a port of it, and puts any ordinal by putting its powers, last first. (define (get ord L) (define (get path L) (match path [(cons #\\( rst) (get rst (l L))] [(cons #\\) rst) (get rst (r L))] [_ L])) (get (o2p ord) L)) (define (put ord L) ; ord = ω^a (define (put path M) (match path [(cons #\\( rst) (cons (put rst (l M)) '())] [(cons #\\) rst) (cons (l M) (put rst (r M)))] [_ L])) (put (o2p ord) L)) The post had no proof that it works. This page's tests check it against the naive list on random puts and gets: every place is found, and nothing else is. Hollow nodes are places, where values would go; the head is ringed. Filled nodes are pairs that join them. Each place's path runs up and back down to the ground, ( up to the left child and ) down to the right. Gold arcs are copied left edges, the shortcuts. Keys: U undoes. The URL keeps your steps."
   },
@@ -241,9 +290,75 @@
    "kind": "project",
    "title": "Transfinite Zippers",
    "date": null,
-   "tags": [],
+   "tags": [
+    "algorithms"
+   ],
    "summary": "A map from ordinal offsets to values that remembers where you left every list: step through the post's figures, then move by 1, ω, ω² or ω^ω yourself.",
    "text": "Tap the picture for the next step, or a value to go to it. From the house Each value and the one move that reaches it. Tap one to make that move. Move it yourself Each move climbs its ordinal's path up the vine, steps along, and comes back down the way that list last went. The post's figure The post's own drawing, to compare. The page draws the same cells, worked out from the moves, on a dark page. The house is the focus. Buckets hold values. Green circles are the vine: a trie of each move's path in bounded parentheses, \\ up-left and / up-right, from the house to the lists it can step along. Each row of diamonds is a zipper list, named by the move that walks it; its dark diamond is its chosen child, and its arrows point away from it. A child off the vine keeps its structure in blue circles, one for each \\ after the first on its path, each holding the / branch left there (the lists below) and pointing on down to the value it last had in focus. Keys: ← → step, Space next, S sets a value, Home starts over. The URL keeps the steps."
+  },
+  {
+   "url": "https://github.com/asvarga/String-Reuse-Visualizer",
+   "kind": "project",
+   "title": "String Reuse Visualizer",
+   "date": null,
+   "tags": [
+    "languages"
+   ],
+   "summary": "Visualize how text transformers reuse chars in memory.",
+   "text": "Visualize how text transformers reuse chars in memory.",
+   "external": true
+  },
+  {
+   "url": "https://github.com/asvarga/ordinal-arithmetic",
+   "kind": "project",
+   "title": "Verified Ordinal Arithmetic",
+   "date": null,
+   "tags": [
+    "proofs",
+    "algorithms"
+   ],
+   "summary": "Ordinal arithmetic with properties verified in Liquid Haskell (Haskell + refinement types). I proved that my Cantor Normal Form representation of ordinals is closed under the operations needed to implement the Num and Ord typeclasses.",
+   "text": "Ordinal arithmetic with properties verified in Liquid Haskell (Haskell + refinement types). I proved that my Cantor Normal Form representation of ordinals is closed under the operations needed to implement the Num and Ord typeclasses.",
+   "external": true
+  },
+  {
+   "url": "https://quiltlang.github.io/",
+   "kind": "project",
+   "title": "Quilt",
+   "date": null,
+   "tags": [
+    "languages"
+   ],
+   "summary": "Polyglot metaprogramming language.",
+   "text": "Polyglot metaprogramming language.",
+   "external": true
+  },
+  {
+   "url": "https://quiltlang.github.io/demo/nanobots/",
+   "kind": "project",
+   "title": "NanoBots",
+   "date": null,
+   "tags": [
+    "languages",
+    "gpu",
+    "pretty"
+   ],
+   "summary": "Compile gas-metered state machines to run on the GPU, right in your browser.",
+   "text": "Compile gas-metered state machines to run on the GPU, right in your browser.",
+   "external": true
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=lBxgJZyGVoQ",
+   "kind": "project",
+   "title": "Turing Turtle",
+   "date": null,
+   "tags": [
+    "games",
+    "algorithms"
+   ],
+   "summary": "Puzzle game with Turing machine programming.",
+   "text": "Puzzle game with Turing machine programming.",
+   "external": true
   }
  ]
 }

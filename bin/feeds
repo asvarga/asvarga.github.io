@@ -14,7 +14,7 @@ every page that has the site shell (a canonical link to itself) except
 redirects, the 404 page and anything marked <meta name="robots" content="noindex">.
 search.json is a search index for other sites (GitHub Pages serves it with
 CORS open): every sitemap page but the listings, with its kind, title, date,
-tags, summary and text, plus each project card on the Projects page that has
+tags, summary and text, plus each project card on the home page that has
 no page of its own (`external: true` when it leaves the site).
 """
 import html
@@ -155,7 +155,7 @@ KINDS = {"blog": "post", "wiki": "note"}
 def search():
     """Everything another site needs to search this one: each post, project and
     note with its text, plus the projects that have no page here (built apps and
-    external ones), from their cards on the Projects page."""
+    external ones), from their cards on the home page."""
     entries = {}
     for url, page in pages():
         if url in LISTINGS:
@@ -172,7 +172,7 @@ def search():
             summary=meta(page, "description"),
             text=main_text(page),
         )
-    projects = (DOCS / "site/index.html").read_text()
+    projects = (DOCS / "index.html").read_text()
     for card in re.findall(r'<li class="card"[^>]*>(.*?)</li>', projects, re.S):
         link = re.search(r'<h3>.*?<a href="([^"]+)"[^>]*>(.*?)</a>', card, re.S)
         if not link:
