@@ -21,9 +21,9 @@ from urllib.parse import unquote
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 # Built apps that keep their own markup and asset paths.
-APPS = ("site/gproof/", "site/motp/", "site/satsight/")
+APPS = ("gproof/", "motp/", "satsight/")
 # Fetched at preview/deploy time, so absent from a fresh checkout.
-FETCHED = ("/site/satsight/",)
+FETCHED = ("/satsight/",)
 
 problems = []
 pages = sorted(p for p in DOCS.rglob("*.html") if not str(p.relative_to(DOCS)).startswith(APPS))

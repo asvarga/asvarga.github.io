@@ -1,111 +1,11 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Rainbow Lists · Alexander Varga</title>
-    <meta name="description" content="A linked list with O(log i) indexing and O(1) push: pick an item and watch the seek hop along its rainbow of shortcuts." />
-    <link rel="canonical" href="https://asvarga.com/site/rainbow/" />
-    <link rel="icon" href="/files/triangle-wave.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="art/arcade.css" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main>
-      <header>
-        <p class="crumbs"><a href="/">← Home</a></p>
-        <h1>Rainbow Lists</h1>
-        <p class="lede">
-          A linked list where every node keeps four shortcuts back down the list, so pushing stays
-          O(1) and reaching the <var>i</var>-th item takes O(log <var>i</var>) hops. Pick an item and
-          watch the seek find it. From the post
-          <a href="/blog/2020/10/21/pure-lists-with-ologi-indexing/">Pure Lists with O(log(i)) Indexing</a>
-        </p>
-      </header>
-
-      <section class="controls" aria-label="The list">
-        <div class="slider">
-          <label for="length">Length <var>n</var> <output id="length-out"></output></label>
-          <input id="length" type="range" min="2" max="256" step="1" />
-          <button id="pop" title="Pop the head (↓)">Pop <kbd>↓</kbd></button>
-          <button id="push" title="Push a new head (↑)">Push <kbd>↑</kbd></button>
-        </div>
-        <div class="slider">
-          <label for="index">Get item <var>i</var> <output id="index-out"></output></label>
-          <input id="index" type="range" min="0" max="1" step="1" />
-          <button id="left" title="Item i + 1, one further from the head (←)"><kbd>←</kbd></button>
-          <button id="right" title="Item i − 1, one nearer the head (→)"><kbd>→</kbd></button>
-        </div>
-        <div class="row">
-          <span class="seg" role="group" aria-label="Pointers">
-            <button data-mode="next" title="A plain linked list (1)">Next only <kbd>1</kbd></button>
-            <button data-mode="green" title="Next and green shortcuts (2)">+ Green <kbd>2</kbd></button>
-            <button data-mode="rainbow" title="Every shortcut, the post's seek (3)">Rainbow <kbd>3</kbd></button>
-            <button data-mode="greedy" title="Yellow, green, red: the first that doesn't overshoot (4)">Greedy <kbd>4</kbd></button>
-            <button data-mode="planned" title="Plan the path by arithmetic over a few candidate nodes, then follow it (5)">Planned <kbd>5</kbd></button>
-            <button data-mode="optimal" title="The shortest path, by searching every node in between (6)">Optimal <kbd>6</kbd></button>
-          </span>
-          <span class="seg" role="group" aria-label="Picture">
-            <button data-view="arcs" title="Arcs over the list (T)">Arcs</button>
-            <button data-view="tree" title="Each node raised to its green height (T)">Tree <kbd>T</kbd></button>
-          </span>
-          <button id="yellow" aria-pressed="false" title="Show the yellow pointers, which only help push (Y)">Yellow <kbd>Y</kbd></button>
-          <button id="hop" class="primary" title="Watch Phibber follow the path (Enter)">Seek <kbd>Enter</kbd></button>
-        </div>
-      </section>
-
-      <figure id="figure">
-        <svg id="fig" role="img" aria-label="The list's pointers and the path the seek takes"></svg>
-        <figcaption id="readout" aria-live="polite"></figcaption>
-      </figure>
-
-      <div class="cols">
-        <section class="card">
-          <h2>The path, hop by hop</h2>
-          <ol id="hops"></ol>
-          <p id="phases" class="dim"></p>
-        </section>
-        <section class="card">
-          <h2 id="cons-title">How the head got its pointers</h2>
-          <p class="dim">
-            Push builds a node's pointers in O(1): each is a walk of at most three pointers older
-            nodes already have. Hover a row to see its walk.
-          </p>
-          <table id="cons"></table>
-        </section>
-      </div>
-
-      <section class="card wide">
-        <h2>Hops to every item of this list</h2>
-        <p class="dim">
-          For each <var>i</var> (across), the hops the seek takes from the head. Click to pick an item.
-        </p>
-        <svg id="chart" role="img" aria-label="Hops against i"></svg>
-        <p id="legend" class="legend"></p>
-      </section>
-
-      <section class="card wide">
-        <h2>What each seek costs</h2>
-        <p class="dim">
-          As the distance <var>d</var> grows (item <var>i</var> is <var>d</var> = <var>i</var> from the
-          head): the hops followed, and the work done, counting arithmetic and any planning. Click a
-          row to pick its seek.
-        </p>
-        <table id="bounds">
-          <thead><tr><th>Seek</th><th>Hops</th><th>Work</th><th>Why</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </section>
-
-      <p class="dim foot">
-        Click or tap a node to get it; hover one to see its pointers. Arrows move, Enter seeks.
-        Colors as in the post: <b class="k-n">next</b>, <b class="k-r">red</b> (2<sup>k−1</sup> back),
-        <b class="k-g">green</b> (2<sup>k</sup> back, the largest power of two dividing the index),
-        <b class="k-b">blue</b> (2<sup>k+1</sup> back), <b class="k-y">yellow</b> (for push, and for the greedy, planned and optimal seeks).
-        Nodes count up from the tail, which is node 1, so item <var>i</var> is node <var>n</var> − <var>i</var>.
-      </p>
-    </main>
-
-    <script type="module" src="app.js"></script>
-  </body>
+<head>
+<meta charset="utf-8">
+<title>Redirecting…</title>
+<link rel="canonical" href="https://asvarga.com/rainbow/">
+<meta http-equiv="refresh" content="0; url=/rainbow/">
+<script>location.replace("/rainbow/" + location.search + location.hash)</script>
+</head>
+<body>Moved to <a href="/rainbow/">https://asvarga.com/rainbow/</a>.</body>
 </html>

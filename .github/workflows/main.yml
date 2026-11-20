@@ -32,10 +32,12 @@ jobs:
         # it here (rather than committing it) keeps this repo free of binary
         # wasm blobs and always picks up whatever SatSight last published.
         run: |
-          mkdir -p docs/site/satsight
+          mkdir -p docs/satsight
           curl -fsSL -o /tmp/satsight-web.tar.gz \
             https://github.com/asvarga/SatSight/releases/download/web-latest/satsight-web.tar.gz
-          tar -xzf /tmp/satsight-web.tar.gz -C docs/site/satsight
+          tar -xzf /tmp/satsight-web.tar.gz -C docs/satsight
+          # SatSight builds for its old address, /site/satsight/.
+          sed -i "s#/site/satsight/#/satsight/#g" docs/satsight/index.html
 
       - name: Stamp build info
         # Read by the footer's ⓘ (assets/site.js): which commit, published when.

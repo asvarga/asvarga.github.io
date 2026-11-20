@@ -26,7 +26,9 @@ and no framework: what's committed is what's served.
 | --- | --- |
 | `docs/index.html` | Home page |
 | `docs/blog/` | Blog index; posts live at `blog/YYYY/MM/DD/<slug>/index.html` |
-| `docs/site/` | Projects page and each project's own folder |
+| `docs/<project>/` | Each project's own folder (once `docs/site/<project>/`, which now redirects) |
+| `docs/site/` | Redirects from the old `/site/…` addresses; `404.html` forwards the rest |
+| `docs/me/` | Redirect to `/wiki/Me/` |
 | `docs/wiki/` | Notes |
 | `docs/assets/style.css` | The one stylesheet (colour and font tokens, light and dark) |
 | `docs/assets/site.js` | Theme toggle, heading anchors, blog tag filter |

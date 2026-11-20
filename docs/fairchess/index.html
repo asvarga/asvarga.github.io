@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Fair Chess · Alexander Varga</title>
+    <meta name="description" content="Chess without a first move: both players choose in secret, and a move is made only if it's legal whichever went first. Play the computer or a friend, and step through the post's figures." />
+    <link rel="canonical" href="https://asvarga.com/fairchess/" />
+    <link rel="icon" href="/files/triangle-wave.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="art/arcade.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="hud">
+      <button id="menu" title="New game (Esc)">New game</button>
+      <h1 id="title">Fair Chess</h1>
+      <p id="stats"></p>
+    </header>
+
+    <main id="stage">
+      <div id="board" role="grid" aria-label="The board">
+        <div id="squares"></div>
+        <div id="pieces"></div>
+        <svg id="arrows" viewBox="0 0 8 8" aria-hidden="true">
+          <defs>
+            <marker id="head-w" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="3" markerHeight="3" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="head w" />
+            </marker>
+            <marker id="head-b" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="3" markerHeight="3" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="head b" />
+            </marker>
+            <marker id="head-stop" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="3" markerHeight="3" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="head stop" />
+            </marker>
+            <marker id="head-held" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="3" markerHeight="3" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="head held" />
+            </marker>
+          </defs>
+          <g id="lines"></g>
+        </svg>
+      </div>
+      <p id="message" role="status"></p>
+    </main>
+
+    <aside id="trace" hidden aria-live="polite">
+      <h2 id="trace-title"></h2>
+      <p id="trace-text"></p>
+      <ol id="trace-steps"></ol>
+    </aside>
+
+    <footer class="tools">
+      <span id="promote" hidden>
+        <button data-promo="Q" aria-pressed="true" title="Queen">♛&#xFE0E;</button>
+        <button data-promo="R" aria-pressed="false" title="Rook">♜&#xFE0E;</button>
+        <button data-promo="B" aria-pressed="false" title="Bishop">♝&#xFE0E;</button>
+        <button data-promo="N" aria-pressed="false" title="Knight">♞&#xFE0E;</button>
+      </span>
+      <button id="lock" class="primary play" title="Lock in your move (Enter)" disabled>Lock in <kbd>Enter</kbd></button>
+      <button id="prev" class="fig" title="The figure before (,)" hidden>‹ <kbd>,</kbd></button>
+      <button id="resolve" class="primary fig" title="Resolve the requests, step by step (Enter)" hidden>Resolve <kbd>Enter</kbd></button>
+      <button id="reset" class="fig" title="Back to the figure's position (R)" hidden>Reset <kbd>R</kbd></button>
+      <button id="check" class="fig" title="Chess with check, for Fig. 11 (C)" aria-pressed="false" hidden>Check <kbd>C</kbd></button>
+      <button id="next-fig" class="fig" title="The next figure (.)" hidden>› <kbd>.</kbd></button>
+      <button id="pass" title="No piece can move: pass" hidden>Pass</button>
+      <button id="rules" title="How it works (?)">Rules <kbd>?</kbd></button>
+      <button id="sound" title="Sound (N)" aria-pressed="true">Sound <kbd>N</kbd></button>
+    </footer>
+
+    <section id="levels" class="overlay">
+      <div class="card">
+        <h2>Fair Chess</h2>
+        <p>
+          Chess without a first move: both players choose a move in secret, then both are revealed
+          and made at once. A move goes through only if it's legal whichever went first, so two
+          pieces bound for one square stop each other, and a piece that runs holds its captor.
+          Capture the king to win. From the post
+          <a href="/blog/2024/06/22/fair-chess-and-simultaneous-games/">Fair Chess and Simultaneous Games</a>.
+        </p>
+        <ol id="grid">
+          <li><button data-mode="easy"><span>Phibber, easy</span><small id="mark-easy"></small></button></li>
+          <li><button data-mode="normal"><span>Phibber</span><small id="mark-normal"></small></button></li>
+          <li><button data-mode="two"><span>Two players</span><small>one device, turns hidden</small></button></li>
+          <li><button id="open-figures"><span>The post's figures</span><small>resolve them step by step</small></button></li>
+        </ol>
+        <p class="keys">
+          Click a piece, then where it goes, or <kbd>↑ ↓ ← →</kbd> and <kbd>Space</kbd>.
+          <kbd>Enter</kbd> locks it in.
+        </p>
+        <div class="actions">
+          <button id="resume" hidden>Back to the game <kbd>Esc</kbd></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="figures" class="overlay" hidden>
+      <div class="card">
+        <h2>The figures</h2>
+        <p>
+          The examples from <a href="/blog/2024/06/22/fair-chess-and-simultaneous-games/">the post</a>, to resolve step by step. Every piece
+          is its own player: click any piece, then a square, to change what it requests;
+          click it twice to take its request back.
+        </p>
+        <ol id="figlist" class="figlist"></ol>
+        <div class="actions">
+          <button id="figures-back">Back <kbd>Esc</kbd></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="handoff" class="overlay" hidden>
+      <div class="card">
+        <h2 id="handoff-title"></h2>
+        <p id="handoff-text"></p>
+        <div class="actions">
+          <button id="handoff-go" class="primary">Ready <kbd>Enter</kbd></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="won" class="overlay" hidden>
+      <div class="card">
+        <h2 id="over-title"></h2>
+        <p id="score"></p>
+        <p id="stars" class="stars" hidden></p>
+        <div class="actions">
+          <button id="look">See the board</button>
+          <button id="again">New game</button>
+          <button id="next" class="primary">Rematch <kbd>Enter</kbd></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="help" class="overlay" hidden>
+      <div class="card">
+        <h2>How it works</h2>
+        <p>
+          Each round, both players <b>request</b> a move: any move a piece could make, as if it
+          were their turn. There's no check; a king is lost by being captured, and castling is
+          allowed through attack. Requests are revealed together and <b>merged</b>:
+        </p>
+        <p>
+          A move is made only if it is legal in both orders, White's first or Black's. If one
+          is, it's made, and the other is tried again on the new board.
+        </p>
+        <ul>
+          <li><b>Collision.</b> Both to one empty square: whichever went first would turn the
+            other into a capture, a different move. Neither moves.</li>
+          <li><b>Block.</b> A piece lands in another's path: it moves, the other doesn't.</li>
+          <li><b>Escape.</b> A piece runs as it's captured: it can't run if taken first, and
+            the capture misses if it ran first. Neither moves, so a king that moves can't be taken
+            that round.</li>
+        </ul>
+        <p>
+          With more players (in the figures, every piece is one) it's a loop: make the moves
+          legal in every ordering of those still undecided, block what that made illegal, and go
+          again until nothing changes. What's left is held. The trace beside the board shows each
+          step. It works for any turn-based game, not just chess.
+        </p>
+        <p>
+          A position three times, or fifty rounds without a capture or a pawn move, is a draw.
+          From <a href="/blog/2024/06/22/fair-chess-and-simultaneous-games/">Fair Chess and Simultaneous Games</a>.
+        </p>
+        <div class="actions">
+          <button id="help-close" class="primary">Play <kbd>Esc</kbd></button>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

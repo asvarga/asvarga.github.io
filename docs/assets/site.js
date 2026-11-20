@@ -35,7 +35,7 @@ document.querySelectorAll('a[href^="javascript:"][href*="divJumper.js"]').forEac
     if (document.divJumper) return document.divJumper.stop();
     const s = document.createElement("script");
     s.id = "divJumper";
-    s.src = "/site/div-jumper/divJumper.js" + assetVersion;
+    s.src = "/div-jumper/divJumper.js" + assetVersion;
     document.body.append(s);
   }),
 );

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Transfinite Zippers · Alexander Varga</title>
+    <meta name="description" content="A map from ordinal offsets to values that remembers where you left every list: step through the post's figures, then move by 1, ω, ω² or ω^ω yourself." />
+    <link rel="canonical" href="https://asvarga.com/zippers/" />
+    <link rel="icon" href="/files/triangle-wave.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="art/arcade.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="crumbs"><a href="/">← Home</a></p>
+        <h1>Transfinite Zippers</h1>
+        <p class="lede">
+          A pure, immutable map from ordinal offsets to values, for interpreters that quote and
+          unquote through towers of machines. <code>move(1)</code> steps to a sibling,
+          <code>move(ω)</code> to a cousin in the next machine, <code>move(ω²)</code> to a second
+          cousin, and every list remembers where you left it. Step through the post's figures, then
+          move it yourself. From the post
+          <a href="/blog/2023/03/05/transfinite-zippers/">Transfinite Zippers</a>
+        </p>
+      </header>
+
+      <nav class="stepper" aria-label="Steps">
+        <button id="prev" title="The step before (←)"><kbd>←</kbd> Prev</button>
+        <div class="where">
+          <span id="where"></span>
+          <ol id="dots" aria-label="Every step"></ol>
+        </div>
+        <button id="next" class="primary" title="The next step (→ or Space)">Next <kbd>→</kbd></button>
+      </nav>
+
+      <figure id="figure">
+        <div id="scroller">
+          <svg id="fig" role="img" aria-label="The zipper: values at the bottom, lists of them above, the focus in the house"></svg>
+        </div>
+        <figcaption>
+          <p id="ops" class="ops" aria-live="polite"></p>
+          <p id="caption"></p>
+          <p id="tap" class="dim tap">Tap the picture for the next step, or a value to go to it.</p>
+        </figcaption>
+      </figure>
+
+      <div class="cols">
+        <section class="card">
+          <h2>From the house</h2>
+          <p class="dim">Each value and the one move that reaches it. Tap one to make that move.</p>
+          <ul id="reach" class="chips"></ul>
+        </section>
+        <section class="card">
+          <h2>Move it yourself</h2>
+          <p class="dim">Each move climbs its ordinal's path up the vine, steps along, and comes back down the way that list last went.</p>
+          <div id="moves" class="moves"></div>
+          <div class="row">
+            <button id="set" title="Put a new value in the house (S)">set(<b id="next-value">J</b>) <kbd>S</kbd></button>
+            <button id="tour" title="Back to the post's figures (Home)">The post's figures <kbd>Home</kbd></button>
+          </div>
+        </section>
+      </div>
+
+      <details id="original" class="card wide">
+        <summary>The post's figure <span id="original-n"></span></summary>
+        <p class="dim">
+          The post's own drawing, to compare. The page draws the same cells, worked out from the
+          moves, on a dark page.
+        </p>
+        <img id="original-img" alt="The post's figure for this step" />
+      </details>
+
+      <p class="dim foot">
+        <b class="k-house">The house</b> is the focus. <b class="k-bucket">Buckets</b> hold values.
+        <b class="k-green">Green circles</b> are the vine: a trie of each move's path in bounded
+        parentheses, <code class="vine">\</code> up-left and <code class="vine">/</code> up-right,
+        from the house to the lists it can step along. Each row of
+        <b class="k-pink">diamonds</b> is a zipper list, named by the move that walks it; its
+        <b class="k-chosen">dark diamond</b> is its chosen child, and its arrows point away from it.
+        A child off the vine keeps its structure in <b class="k-blue">blue circles</b>, one for each
+        <code class="vine">\</code> after the first on its path, each holding the
+        <code class="vine">/</code> branch left there (the lists below) and pointing on down to the
+        value it last had in focus. Keys: <kbd>←</kbd> <kbd>→</kbd> step, <kbd>Space</kbd> next, <kbd>S</kbd> sets a
+        value, <kbd>Home</kbd> starts over. The URL keeps the steps.
+      </p>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

@@ -5,7 +5,7 @@
 // the camera keeps to, [x, y, width], for pictures that were crops.
 //
 // `original` ones redraw the pictures on the original page
-// (https://asvarga.com/site/collision-trees/), in its order, in plain ink.
+// (https://asvarga.com/collision-trees/), in its order, in plain ink.
 
 const UP = { x: 0, y: 0, heading: 90, speed: 1 };
 // The originals' races start each tree as four, one each way, so each seed

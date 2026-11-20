@@ -148,7 +148,8 @@ def strip_tags(s):
 
 # The listings: they link to everything else, so they'd only crowd results.
 LISTINGS = {f"{SITE}/", f"{SITE}/blog/", f"{SITE}/wiki/"}
-KINDS = {"blog": "post", "site": "project", "wiki": "note"}
+# Projects sit at the top level, /<name>/.
+KINDS = {"blog": "post", "wiki": "note"}
 
 
 def search():
@@ -164,7 +165,7 @@ def search():
         tags = [strip_tags(t) for t in re.findall(r'class="tag"[^>]*>(.*?)<', page.split('<div class="prose"')[0])]
         entries[url] = dict(
             url=url,
-            kind=KINDS.get(section, "page"),
+            kind=KINDS.get(section, "project"),
             title=html.unescape(re.search(r"<title>(.*?)</title>", page).group(1)).rsplit(" · ", 1)[0],
             date=date.group(1) if date and section == "blog" else None,
             tags=tags,

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://asvarga.com/ackermann/</loc></url>
   <url><loc>https://asvarga.com/blog/2020/05/27/plotting-functions-on-ordinals/</loc></url>
   <url><loc>https://asvarga.com/blog/2020/10/21/pure-lists-with-ologi-indexing/</loc></url>
   <url><loc>https://asvarga.com/blog/2022/05/30/efficient-transfinite-lists/</loc></url>
@@ -10,21 +11,20 @@
   <url><loc>https://asvarga.com/blog/2026/03/24/nanobots/</loc></url>
   <url><loc>https://asvarga.com/blog/2026/05/02/function-with-4-fold-symmetry/</loc></url>
   <url><loc>https://asvarga.com/blog/</loc></url>
+  <url><loc>https://asvarga.com/collision-trees/</loc></url>
+  <url><loc>https://asvarga.com/collision-trees/play/</loc></url>
+  <url><loc>https://asvarga.com/div-jumper/</loc></url>
+  <url><loc>https://asvarga.com/fairchess/</loc></url>
+  <url><loc>https://asvarga.com/fireworks/</loc></url>
+  <url><loc>https://asvarga.com/hybrid-env/</loc></url>
   <url><loc>https://asvarga.com/</loc></url>
-  <url><loc>https://asvarga.com/site/ackermann/</loc></url>
-  <url><loc>https://asvarga.com/site/collision-trees/</loc></url>
-  <url><loc>https://asvarga.com/site/collision-trees/play/</loc></url>
-  <url><loc>https://asvarga.com/site/div-jumper/</loc></url>
-  <url><loc>https://asvarga.com/site/fairchess/</loc></url>
-  <url><loc>https://asvarga.com/site/fireworks/</loc></url>
-  <url><loc>https://asvarga.com/site/hybrid-env/</loc></url>
-  <url><loc>https://asvarga.com/site/ordinals/</loc></url>
-  <url><loc>https://asvarga.com/site/rainbow/</loc></url>
-  <url><loc>https://asvarga.com/site/splotch/</loc></url>
-  <url><loc>https://asvarga.com/site/tflists/</loc></url>
-  <url><loc>https://asvarga.com/site/zippers/</loc></url>
+  <url><loc>https://asvarga.com/ordinals/</loc></url>
+  <url><loc>https://asvarga.com/rainbow/</loc></url>
+  <url><loc>https://asvarga.com/splotch/</loc></url>
+  <url><loc>https://asvarga.com/tflists/</loc></url>
   <url><loc>https://asvarga.com/wiki/Me/</loc></url>
   <url><loc>https://asvarga.com/wiki/NoteTaking/</loc></url>
   <url><loc>https://asvarga.com/wiki/Trace/</loc></url>
   <url><loc>https://asvarga.com/wiki/</loc></url>
+  <url><loc>https://asvarga.com/zippers/</loc></url>
 </urlset>
