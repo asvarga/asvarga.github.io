@@ -44,6 +44,7 @@
     <div class="meta"><time datetime="2024-06-22">June 22, 2024</time><span>7 min read</span><span class="tags"><a class="tag" href="/blog/#tag=game">Game</a><a class="tag" href="/blog/#tag=parallelprogramming">Parallel Programming</a></span></div>
   </header>
   <div class="prose" data-lightbox>
+<p><strong>Try it:</strong> <a href="/site/fairchess/">Fair Chess</a>, an interactive version of this post that runs in your browser.</p>
 <p>The game of chess is famously flawed due to the <a href="https://en.wikipedia.org/wiki/First-move_advantage_in_chess" target="_blank" rel="noopener">first-move advantage</a>, in which the player who moves first has a significant advantage. Let's fix it and make it fair.</p>
 <h3 id="simultaneous-chess">Simultaneous Chess</h3>
 <p>Perhaps the simplest way to get rid of a first-move advantage is to remove the first move: we'll consider chess variants where both players move simultaneously. This is a well-studied concept in game theory, called a <a href="https://en.wikipedia.org/wiki/Simultaneous_game" target="_blank" rel="noopener">simultaneous game</a>. We might have a setup where in each round of play:</p>

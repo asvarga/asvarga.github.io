@@ -1,0 +1,276 @@
+/* Rainbow Lists' own: art/arcade.css has the rest. */
+
+:root {
+  --k-n: #d8d3c4;
+  --k-r: #ff5f5f;
+  --k-g: #4fd16b;
+  --k-b: #5c9dff;
+  --k-y: #f2cf45;
+  --greedy: #d98cff; /* the greedy seek's line in the chart */
+  --planned: #35d6c6; /* the planned seek's */
+  --optimal: #f4f1e4; /* the shortest path's, the floor */
+}
+
+html,
+body {
+  overflow: auto;
+}
+
+main {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: max(14px, env(safe-area-inset-top)) 16px 2rem;
+  line-height: 1.45;
+}
+
+h1 {
+  margin: 0.2rem 0 0.3rem;
+  font-size: 1.6rem;
+  color: var(--accent);
+}
+
+.lede {
+  margin: 0 0 0.8rem;
+  color: var(--dim);
+  max-width: 50rem;
+}
+
+a {
+  color: var(--accent);
+}
+
+var {
+  font-style: italic;
+}
+
+.controls {
+  display: grid;
+  gap: 0.45rem;
+  margin-bottom: 0.6rem;
+}
+
+.slider {
+  display: grid;
+  grid-template-columns: 13.5rem 1fr auto auto;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.slider label {
+  white-space: nowrap;
+}
+
+.slider output {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.slider input {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.seg {
+  display: inline-flex;
+}
+
+.seg button {
+  border-radius: 0;
+}
+
+.seg button:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+.seg button:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+#hop {
+  margin-left: auto;
+}
+
+figure {
+  margin: 0 0 0.8rem;
+  padding: 0.5rem;
+  border-radius: 14px;
+  background: rgb(0 0 0 / 18%);
+  border: 1px solid var(--line);
+}
+
+#fig {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+figcaption {
+  margin: 0.3rem 0.3rem 0;
+  min-height: 1.5em;
+  font-variant-numeric: tabular-nums;
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.card {
+  width: auto;
+  padding: 0.8rem 1rem;
+}
+
+.card h2 {
+  font-size: 1.1rem;
+}
+
+.dim {
+  color: var(--dim);
+  font-size: 0.9rem;
+}
+
+#hops {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0.4rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+#hops li {
+  padding: 0.1rem 0.45rem;
+  border-radius: 8px;
+  border: 1px solid currentColor;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.88rem;
+}
+
+#hops li.up {
+  border-style: solid;
+}
+
+#hops li.down {
+  border-style: dashed;
+}
+
+#hops li.now {
+  background: rgb(255 255 255 / 14%);
+}
+
+#cons {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.92rem;
+}
+
+#cons td {
+  padding: 0.2rem 0.4rem;
+  border-top: 1px solid var(--line);
+}
+
+#cons tr:hover {
+  background: rgb(255 255 255 / 7%);
+}
+
+#cons code {
+  font-family: ui-monospace, monospace;
+}
+
+#bounds {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.92rem;
+}
+
+#bounds th,
+#bounds td {
+  padding: 0.25rem 0.5rem;
+  border-top: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+#bounds td:nth-child(2),
+#bounds td:nth-child(3) {
+  white-space: nowrap;
+}
+
+#bounds th {
+  color: var(--dim);
+  font-weight: normal;
+}
+
+#bounds tr.on {
+  background: rgb(255 255 255 / 9%);
+}
+
+#bounds tbody tr {
+  cursor: pointer;
+}
+
+#chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.legend span {
+  margin-right: 1rem;
+}
+
+.foot {
+  max-width: 54rem;
+}
+
+.k-n {
+  color: var(--k-n);
+}
+
+.k-r {
+  color: var(--k-r);
+}
+
+.k-g {
+  color: var(--k-g);
+}
+
+.k-b {
+  color: var(--k-b);
+}
+
+.k-y {
+  color: var(--k-y);
+}
+
+svg text {
+  fill: var(--dim);
+  font-size: 13px;
+  font-family: inherit;
+}
+
+@media (max-width: 720px) {
+  .cols {
+    grid-template-columns: 1fr;
+  }
+  .slider {
+    grid-template-columns: 1fr auto auto;
+  }
+  .slider label {
+    grid-column: 1 / -1;
+  }
+}

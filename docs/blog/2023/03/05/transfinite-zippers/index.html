@@ -41,6 +41,7 @@
     <div class="meta"><time datetime="2023-03-05">March 5, 2023</time><span>5 min read</span><span class="tags"><a class="tag" href="/blog/#tag=ordinal">Ordinal</a><a class="tag" href="/blog/#tag=datastructure">Data Structures</a></span></div>
   </header>
   <div class="prose" data-lightbox>
+<p><strong>Try it:</strong> <a href="/site/zippers/">Transfinite Zippers</a>, an interactive version of this post that runs in your browser.</p>
 <p>In my <a href="/blog/2022/07/18/transfinite-meta-programming---part-2/">previous post</a>, I described an approach for extending multi-stage programming (MSP) to infinity and beyond. We start with a simple computing “machine” M[0] such as the lambda calculus. Each machine M[a] has a successor machine M[a+1] which is capable of building and reasoning about programs from M[a], yielding towers of nested machines. From there, we note that MSP itself can’t be implemented in any such finite M[n], but must exist in some limit machine M[ω], yielding transfinite towers of machines M[a] for each ordinal a.</p>
 <p>In <a href="/blog/2022/05/30/efficient-transfinite-lists/">another post</a>, I defined a data structure used by such transfinite machines to encode mappings of variable indices to bound values. This post describes a new and improved data structure for these mappings.</p>
 <p>During the evaluation of a program in which a function was passed the values A, B, C, D, in that order, we might see a mapping like:</p>
