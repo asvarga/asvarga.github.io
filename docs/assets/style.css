@@ -274,13 +274,10 @@ a:hover .arrow { transform: translateX(3px); }
 .project-grid h3 { font-size: 1.12rem; }
 /* Masonry: site.js spans each card over as many 4px rows as it is tall (plus
    the gap), so short cards don't leave holes and order stays left to right. */
-.project-grid.masonry { grid-auto-rows: 4px; row-gap: 0; align-items: start; grid-auto-flow: row dense; }
-/* Cards in a few sizes: square and tall ones crop their picture taller, wide
-   ones span two of three columns (with only two, a wide card leaves holes). `dense` fills the holes those leave. */
+.project-grid.masonry { grid-auto-rows: 4px; row-gap: 0; align-items: start; }
+/* Cards in a few heights: square and tall ones crop their picture taller. */
 .project-grid .card.square .shot { aspect-ratio: 1; }
 .project-grid .card.tall .shot { aspect-ratio: 4 / 5; }
-@media (min-width: 58rem) { .project-grid .card.wide { grid-column: span 2; } }
-.project-grid .card.wide h3 { font-size: 1.3rem; }
 
 /* ---------- Blog index ---------- */
 .filter { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: -1rem 0 2.25rem; }
