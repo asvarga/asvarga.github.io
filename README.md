@@ -5,7 +5,8 @@ View here: https://asvarga.com
 The site is plain HTML, CSS and a little JS in `docs/`. There is no build step
 and no framework: what's committed is what's served.
 
-- Preview: `main` (serves `docs/` at http://127.0.0.1:8000)
+- Preview: `main` (serves `docs/` at http://127.0.0.1:8000, and fast-forwards
+  to GitHub every 2 seconds while it runs; `MAIN_PULL_EVERY=0 main` to stop that)
 - Check: `check` (broken links, headers/footers that drifted apart, stale
   feed, sitemap or search index; runs before every publish and on pull requests)
 - Feed, sitemap and search index: `feeds` regenerates `docs/blog/feed.xml`,

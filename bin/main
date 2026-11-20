@@ -14,6 +14,12 @@
 # downloads it from SatSight's "web-latest" release at deploy time. So the
 # preview works the same, `main` downloads it the first time into the
 # gitignored docs/site/satsight/. Delete that folder to pick up a newer one.
+#
+# While it serves, it also fetches every couple of seconds and fast-forwards to
+# the upstream branch, as lab's main/watch does, so a push to GitHub shows up
+# here on its own. Fast-forward only: uncommitted changes are kept, and a
+# checkout with its own commits isn't moved (it says so once per upstream
+# commit). MAIN_PULL_EVERY sets the seconds between looks (default 2; 0 is off).
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -30,6 +36,30 @@ if [ ! -f "$satsight/index.html" ]; then
     echo "  couldn't fetch it (offline?); /site/satsight/ will 404 in this preview" >&2
   fi
   rm -f "$tarball"
+fi
+
+# Pull in the background. The server below takes over this shell's PID (exec),
+# so the loop stops once that PID is gone.
+every="${MAIN_PULL_EVERY:-2}"
+if [[ "$every" != 0 ]]; then
+  (
+    cd "$root" || exit
+    server=$$
+    stuck=""
+    while sleep "$every" && kill -0 "$server" 2>/dev/null; do
+      git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=10 fetch -q 2>/dev/null || continue
+      up="$(git rev-parse -q --verify '@{u}' 2>/dev/null)" || continue
+      [[ -n "$(git rev-list -1 "HEAD..$up" 2>/dev/null)" ]] || continue
+      [[ "$up" == "$stuck" ]] && continue
+      if git merge -q --ff-only "$up" >/dev/null 2>&1; then
+        stuck=""
+        echo "pulled $(git rev-parse --short "$up")" >&2
+      else
+        stuck="$up"
+        echo "can't fast-forward to $(git rev-parse --short "$up"): this checkout has its own commits, or local changes in the way" >&2
+      fi
+    done
+  ) &
 fi
 
 # Python's `-m http.server` has no fallback when its port is busy (another
