@@ -435,8 +435,14 @@ svg text {
 }
 
 .node.follow .dot {
-  stroke: var(--ink);
-  stroke-width: 3.4;
+  animation: follow-node 0.2s var(--f) forwards;
+}
+
+@keyframes follow-node {
+  to {
+    stroke: var(--ink);
+    stroke-width: 3.4;
+  }
 }
 
 .node.visited .dot {

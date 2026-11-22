@@ -13,7 +13,7 @@ const PAD = 34;
 const TOP = 40;
 const BOTTOM = 46;
 const STEP = 300; // ms a get spends on each parenthesis
-const POP = 110; // ms between the pairs a put builds
+const POP = 170; // ms a hop of Phibber's while a put builds
 
 const PUTS = ["1", "2", "ω", "ω+1", "ω·2", "ω^2", "ω^3", "ω^ω"];
 const TRY = ["1", "2", "ω", "ω+1", "ω·2", "ω^2", "ω^2+1", "ω^ω"];
@@ -110,6 +110,37 @@ function frog(parent) {
 }
 const perch = (g, x, y) => g.setAttribute("transform", `translate(${x.toFixed(1)},${(y - 5).toFixed(1)})`);
 
+/**
+ * When things happen in a put, as Phibber does it: each round, from the old
+ * head he hops down its path through the old list (the nodes it follows),
+ * then back up building the new pairs, deepest first, one a hop, until he's
+ * on the new head. built and follow: node id -> ms he lands there. keys: his
+ * landings in order, { t, id }. at[r][j]: when round r's j-th pair is built.
+ */
+function putSchedule(rounds, before, pop) {
+  const built = new Map();
+  const follow = new Map();
+  const keys = [{ t: 0, id: before.id }];
+  const at = [];
+  let t = 0;
+  for (const r of rounds) {
+    for (const [j, st] of r.steps.entries()) {
+      if (st.follow === NIL) break;
+      if (j) keys.push({ t: (t += pop), id: st.follow.id });
+      if (!follow.has(st.follow.id)) follow.set(st.follow.id, t);
+    }
+    const when = [];
+    for (let j = r.steps.length - 1; j >= 0; j--) {
+      const id = r.steps[j].node.id;
+      when[j] = t += pop;
+      built.set(id, t);
+      keys.push({ t, id });
+    }
+    at.push(when);
+  }
+  return { built, follow, keys, at, end: t };
+}
+
 // ---- Drawing ----
 
 /**
@@ -156,18 +187,10 @@ function draw(L, hl = {}) {
   const placeOf = new Map(hollow.map((h, i) => [h.id, places(diffs)[i]]));
 
   // What the highlight touches.
-  const built = new Map(); // node id -> order built
-  const follow = new Set();
+  const built = hl.kind === "put" ? hl.sched.built : new Map(); // node id -> ms built
+  const follow = hl.kind === "put" ? hl.sched.follow : new Map(); // node id -> ms followed
   const copies = new Set(); // "from>to" of left edges a put just copied
-  if (hl.kind === "put") {
-    let i = 0;
-    for (const r of hl.rounds)
-      for (const s of [...r.steps].reverse()) {
-        built.set(s.node.id, i++);
-        if (s.follow !== NIL) follow.add(s.follow.id);
-        if (s.copied) copies.add(`${s.node.id}>${s.node.l.id}`);
-      }
-  }
+  if (hl.kind === "put") for (const r of hl.rounds) for (const st of r.steps) if (st.copied) copies.add(`${st.node.id}>${st.node.l.id}`);
   const walked = new Map(); // "from>to" -> step
   const visited = new Map(); // node id -> step
   if (hl.kind === "walk") {
@@ -230,7 +253,7 @@ function draw(L, hl = {}) {
     let marker = "arrow";
     let delay = null;
     if (e.copied) (cls.push("copy"), (marker = "arrow-copy"));
-    if (built.has(e.from.id)) (cls.push("built"), (delay = built.get(e.from.id) * hl.pop));
+    if (built.has(e.from.id)) (cls.push("built"), (delay = built.get(e.from.id)));
     if (copies.has(key)) cls.push("copied-now");
     if (walked.has(key)) (cls.push("walked"), (marker = "arrow-walk"), (delay = walked.get(key) * STEP - STEP / 2));
     if (kept && !kept.has(e.from.id)) cls.push("drop");
@@ -244,14 +267,14 @@ function draw(L, hl = {}) {
     const g = el("g", { class: "node" }, nodeLayer);
     const cls = [p.y === 0 ? "hollow" : "pair"];
     let delay = null;
-    if (built.has(p.node.id)) (cls.push("built"), (delay = built.get(p.node.id) * hl.pop));
+    if (built.has(p.node.id)) (cls.push("built"), (delay = built.get(p.node.id)));
     if (follow.has(p.node.id)) cls.push("follow");
     if (visited.has(p.node.id)) (cls.push("visited"), (delay = visited.get(p.node.id) * STEP));
     if (kept && !kept.has(p.node.id)) cls.push("drop");
     if (p.node === L) cls.push("head");
     if (hl.kind === "got" && p.node === L) cls.push("arrived");
     g.setAttribute("class", `node ${cls.join(" ")}`);
-    g.setAttribute("style", `--d:${delay ?? 0}ms;--done:${doneAt}ms`);
+    g.setAttribute("style", `--d:${delay ?? 0}ms;--f:${follow.get(p.node.id) ?? 0}ms;--done:${doneAt}ms`);
     if (p.node === L) el("circle", { cx, cy, r: 18, class: "head-ring" }, g);
     el("circle", { cx, cy, r: r(p), class: "dot" }, g);
     if (p.y === 0) {
@@ -291,7 +314,28 @@ function draw(L, hl = {}) {
   // Phibber, the frog from Rainbow Lists: he sits on the head, and hops
   // along a get's walk, off the end of one that falls.
   const phib = frog(svg);
-  if (hl.kind !== "walk") {
+  if (hl.kind === "put") {
+    // down the old list along the path, and back up building
+    const keys = hl.sched.keys.filter((k) => at.has(k.id)).map((k) => ({ t: k.t, xy: [sx(at.get(k.id).x), sy(at.get(k.id).y)] }));
+    const t0 = performance.now();
+    const frame = (t) => {
+      if (!phib.isConnected || !keys.length) return;
+      const ms = Math.max(0, t - t0);
+      const i = keys.findIndex((k) => k.t > ms);
+      let xy = keys.at(-1).xy;
+      let lift = 0;
+      if (i > 0) {
+        const [a, b] = [keys[i - 1], keys[i]];
+        const f = (ms - a.t) / (b.t - a.t);
+        const e = f < 0.5 ? 2 * f * f : 1 - 2 * (1 - f) * (1 - f);
+        xy = [a.xy[0] + (b.xy[0] - a.xy[0]) * e, a.xy[1] + (b.xy[1] - a.xy[1]) * e];
+        lift = Math.sin(f * Math.PI) * Math.min(DY, 10 + Math.hypot(b.xy[0] - a.xy[0], b.xy[1] - a.xy[1]) * 0.2);
+      } else if (i === 0) xy = keys[0].xy;
+      perch(phib, xy[0], xy[1] - lift);
+      if (i !== -1) requestAnimationFrame(frame);
+    };
+    frame(t0);
+  } else if (hl.kind !== "walk") {
     if (at.has(L.id)) perch(phib, sx(at.get(L.id).x), sy(0));
   } else {
     const v = hl.res.visited;
@@ -394,9 +438,10 @@ function doPut(x) {
   hist.push({ list: res.list, op: `p${show(x)}` });
   const builtN = res.rounds.reduce((n, r) => n + r.steps.length, 0);
   const copiedN = res.rounds.reduce((n, r) => n + r.steps.filter((s) => s.copied).length, 0);
-  // A long put builds faster, so it's done in a few seconds.
-  const pop = Math.min(POP, 2400 / builtN);
-  draw(res.list, { kind: "put", rounds: res.rounds, before, pop });
+  // A long put hops faster, so it's done in a few seconds.
+  const hops = builtN + res.rounds.reduce((n, r) => n + r.steps.filter((st, j) => j && st.follow !== NIL).length, 0);
+  const sched = putSchedule(res.rounds, before, Math.min(POP, 3600 / hops));
+  draw(res.list, { kind: "put", rounds: res.rounds, before, sched });
   readout();
   // The rounds, with a run of the same power as one: put(1) () ×12.
   const groups = [];
@@ -404,12 +449,12 @@ function doPut(x) {
     if (groups.at(-1)?.power === r.power) groups.at(-1).n++;
     else groups.push({ power: r.power, path: r.path, n: 1 });
   }
-  let i = 0;
+  let r = 0;
   const parts = groups.map((g) => {
     // Its parens light as the pairs of its last round pop in.
-    const last = i + (g.n - 1) * g.path.length;
-    const d = (j) => (last + g.path.length - 1 - j) * pop;
-    i += g.n * g.path.length;
+    const when = sched.at[r + g.n - 1];
+    const d = (j) => when[j];
+    r += g.n;
     return `<span class="round">put(${html(g.power)}) <code class="path">${parenSpans(g.path, d)}</code>${g.n > 1 ? ` ×${g.n}` : ""}</span>`;
   });
   const order =
