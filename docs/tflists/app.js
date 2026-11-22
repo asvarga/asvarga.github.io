@@ -111,11 +111,12 @@ function frog(parent) {
 const perch = (g, x, y) => g.setAttribute("transform", `translate(${x.toFixed(1)},${(y - 5).toFixed(1)})`);
 
 /**
- * When things happen in a put, as Phibber does it: each round, from the old
- * head he hops down its path through the old list (the nodes it follows),
- * then back up building the new pairs, deepest first, one a hop, until he's
- * on the new head. built and follow: node id -> ms he lands there. keys: his
- * landings in order, { t, id }. at[r][j]: when round r's j-th pair is built.
+ * When things happen in a put, as Phibber does it: from the old head he hops
+ * left, building each round's new pairs deepest first (the one next to the
+ * old head first), one a hop, until he's on the new head. Each pair lights the
+ * old node its path followed as it's built. built and follow: node id -> ms.
+ * keys: his landings in order, { t, id }. at[r][j]: when round r's j-th pair
+ * is built.
  */
 function putSchedule(rounds, before, pop) {
   const built = new Map();
@@ -124,17 +125,13 @@ function putSchedule(rounds, before, pop) {
   const at = [];
   let t = 0;
   for (const r of rounds) {
-    for (const [j, st] of r.steps.entries()) {
-      if (st.follow === NIL) break;
-      if (j) keys.push({ t: (t += pop), id: st.follow.id });
-      if (!follow.has(st.follow.id)) follow.set(st.follow.id, t);
-    }
     const when = [];
     for (let j = r.steps.length - 1; j >= 0; j--) {
-      const id = r.steps[j].node.id;
+      const st = r.steps[j];
       when[j] = t += pop;
-      built.set(id, t);
-      keys.push({ t, id });
+      built.set(st.node.id, t);
+      if (st.follow !== NIL && !follow.has(st.follow.id)) follow.set(st.follow.id, t);
+      keys.push({ t, id: st.node.id });
     }
     at.push(when);
   }
@@ -439,8 +436,7 @@ function doPut(x) {
   const builtN = res.rounds.reduce((n, r) => n + r.steps.length, 0);
   const copiedN = res.rounds.reduce((n, r) => n + r.steps.filter((s) => s.copied).length, 0);
   // A long put hops faster, so it's done in a few seconds.
-  const hops = builtN + res.rounds.reduce((n, r) => n + r.steps.filter((st, j) => j && st.follow !== NIL).length, 0);
-  const sched = putSchedule(res.rounds, before, Math.min(POP, 3600 / hops));
+  const sched = putSchedule(res.rounds, before, Math.min(POP, 3000 / builtN));
   draw(res.list, { kind: "put", rounds: res.rounds, before, sched });
   readout();
   // The rounds, with a run of the same power as one: put(1) () ×12.
