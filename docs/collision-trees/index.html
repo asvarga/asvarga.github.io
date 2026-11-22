@@ -43,6 +43,28 @@
     <h1>Collision Trees</h1>
   </header>
   <div class="prose" data-lightbox>
+<!--
+  Banner: the "Honeycomb" preset in play/ (Fork 60°, twist +3°, fully grown,
+  close up on the middle, honeycomb palette and paper). To redraw it, open
+  this link, hide the panel (H), and save a PNG:
+
+  https://asvarga.com/collision-trees/play/#%7B%22p%22%3A%22%22%2C%22r%22%3A%22A%3A%2060%20A%2C%20-60%20A%22%2C%22d%22%3A80%2C%22s%22%3A%5B%5B0%2C0%2C90%2C1%2C0%5D%5D%2C%22vw%22%3A%5B0%2C1.48%2C17.9%5D%2C%22m%22%3A%5B1%2C3%2C1%5D%2C%22sw%22%3A%5B%5D%2C%22cy%22%3A12%2C%22c%22%3A%22depth%22%2C%22w%22%3A%22honeycomb%22%2C%22fx%22%3A%22neon%22%2C%22pl%22%3A%22honeycomb%22%2C%22lw%22%3A1.4%2C%22gl%22%3A0.5%2C%22k%22%3A3%2C%22v%22%3A1%2C%22g%22%3A0.45%2C%22e%22%3A1%7D
+
+  The link holds everything: rules "A: 60 A, -60 A", depth 80, one seed at
+  (0, 0) heading 90°, twist 3 (m: [spread, twist, shrink] = [1, 3, 1]), view
+  vw [0, 1.48, 17.9] = [x, y, width shown across the window's shorter side],
+  effect neon, color by depth, palette and paper "honeycomb" (in
+  play/render.js), line width 1.4, glow 0.5, e: 1 (fully grown).
+
+  images/full/honeycomb-banner.jpg is 4752x1188: a 1584x396 window (LinkedIn's
+  banner size, 4:1) at device-pixel ratio 3. play/app.js caps the ratio at 2,
+  so lift that cap (resize()) for 3x, or take the 3168x792 it gives. It was
+  rendered with headless Chrome (puppeteer-core): set the viewport to
+  1584x396 at deviceScaleFactor 3, load the link, press H, wait for it to
+  finish growing, hide #overlay, and screenshot. The images/ copy is the
+  same picture at 2376 wide.
+-->
+<img src="images/honeycomb-banner.jpg" data-full="images/full/honeycomb-banner.jpg" width="2376" height="594" alt="A collision tree close up: glowing amber hexagons like a honeycomb">
 <p>The rules describing how these images are created are simple to describe. Grow a tree of branching lines in the obvious way, but whenever multiple branches collide, cut off the branches that reached there last. These simple rules lead to a surprising variety of behaviors. I give some implementation details at the bottom.</p>
 <p>Try it yourself: pick a preset or write your own rules, drop seeds, and watch the branches race. <a href="play/">Open it full screen</a>.</p>
 <iframe src="play/" title="Collision Trees, interactive" style="aspect-ratio: auto; height: min(80vh, 720px)" allow="fullscreen"></iframe>

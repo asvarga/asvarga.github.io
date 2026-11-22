@@ -1,7 +1,7 @@
 // Trees to start from. Each is rules, a depth and seeds (see rules.js), and
-// maybe how to show it: color, effect, palette, and the shape sliders
-// (spread, twist, shrink, depth) with `swing` naming those that swing in
-// time. `grown` ones start fully grown, since they move. `view` is a close-up
+// maybe how to show it: color, effect, palette, paper, line width, glow, and
+// the shape sliders (spread, twist, shrink, depth) with `swing` naming those
+// that swing in time. `grown` ones start fully grown, since they move. `view` is a close-up
 // the camera keeps to, [x, y, width], for pictures that were crops.
 //
 // `original` ones redraw the pictures on the original page
@@ -141,6 +141,20 @@ export const PRESETS = [
   { name: "Decagons", rules: "36, -36, 108, -108", depth: 60, seeds: [UP], effect: "skeleton", palette: "moss" },
   { name: "Sierpiński", rules: "120, 0, -120", depth: 64, seeds: [UP], effect: "glass", palette: "ember" },
   { name: "Seed head", rules: "5, -175", depth: 80, seeds: [UP], palette: "candy" },
+  // The banner atop ../index.html: Fork 60° with a 3° twist, close up on the
+  // middle, in honey. Its comment there has the exact link and how to save it.
+  {
+    name: "Honeycomb",
+    rules: "A: 60 A, -60 A",
+    depth: 80,
+    seeds: [UP],
+    twist: 3,
+    width: 1.4,
+    glow: 0.5,
+    palette: "honeycomb",
+    paper: "honeycomb",
+    view: [0, 1.48, 17.9],
+  },
   {
     name: "Stairs",
     rules: "# A tightens as it goes, and B steps out square.\nA: 15 A*0.98, -45 B\nB: 90 A",

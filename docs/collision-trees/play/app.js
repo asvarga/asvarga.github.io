@@ -424,9 +424,9 @@ function load() {
     state.cycle = num(s.cy, 2, 60, 12);
     state.preset = typeof s.p === "string" ? s.p : "";
     if (["depth", "seed", "time", "ink"].includes(s.c)) state.color = s.c;
-    if (["night", "day"].includes(s.w)) state.paper = s.w;
+    if (["night", "day", "honeycomb"].includes(s.w)) state.paper = s.w;
     if (["neon", "glass", "contours", "skeleton", "none"].includes(s.fx)) state.effect = s.fx;
-    if (["aurora", "ember", "ocean", "candy", "moss"].includes(s.pl)) state.palette = s.pl;
+    if (["aurora", "ember", "ocean", "candy", "moss", "honeycomb"].includes(s.pl)) state.palette = s.pl;
     state.width = num(s.lw, 0.5, 4, 1.3);
     state.glow = num(s.gl, 0, 2, 1);
     if (Number.isFinite(s.k)) {
@@ -502,6 +502,8 @@ function choose(name) {
     view: p.view ?? null,
     ...DEFAULTS,
   });
+  // The rest only when a preset asks: sliders it sets, and a paper.
+  for (const k of ["spread", "twist", "shrink", "width", "glow", "paper"]) if (p[k] !== undefined) state[k] = p[k];
   for (const k of SHAPE) state.swing[k] = (p.swing ?? []).includes(k);
   ptime = 0;
   showPanel();
