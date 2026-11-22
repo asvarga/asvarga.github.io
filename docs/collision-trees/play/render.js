@@ -45,6 +45,15 @@ const PALETTES = {
     [0.6, 0.6, 0.6],
     [0.1, 0.25, 0.4],
   ],
+  // Deep amber at the root, through honey, to beeswax at the tips, and never
+  // blue (hue stays within about 20°-50°). Goes with the honeycomb paper; made
+  // for the banner on ../index.html, whose comment says how to redraw it.
+  honeycomb: [
+    [0.8, 0.55, 0.17],
+    [0.25, 0.28, 0.13],
+    [0.5, 0.5, 0.5],
+    [0.5, 0.5, 0.5],
+  ],
 };
 export const PALETTE_NAMES = Object.keys(PALETTES);
 
@@ -54,10 +63,12 @@ const MODES = { depth: 0, time: 1, seed: 2, ink: 3 };
 const SEED_COLORS = {
   night: ["#f6c85f", "#6fd3c7", "#ff8a7a", "#9fa8ff", "#b5e37a", "#f59ad8", "#7ec4ff", "#ffb26b"],
   day: ["#b8860b", "#16857a", "#c8432f", "#4a55c9", "#5b8c1e", "#b0388f", "#1f6fb3", "#c26a12"],
+  honeycomb: ["#f6c85f", "#e0892b", "#ffe08a", "#b5651d", "#f2a93b", "#d9b36c", "#c8432f", "#fff1c1"],
 };
 export const PAPERS = {
   night: { bg: "#16292c", bg2: "#0b1517", ink: "#f4f1e4", seed: "#f6c85f" },
   day: { bg: "#f6f1e3", bg2: "#e7dfca", ink: "#1d2a2c", seed: "#a8323a" },
+  honeycomb: { bg: "#21160a", bg2: "#0c0804", ink: "#fff1c1", seed: "#f6c85f" },
 };
 
 const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
