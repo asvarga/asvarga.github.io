@@ -116,19 +116,56 @@ const fmt = (v, d = 5) => (Number.isFinite(v) ? v.toFixed(d) : "∞");
 const FROG =
   '<ellipse cx="0" cy="-2" rx="9" ry="7" fill="#6fcf5b" stroke="#000" stroke-width="1.5"/>' +
   [-4.5, 4.5].map((ex) => `<circle cx="${ex}" cy="-9" r="3.2" fill="#fff" stroke="#000" stroke-width="1.2"/><circle cx="${ex}" cy="-9" r="1.4" fill="#000"/>`).join("");
-const HOP = 480; // ms
-let hop = null; // { from: t, to: x, t0 }
+const HOP = 320; // ms, a route's first hop; a fundamental sequence's hops quicken
+let hop = null; // { legs: [{ to, label, ms }], from: t, t0 }
 
-/** Where Phibber is along the ruler, in t, and how far through his hop (1 if he's sitting). */
+/**
+ * Phibber's way to x: up its fundamental sequence x[1], x[2], … if it's a
+ * limit, closing in until the hops are too small to see, then onto x; or, if
+ * it's a successor λ+n, counting up from the limit λ below. If he's already
+ * partway along (x was below it on the way), he goes on from there.
+ */
+function routeTo(x, from) {
+  const stops = []; // [ordinal, label]
+  if (isLimit(x)) {
+    const close = (view.b - view.a) * 0.003;
+    for (let k = 1; k <= 16; k++) {
+      const y = fund(x, k);
+      if (Math.abs(at(x) - at(y)) < close) break;
+      stops.push([y, `<var>x</var>[${k}]`]);
+    }
+  } else if (x !== ZERO) {
+    const n = x.terms.at(-1)[1];
+    const lim = x.terms.slice(0, -1).reduce((sum, [e, k]) => add(sum, term(e, k)), ZERO);
+    stops.push([lim, lim === ZERO ? "" : "the limit below"]);
+    for (let j = Math.max(1, n - 8); j < n; j++) stops.push([add(lim, nat(j)), ""]);
+  }
+  const ahead = cmp(from, x) < 0 ? stops.filter(([y]) => cmp(y, from) > 0) : stops;
+  const legs = [...ahead, [x, "<var>x</var>"]].map(([to, label], i) => ({ to, label, ms: isLimit(x) ? Math.max(110, HOP * 0.85 ** i) : HOP * 0.8 }));
+  legs[0].ms = HOP * 1.3;
+  return legs;
+}
+
+/** Where Phibber is along the ruler, in t, how far through this hop, and which hop. */
 function frogAt() {
-  if (!hop) return { t: at(state.x), u: 1 };
-  const u = Math.min(1, (performance.now() - hop.t0) / HOP);
-  return { t: hop.from + (at(hop.to) - hop.from) * ease(u), u };
+  if (!hop) return { t: at(state.x), u: 1, i: -1 };
+  let ms = performance.now() - hop.t0;
+  let from = hop.from;
+  for (let i = 0; i < hop.legs.length; i++) {
+    const leg = hop.legs[i];
+    const to = at(leg.to);
+    if (ms < leg.ms || i === hop.legs.length - 1) {
+      const u = Math.min(1, Math.max(0, ms / leg.ms));
+      return { t: from + (to - from) * ease(u), u, i, from, to };
+    }
+    ms -= leg.ms;
+    from = to;
+  }
 }
 
 function hopTo(x) {
   if (x === state.x || matchMedia("(prefers-reduced-motion: reduce)").matches) return (hop = null);
-  hop = { from: frogAt().t, to: x, t0: performance.now() };
+  hop = { legs: routeTo(x, state.x), from: frogAt().t, t0: performance.now() };
 }
 
 // ---- the ruler ----
@@ -201,10 +238,11 @@ function drawRuler() {
   // Phibber, on x or on his way there
   let frog = "";
   const f = frogAt();
-  if (hop && f.u >= 1) hop = null;
+  const leg = hop?.legs[f.i];
+  if (hop && f.u >= 1 && f.i === hop.legs.length - 1) hop = null;
   const fx = X(f.t);
   if (fx >= -10 && fx <= w + 10) {
-    const span = hop ? Math.abs(X(at(hop.to)) - X(hop.from)) : 0;
+    const span = f.i >= 0 ? Math.abs(X(f.to) - X(f.from)) : 0;
     const lift = Math.sin(f.u * Math.PI) * Math.min(base - 24, 12 + span * 0.3);
     frog = `<g class="frog" transform="translate(${fx.toFixed(1)},${(base - 5 - lift).toFixed(1)})">${FROG}</g>`;
   }
@@ -214,7 +252,9 @@ function drawRuler() {
   const d = span < 0.01 ? 6 : span < 0.5 ? 4 : 2;
   $("readout").innerHTML = hover
     ? `<b>${html(hover)}</b> at <var>t</var> = ${fmt(at(hover))} <span class="dim">· click to pick it</span>`
-    : `<b class="acc">${html(state.x)}</b> at <var>t</var> = ${fmt(tx)} <span class="dim">· the ruler shows <var>t</var> from ${fmt(view.a, d)} to ${fmt(view.b, d)}${z > 1.05 ? `, zoomed ×${z < 10 ? z.toFixed(1) : Math.round(z)}` : ""}</span>`;
+    : hop && leg && f.i < hop.legs.length - 1
+      ? `Phibber hops to ${leg.label ? `${leg.label} = ` : ""}<b>${html(leg.to)}</b> at <var>t</var> = ${fmt(at(leg.to))} <span class="dim">· on his way to <var>x</var> = ${html(state.x)}${isLimit(state.x) ? ", up its fundamental sequence" : ", counting up"}</span>`
+      : `<b class="acc">${html(state.x)}</b> at <var>t</var> = ${fmt(tx)} <span class="dim">· the ruler shows <var>t</var> from ${fmt(view.a, d)} to ${fmt(view.b, d)}${z > 1.05 ? `, zoomed ×${z < 10 ? z.toFixed(1) : Math.round(z)}` : ""}</span>`;
 }
 
 // pan and zoom: drag, wheel, pinch, buttons
