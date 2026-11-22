@@ -303,9 +303,11 @@ function fit(l) {
 
 /**
  * move(n·ω^e), as the structure does it: Phibber climbs e's path up the vine
- * to the e-list (building any of it that isn't there yet), hops n along it
- * while the old vine is packed away into blues, and climbs back down, the new
- * vine unpacking where he lands, until the value he lands on is the house.
+ * to the e-list (building any of it that isn't there yet), and at each \ after
+ * the first he packs the / branch behind him into a blue, which stays with the
+ * element he's leaving. He hops n along the list, and climbs back down: the
+ * element he lands in kept its structure in blues, and each one unpacks into
+ * the vine as he reaches it, until the value he lands on is the house.
  */
 function moveSegs(s, t, e, n) {
   const A = layout(s);
@@ -318,6 +320,11 @@ function moveSegs(s, t, e, n) {
   if (!B.nodes.has(target)) return [jumpSeg(A, B)];
   const up = [`L${posKey(s.focus)}`, ...greens, dark(s.focus)];
   const twin = [home, ...greens, target]; // the same places in the new picture
+  // The \ after the first: where a blue packs or unpacks. Elements are tagged by
+  // their node at e, so the one left behind is tagS and the one landed in tagT.
+  const ks = [...p].map((_, k) => k).filter((k) => k > 0 && p[k] === "\\");
+  const tagS = `${e}|${prefixKey(s.focus, e)}`;
+  const tagT = `${e}|${prefixKey(t.focus, e)}`;
 
   // 1. Up the old picture, building what it lacks where the new one has it.
   const a = { box: [...A.box], nodes: new Map(A.nodes), edges: [...A.edges] };
@@ -335,6 +342,27 @@ function moveSegs(s, t, e, n) {
     }
     route.push(up[i]);
   }
+  // Packing: a blue where he stands, with the branch it keeps, pointing down
+  // to the house he left.
+  const packed = new Set();
+  for (const k of ks) {
+    const gk = `gv|${p.slice(0, k)}`;
+    const blue = `B${tagS}|${k}`;
+    const g = a.nodes.get(gk);
+    const bb = B.nodes.get(blue);
+    if (!g || !bb || a.nodes.has(blue)) continue;
+    const when = route.indexOf(gk) * HOP;
+    a.nodes.set(blue, { ...bb, x: g.x, y: g.y });
+    builtAt.set(blue, when);
+    packed.add(blue);
+    for (const [key, nd] of B.nodes) {
+      if (!key.startsWith(`g${tagS}|${k}|`) || a.nodes.has(key)) continue;
+      a.nodes.set(key, { ...nd, x: g.x + nd.x - bb.x, y: g.y + nd.y - bb.y });
+      builtAt.set(key, when);
+      packed.add(key);
+    }
+  }
+  for (const ed of B.edges) if ((packed.has(ed.from) || packed.has(ed.to)) && a.nodes.has(ed.from) && a.nodes.has(ed.to)) a.edges.push(ed);
   fit(a);
   const climbMs = (route.length - 1) * HOP + (builtAt.size ? POP : 0);
   const climb = {
@@ -347,10 +375,26 @@ function moveSegs(s, t, e, n) {
     },
   };
 
+  // What the element he lands in kept: its blues, each to unpack into the
+  // green at its \, and the branches they hold, already the vine's.
+  const carried = new Map(); // old key -> new key
+  for (const k of ks) if (A.nodes.has(`B${tagT}|${k}`) && B.nodes.has(`gv|${p.slice(0, k)}`)) carried.set(`B${tagT}|${k}`, `gv|${p.slice(0, k)}`);
+  for (const key of A.nodes.keys()) {
+    if (!key.startsWith(`g${tagT}|`)) continue;
+    const to = `gv|${key.split("|").at(-1)}`;
+    if (B.nodes.has(to)) carried.set(key, to);
+  }
+  const isBlue = (key) => key.startsWith("B");
+  const keptTo = new Set([...carried].filter(([k]) => !isBlue(k)).map(([, to]) => to));
+  const named = (key) => (carried.has(key) && !isBlue(key) ? carried.get(key) : key);
+  const carryEdges = A.edges.filter((ed) => carried.has(ed.from) || carried.has(ed.to)).map((ed) => ({ ...ed, from: named(ed.from), to: named(ed.to) }));
+
   // 2. Along the e-list while the picture changes. The new vine below the
-  // list stays hidden: it's what he builds on the way down.
+  // list stays hidden, but for what the element kept: it's what he builds on
+  // the way down. Lists it kept come along as they are.
   const top = B.nodes.get(target).rank;
-  const hide = new Set([...B.nodes].filter(([k, nd]) => (nd.vine || nd.kind === "house") && nd.rank < top && k !== home).map(([k]) => k));
+  const kept = (k) => keptTo.has(k) || (k.startsWith("D") && A.nodes.has(k) && !A.nodes.get(k).vine);
+  const hide = new Set([...B.nodes].filter(([k, nd]) => (nd.vine || nd.kind === "house") && nd.rank < top && k !== home && !kept(k)).map(([k]) => k));
   const base = Object.fromEntries(Object.entries(s.focus).filter(([x]) => +x > e));
   const c0 = s.focus[e] ?? 0;
   let along = [];
@@ -368,19 +412,31 @@ function moveSegs(s, t, e, n) {
     at(u) {
       const k = ease(u);
       const f = between(a, B, k, { hide, leaf: home });
+      // what the element kept slides to where it unpacks
+      for (const [from, to] of carried) {
+        const o = A.nodes.get(from);
+        const d = B.nodes.get(to);
+        const xy = { x: o.x + (d.x - o.x) * k, y: o.y + (d.y - o.y) * k };
+        if (isBlue(from)) f.nodes.set(from, { ...o, ...xy });
+        else (f.nodes.set(to, { ...d, ...xy }), f.alpha.delete(to));
+      }
+      f.fading = f.fading.filter((x) => !carried.has(x.key));
+      f.edges.push({ edges: carryEdges, alpha: 1 });
       const place = (key) => f.nodes.get(key) ?? f.fading.find((x) => x.key === key)?.n;
       const places = along.map(place).filter(Boolean).map(perch);
       paint({ ...f, frog: hopAlong(places, u) });
     },
   };
 
-  // 3. Down the new vine: each node at or above where he lands is built.
+  // 3. Down the new vine: each node at or above where he lands is built, and
+  // each blue there unpacks into it.
   const down = [...twin].reverse().filter((k) => B.nodes.has(k));
   const landAt = down.map((_, i) => i * HOP);
   const revealAt = (rank) => {
     for (let i = 0; i < down.length; i++) if (B.nodes.get(down[i]).rank <= rank) return landAt[i];
     return Infinity;
   };
+  const shrink = (dt) => (dt < 0 ? 1 : Math.max(0, 1 - dt / POP));
   const descendMs = (down.length - 1) * HOP + POP;
   const descend = {
     ms: descendMs,
@@ -392,8 +448,14 @@ function moveSegs(s, t, e, n) {
       const nodes = new Map(B.nodes);
       if (!landed) nodes.set(home, asLeaf(B.nodes.get(home)));
       else scale.set(home, pop(ms - landAt.at(-1)));
+      for (const [from, to] of carried) {
+        if (!isBlue(from)) continue;
+        const d = B.nodes.get(to);
+        nodes.set(from, { ...A.nodes.get(from), x: d.x, y: d.y });
+        scale.set(from, shrink(ms - revealAt(d.rank)));
+      }
       const places = down.map((k) => perch(nodes.get(k)));
-      paint({ box: B.box, nodes, edges: [{ edges: B.edges, alpha: 1 }], scale, frog: hopAlong(places, Math.min(1, ms / ((down.length - 1) * HOP || 1))) });
+      paint({ box: B.box, nodes, edges: [{ edges: B.edges, alpha: 1 }, { edges: carryEdges, alpha: 1 }], scale, frog: hopAlong(places, Math.min(1, ms / ((down.length - 1) * HOP || 1))) });
     },
   };
   return [climb, step, descend];
