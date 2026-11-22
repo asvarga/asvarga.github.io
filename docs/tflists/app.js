@@ -98,6 +98,18 @@ function el(name, attrs, parent) {
   return e;
 }
 
+/** Phibber, the frog from Rainbow Lists, standing at (0, 0). */
+function frog(parent) {
+  const g = el("g", { class: "frog" }, parent);
+  el("ellipse", { cx: 0, cy: -2, rx: 9, ry: 7, fill: "#6fcf5b", stroke: "#000", "stroke-width": 1.5 }, g);
+  for (const ex of [-4.5, 4.5]) {
+    el("circle", { cx: ex, cy: -9, r: 3.2, fill: "#fff", stroke: "#000", "stroke-width": 1.2 }, g);
+    el("circle", { cx: ex, cy: -9, r: 1.4, fill: "#000" }, g);
+  }
+  return g;
+}
+const perch = (g, x, y) => g.setAttribute("transform", `translate(${x.toFixed(1)},${(y - 5).toFixed(1)})`);
+
 // ---- Drawing ----
 
 /**
@@ -276,25 +288,48 @@ function draw(L, hl = {}) {
     t.textContent = "✕";
   }
 
-  // A bead along the walk.
-  if (hl.kind === "walk") {
+  // Phibber, the frog from Rainbow Lists: he sits on the head, and hops
+  // along a get's walk, off the end of one that falls.
+  const phib = frog(svg);
+  if (hl.kind !== "walk") {
+    if (at.has(L.id)) perch(phib, sx(at.get(L.id).x), sy(0));
+  } else {
     const v = hl.res.visited;
-    const bead = el("circle", { r: 6, class: "bead" }, svg);
     const pos = (i) => [sx(at.get(v[i].id).x), sy(at.get(v[i].id).y)];
+    const fell = hl.res.list === null;
+    const last = pos(v.length - 1);
+    const up = fell && hl.res.path[hl.res.fell] === "(";
+    const stub = [last[0] + DX * 0.8, last[1] + (up ? -DY : DY) * 0.8];
+    const end = v.length - 1 + (fell ? 2 : 0);
     const t0 = performance.now();
     const frame = (t) => {
-      const s = Math.min(v.length - 1, (t - t0) / STEP);
-      const i = Math.min(v.length - 2, Math.floor(s));
+      if (!phib.isConnected) return;
+      // a frame's time can be a little before t0
+      const s = Math.min(end, Math.max(0, (t - t0) / STEP));
       let xy = pos(0);
-      if (v.length > 1) {
+      let lift = 0;
+      let opacity = 1;
+      if (s < v.length - 1) {
+        const i = Math.floor(s);
         const f = s - i;
         const e = f < 0.5 ? 2 * f * f : 1 - 2 * (1 - f) * (1 - f);
         const g = geoms.get(`${v[i].id}>${v[i + 1].id}`);
         xy = g ? g.at(e) : pos(i + 1);
+        lift = Math.sin(f * Math.PI) * 12;
+      } else if (!fell) xy = last;
+      else if (s < v.length) {
+        // off the end, where there's no edge, and gone
+        const f = s - (v.length - 1);
+        xy = [last[0] + (stub[0] - last[0]) * f, last[1] + (stub[1] - last[1]) * f];
+        lift = Math.sin(f * Math.PI) * 12;
+        opacity = 1 - f;
+      } else opacity = s - v.length; // back on the head
+      perch(phib, xy[0], xy[1] - lift);
+      phib.setAttribute("opacity", opacity.toFixed(2));
+      if (s < end) {
+        const id = requestAnimationFrame(frame);
+        if (pending) pending.frame = id;
       }
-      bead.setAttribute("cx", xy[0]);
-      bead.setAttribute("cy", xy[1]);
-      if (pending && s < v.length - 1) pending.frame = requestAnimationFrame(frame);
     };
     frame(t0);
   }

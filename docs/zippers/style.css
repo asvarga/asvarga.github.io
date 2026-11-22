@@ -427,3 +427,7 @@ svg text {
     inset: 5px;
   }
 }
+
+.frog {
+  pointer-events: none;
+}

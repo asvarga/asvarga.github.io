@@ -468,9 +468,8 @@ svg text {
   }
 }
 
-.bead {
-  fill: var(--walk);
-  filter: drop-shadow(0 0 6px rgb(92 191 115 / 90%));
+.frog {
+  filter: drop-shadow(0 0 6px rgb(92 191 115 / 70%));
   pointer-events: none;
 }
 

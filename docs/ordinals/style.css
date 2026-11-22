@@ -543,3 +543,7 @@ svg .gaplab {
     min-width: 0;
   }
 }
+
+.frog {
+  pointer-events: none;
+}

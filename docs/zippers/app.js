@@ -205,6 +205,20 @@ function frame(from, to, t) {
       drawNode(g, n);
     }
   }
+  // Phibber, the frog from Rainbow Lists, on the roof: a move hops him from
+  // the old focus to the new one.
+  const houseKey = (l) => l && [...l.nodes].find(([, n]) => n.kind === "house")?.[0];
+  const there = now.get(houseKey(to));
+  const was = houseKey(from);
+  const here = was ? (now.get(was) ?? from.nodes.get(was)) : there;
+  const [x, y] = [here.x + (there.x - here.x) * k, here.y + (there.y - here.y) * k];
+  const lift = here === there ? 0 : Math.sin(k * Math.PI) * Math.min(DY * 2, there.y - 40, 20 + Math.abs(there.x - here.x) * 0.3);
+  const frog = el("g", { class: "frog", transform: `translate(${x.toFixed(1)},${(y - 22 - lift).toFixed(1)})` }, svg);
+  el("ellipse", { cx: 0, cy: -2, rx: 9, ry: 7, fill: "#6fcf5b", stroke: "#000", "stroke-width": 1.5 }, frog);
+  for (const ex of [-4.5, 4.5]) {
+    el("circle", { cx: ex, cy: -9, r: 3.2, fill: "#fff", stroke: "#000", "stroke-width": 1.2 }, frog);
+    el("circle", { cx: ex, cy: -9, r: 1.4, fill: "#000" }, frog);
+  }
 }
 
 // On a narrow screen the picture scrolls sideways: keep the house in view.

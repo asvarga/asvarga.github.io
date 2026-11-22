@@ -111,6 +111,26 @@ function ordWidth(x, px0) {
 
 const fmt = (v, d = 5) => (Number.isFinite(v) ? v.toFixed(d) : "∞");
 
+// ---- Phibber, the frog from Rainbow Lists, who hops to each new x ----
+
+const FROG =
+  '<ellipse cx="0" cy="-2" rx="9" ry="7" fill="#6fcf5b" stroke="#000" stroke-width="1.5"/>' +
+  [-4.5, 4.5].map((ex) => `<circle cx="${ex}" cy="-9" r="3.2" fill="#fff" stroke="#000" stroke-width="1.2"/><circle cx="${ex}" cy="-9" r="1.4" fill="#000"/>`).join("");
+const HOP = 480; // ms
+let hop = null; // { from: t, to: x, t0 }
+
+/** Where Phibber is along the ruler, in t, and how far through his hop (1 if he's sitting). */
+function frogAt() {
+  if (!hop) return { t: at(state.x), u: 1 };
+  const u = Math.min(1, (performance.now() - hop.t0) / HOP);
+  return { t: hop.from + (at(hop.to) - hop.from) * ease(u), u };
+}
+
+function hopTo(x) {
+  if (x === state.x || matchMedia("(prefers-reduced-motion: reduce)").matches) return (hop = null);
+  hop = { from: frogAt().t, to: x, t0: performance.now() };
+}
+
 // ---- the ruler ----
 
 const ruler = $("ruler");
@@ -178,7 +198,17 @@ function drawRuler() {
     const left = sx < 0;
     mark = `<text x="${left ? 6 : w - 6}" y="${base + 32}" text-anchor="${left ? "start" : "end"}" class="xlab">${left ? "◂ x" : "x ▸"}</text>`;
   }
-  ruler.innerHTML = `<line x1="0" x2="${w}" y1="${base}" y2="${base}" class="axis"/>${ticks}${beads}${labels}${mark}`;
+  // Phibber, on x or on his way there
+  let frog = "";
+  const f = frogAt();
+  if (hop && f.u >= 1) hop = null;
+  const fx = X(f.t);
+  if (fx >= -10 && fx <= w + 10) {
+    const span = hop ? Math.abs(X(at(hop.to)) - X(hop.from)) : 0;
+    const lift = Math.sin(f.u * Math.PI) * Math.min(base - 24, 12 + span * 0.3);
+    frog = `<g class="frog" transform="translate(${fx.toFixed(1)},${(base - 5 - lift).toFixed(1)})">${FROG}</g>`;
+  }
+  ruler.innerHTML = `<line x1="0" x2="${w}" y1="${base}" y2="${base}" class="axis"/>${ticks}${beads}${labels}${mark}${frog}`;
   const span = view.b - view.a;
   const z = (FIT.b - FIT.a) / span;
   const d = span < 0.01 ? 6 : span < 0.5 ? 4 : 2;
@@ -590,6 +620,7 @@ $("fns").addEventListener("click", (e) => {
 // ---- picking x ----
 
 function pick(x, { follow = true } = {}) {
+  hopTo(x);
   state.x = x;
   $("ord").value = show(x).replace(/\*/g, "·");
   $("ord-error").textContent = "";
@@ -690,7 +721,7 @@ function frame() {
   m = mix();
   drawRuler();
   if (tween) drawPlot();
-  if (tween || viewTween) kick();
+  if (tween || viewTween || hop) kick();
   else if (m >= 1) settle();
   clearTimeout(frame.save);
   frame.save = setTimeout(writeHash, 400);
