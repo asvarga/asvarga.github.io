@@ -1,6 +1,6 @@
 // The page: the post's figures as steps, the structure drawn after each one,
 // what the house reaches from where it stands, and moves of your own.
-import { apply, cells, EXPONENTS, FIGURES, moveText, OMEGA, path, posKey, power, reach, run, START, term } from "./zippers.js";
+import { apply, cells, EXPONENTS, FIGURES, moveText, OMEGA, path, posKey, power, prefixKey, reach, run, START, term } from "./zippers.js";
 
 const $ = (id) => document.getElementById(id);
 const SVG = "http://www.w3.org/2000/svg";
@@ -169,11 +169,18 @@ function drawEdge(g, a, b, kind) {
 let shown = null; // { nodes: Map key -> {x, y, ...}, box }
 let anim = null;
 
-function frame(from, to, t) {
+// ---- painting a picture ----
+
+const FEET = { house: 17, chosen: 16, diamond: 16, empty: 16, green: 11, blue: 11, bucket: 15, blank: 15 };
+const ease = (u) => (u < 0.5 ? 2 * u * u : 1 - 2 * (1 - u) * (1 - u));
+
+/**
+ * One frame: `nodes` (key -> node at x, y) drawn with any `alpha` and `scale`,
+ * `fading` ({ key, n, a }) drawn on top, each layer of `edges` between the
+ * places in `where`, and Phibber's feet at `frog`.
+ */
+function paint({ box, nodes, fading = [], edges, alpha = new Map(), scale = new Map(), frog }) {
   const svg = $("fig");
-  const k = t < 1 ? 1 - (1 - t) ** 3 : 1;
-  const lerp = (a, b) => a + (b - a) * k;
-  const box = to.box.map((v, i) => lerp(from?.box[i] ?? v, v));
   svg.setAttribute("viewBox", box.join(" "));
   svg.style.setProperty("--units", box[2]);
   svg.replaceChildren();
@@ -182,68 +189,278 @@ function frame(from, to, t) {
   el("path", { d: "M0 0L10 5L0 10Z", class: "arrowhead" }, marker);
   const vineMarker = el("marker", { id: "arrow-vine", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 5, markerHeight: 5, orient: "auto-start-reverse" }, defs);
   el("path", { d: "M0 0L10 5L0 10Z", class: "arrowhead vine" }, vineMarker);
-  const now = new Map();
-  for (const [key, n] of to.nodes) {
-    const old = from?.nodes.get(key);
-    now.set(key, old ? { ...n, x: lerp(old.x, n.x), y: lerp(old.y, n.y) } : n);
+  const where = new Map(nodes);
+  for (const f of fading) if (!where.has(f.key)) where.set(f.key, f.n);
+  for (const layer of edges) {
+    if (layer.alpha <= 0.01) continue;
+    const g = el("g", { class: "edges", opacity: Math.min(1, layer.alpha) }, svg);
+    const ok = layer.edges.filter((e) => where.has(e.from) && where.has(e.to) && (!scale.has(e.from) || scale.get(e.from) > 0) && (!scale.has(e.to) || scale.get(e.to) > 0));
+    for (const e of ok.filter((e) => e.kind !== "vine")) drawEdge(g, where.get(e.from), where.get(e.to), e.kind);
+    for (const e of ok.filter((e) => e.kind === "vine")) drawEdge(g, where.get(e.from), where.get(e.to), e.kind);
   }
-  const edges = el("g", { class: "edges", opacity: from ? Math.min(1, 0.25 + k) : 1 }, svg);
-  for (const e of to.edges.filter((e) => e.kind !== "vine")) drawEdge(edges, now.get(e.from), now.get(e.to), e.kind);
-  for (const e of to.edges.filter((e) => e.kind === "vine")) drawEdge(edges, now.get(e.from), now.get(e.to), e.kind);
-  const nodes = el("g", {}, svg);
-  for (const [key, n] of now) {
-    const fresh = from && !from.nodes.has(key);
-    const g = el("g", { "data-key": key, class: `node ${n.kind}${n.value ? " has-value" : ""}` }, nodes);
-    if (fresh) g.setAttribute("opacity", k);
+  const layer = el("g", {}, svg);
+  for (const [key, n] of nodes) {
+    const s = scale.get(key) ?? 1;
+    if (s <= 0) continue;
+    const g = el("g", { "data-key": key, class: `node ${n.kind}${n.value ? " has-value" : ""}` }, layer);
+    if (alpha.has(key)) g.setAttribute("opacity", alpha.get(key).toFixed(2));
+    if (s !== 1) g.setAttribute("transform", `translate(${n.x} ${n.y}) scale(${s.toFixed(3)}) translate(${-n.x} ${-n.y})`);
     drawNode(g, n);
   }
-  // What's leaving fades where it was.
-  if (from && k < 1) {
-    for (const [key, n] of from.nodes) {
-      if (to.nodes.has(key)) continue;
-      const g = el("g", { opacity: 1 - k, class: `node ${n.kind}` }, nodes);
-      drawNode(g, n);
+  for (const { n, a } of fading) if (a > 0.01) drawNode(el("g", { opacity: a.toFixed(2), class: `node ${n.kind}` }, layer), n);
+  if (!frog) return;
+  // Phibber, the frog from Rainbow Lists
+  const y = Math.max(box[1] + 20, frog[1]);
+  const g = el("g", { class: "frog", transform: `translate(${frog[0].toFixed(1)},${(y - 5).toFixed(1)})` }, svg);
+  el("ellipse", { cx: 0, cy: -2, rx: 9, ry: 7, fill: "#6fcf5b", stroke: "#000", "stroke-width": 1.5 }, g);
+  for (const ex of [-4.5, 4.5]) {
+    el("circle", { cx: ex, cy: -9, r: 3.2, fill: "#fff", stroke: "#000", "stroke-width": 1.2 }, g);
+    el("circle", { cx: ex, cy: -9, r: 1.4, fill: "#000" }, g);
+  }
+}
+
+const perch = (n) => [n.x, n.y - (FEET[n.kind] ?? 12)];
+
+/** Phibber u of the way through a hop from p to q, feet first. */
+function hopAt(p, q, u) {
+  const d = Math.hypot(q[0] - p[0], q[1] - p[1]);
+  const h = d < 1 ? 0 : Math.min(DY * 1.6, 14 + d * 0.25);
+  const e = ease(u);
+  return [p[0] + (q[0] - p[0]) * e, p[1] + (q[1] - p[1]) * e - Math.sin(u * Math.PI) * h];
+}
+
+/** Along a route of places, u of the way: one hop per leg. */
+function hopAlong(places, u) {
+  if (places.length < 2) return places[0];
+  const s = Math.min(places.length - 1, Math.max(0, u * (places.length - 1)));
+  const i = Math.min(places.length - 2, Math.floor(s));
+  return hopAt(places[i], places[i + 1], s - i);
+}
+
+// A node Phibber has just built pops up, a little past its size and back.
+const POP = 200;
+function pop(dt) {
+  if (dt < 0) return 0;
+  if (dt >= POP) return 1;
+  const x = dt / POP - 1;
+  return 0.2 + 0.8 * (1 + 2.70158 * x ** 3 + 1.70158 * x ** 2);
+}
+
+const asLeaf = (n) => ({ ...n, kind: n.value ? "bucket" : "blank" });
+const houseOf = (l) => [...l.nodes.values()].find((n) => n.kind === "house");
+
+/** A picture partway from a to b: what stays slides, what's new fades in, what goes fades out. */
+function between(a, b, k, { hide = new Set(), leaf = null } = {}) {
+  const nodes = new Map();
+  const alpha = new Map();
+  for (const [key, n] of b.nodes) {
+    if (hide.has(key)) continue;
+    const o = a.nodes.get(key);
+    let m = o ? { ...n, x: o.x + (n.x - o.x) * k, y: o.y + (n.y - o.y) * k } : n;
+    if (key === leaf) m = asLeaf(m);
+    nodes.set(key, m);
+    if (!o) alpha.set(key, k);
+  }
+  const fading = [...a.nodes].filter(([key]) => !nodes.has(key)).map(([key, n]) => ({ key, n, a: 1 - k }));
+  const box = b.box.map((v, i) => a.box[i] + (v - a.box[i]) * k);
+  const keep = b.edges.filter((e) => !hide.has(e.from) && !hide.has(e.to));
+  return { box, nodes, alpha, fading, edges: [{ edges: a.edges, alpha: 1 - k }, { edges: keep, alpha: k }] };
+}
+
+// ---- what Phibber does: a timeline of segments, each { ms, at(u) } ----
+
+const HOP = 230; // ms a hop
+
+/** Straight from one picture to another: Phibber hops house to house. */
+function jumpSeg(a, b) {
+  return {
+    ms: TWEEN,
+    at(u) {
+      const k = 1 - (1 - u) ** 3;
+      const f = between(a, b, k);
+      const was = houseOf(a);
+      const now = f.nodes.get(houseOf(b).key);
+      const from = f.nodes.get(was.key) ?? was;
+      paint({ ...f, frog: hopAt(perch({ ...from, kind: "house" }), perch(now), u) });
+    },
+  };
+}
+
+/** set(v): a new value in the house, and a little hop on the spot. */
+function setSeg(t) {
+  const b = layout(t);
+  return { ms: 320, at: (u) => paint({ box: b.box, nodes: b.nodes, edges: [{ edges: b.edges, alpha: 1 }], frog: hopAt(perch(houseOf(b)), perch(houseOf(b)), u) }) };
+}
+
+// The picture grown to hold what's in it, with room above for Phibber.
+function fit(l) {
+  const xs = [...l.nodes.values()].map((n) => n.x);
+  const ys = [...l.nodes.values()].map((n) => n.y);
+  const [x0, y0] = [Math.min(l.box[0], Math.min(...xs) - LEFT), Math.min(l.box[1], Math.min(...ys) - TOP - 10)];
+  const [x1, y1] = [Math.max(l.box[0] + l.box[2], Math.max(...xs) + LEFT), Math.max(l.box[1] + l.box[3], Math.max(...ys) + BOTTOM)];
+  l.box = [x0, y0, x1 - x0, y1 - y0];
+}
+
+/**
+ * move(n·ω^e), as the structure does it: Phibber climbs e's path up the vine
+ * to the e-list (building any of it that isn't there yet), hops n along it
+ * while the old vine is packed away into blues, and climbs back down, the new
+ * vine unpacking where he lands, until the value he lands on is the house.
+ */
+function moveSegs(s, t, e, n) {
+  const A = layout(s);
+  const B = layout(t);
+  const p = path(e);
+  const greens = Array.from({ length: p.length - 1 }, (_, i) => `gv|${p.slice(0, i + 1)}`);
+  const dark = (q) => `D${e}|${prefixKey(q, e)}`;
+  const home = `L${posKey(t.focus)}`;
+  const target = dark(t.focus);
+  if (!B.nodes.has(target)) return [jumpSeg(A, B)];
+  const up = [`L${posKey(s.focus)}`, ...greens, dark(s.focus)];
+  const twin = [home, ...greens, target]; // the same places in the new picture
+
+  // 1. Up the old picture, building what it lacks where the new one has it.
+  const a = { box: [...A.box], nodes: new Map(A.nodes), edges: [...A.edges] };
+  const builtAt = new Map(); // key -> ms Phibber lands there
+  const route = [up[0]];
+  for (let i = 1; i < up.length; i++) {
+    if (!a.nodes.has(up[i])) {
+      const prev = a.nodes.get(route.at(-1));
+      const pb = B.nodes.get(twin[up.indexOf(route.at(-1))]);
+      const nb = B.nodes.get(twin[i]);
+      if (!prev || !pb || !nb) continue;
+      a.nodes.set(up[i], { ...nb, key: up[i], x: prev.x + nb.x - pb.x, y: prev.y + nb.y - pb.y });
+      a.edges.push({ from: route.at(-1), to: up[i], kind: "vine" });
+      builtAt.set(up[i], route.length * HOP);
+    }
+    route.push(up[i]);
+  }
+  fit(a);
+  const climbMs = (route.length - 1) * HOP + (builtAt.size ? POP : 0);
+  const climb = {
+    ms: climbMs,
+    at(u) {
+      const ms = u * climbMs;
+      const scale = new Map([...builtAt].map(([k, t0]) => [k, pop(ms - t0)]));
+      const places = route.map((k) => perch(a.nodes.get(k)));
+      paint({ box: a.box, nodes: a.nodes, edges: [{ edges: a.edges, alpha: 1 }], scale, frog: hopAlong(places, Math.min(1, ms / ((route.length - 1) * HOP || 1))) });
+    },
+  };
+
+  // 2. Along the e-list while the picture changes. The new vine below the
+  // list stays hidden: it's what he builds on the way down.
+  const top = B.nodes.get(target).rank;
+  const hide = new Set([...B.nodes].filter(([k, nd]) => (nd.vine || nd.kind === "house") && nd.rank < top && k !== home).map(([k]) => k));
+  const base = Object.fromEntries(Object.entries(s.focus).filter(([x]) => +x > e));
+  const c0 = s.focus[e] ?? 0;
+  let along = [];
+  for (let j = 0; j <= Math.abs(n); j++) {
+    const c = c0 + Math.sign(n) * j;
+    const q = { ...base };
+    if (c) q[e] = c;
+    along.push(dark(q));
+  }
+  along = along.filter((k, j) => j === 0 || j === along.length - 1 || B.nodes.has(k));
+  if (along.length > 7) along = along.filter((_, j) => j === along.length - 1 || j % Math.ceil(along.length / 6) === 0);
+  const stepMs = Math.max(TWEEN * 1.4, (along.length - 1) * HOP * 1.2);
+  const step = {
+    ms: stepMs,
+    at(u) {
+      const k = ease(u);
+      const f = between(a, B, k, { hide, leaf: home });
+      const place = (key) => f.nodes.get(key) ?? f.fading.find((x) => x.key === key)?.n;
+      const places = along.map(place).filter(Boolean).map(perch);
+      paint({ ...f, frog: hopAlong(places, u) });
+    },
+  };
+
+  // 3. Down the new vine: each node at or above where he lands is built.
+  const down = [...twin].reverse().filter((k) => B.nodes.has(k));
+  const landAt = down.map((_, i) => i * HOP);
+  const revealAt = (rank) => {
+    for (let i = 0; i < down.length; i++) if (B.nodes.get(down[i]).rank <= rank) return landAt[i];
+    return Infinity;
+  };
+  const descendMs = (down.length - 1) * HOP + POP;
+  const descend = {
+    ms: descendMs,
+    at(u) {
+      const ms = u * descendMs;
+      const scale = new Map();
+      for (const k of hide) scale.set(k, pop(ms - revealAt(B.nodes.get(k).rank)));
+      const landed = ms >= landAt.at(-1);
+      const nodes = new Map(B.nodes);
+      if (!landed) nodes.set(home, asLeaf(B.nodes.get(home)));
+      else scale.set(home, pop(ms - landAt.at(-1)));
+      const places = down.map((k) => perch(nodes.get(k)));
+      paint({ box: B.box, nodes, edges: [{ edges: B.edges, alpha: 1 }], scale, frog: hopAlong(places, Math.min(1, ms / ((down.length - 1) * HOP || 1))) });
+    },
+  };
+  return [climb, step, descend];
+}
+
+/** A step's ops from state s, one move term at a time. */
+function stepSegs(s, ops) {
+  const segs = [];
+  for (const op of ops) {
+    if (op.set !== undefined) {
+      s = apply(s, op);
+      segs.push(setSeg(s));
+      continue;
+    }
+    for (const [e, n] of op.move) {
+      if (!n) continue;
+      const t = apply(s, { move: [[e, n]] });
+      segs.push(...moveSegs(s, t, e, n));
+      s = t;
     }
   }
-  // Phibber, the frog from Rainbow Lists, on the roof: a move hops him from
-  // the old focus to the new one.
-  const houseKey = (l) => l && [...l.nodes].find(([, n]) => n.kind === "house")?.[0];
-  const there = now.get(houseKey(to));
-  const was = houseKey(from);
-  const here = was ? (now.get(was) ?? from.nodes.get(was)) : there;
-  const [x, y] = [here.x + (there.x - here.x) * k, here.y + (there.y - here.y) * k];
-  const lift = here === there ? 0 : Math.sin(k * Math.PI) * Math.min(DY * 2, there.y - 40, 20 + Math.abs(there.x - here.x) * 0.3);
-  const frog = el("g", { class: "frog", transform: `translate(${x.toFixed(1)},${(y - 22 - lift).toFixed(1)})` }, svg);
-  el("ellipse", { cx: 0, cy: -2, rx: 9, ry: 7, fill: "#6fcf5b", stroke: "#000", "stroke-width": 1.5 }, frog);
-  for (const ex of [-4.5, 4.5]) {
-    el("circle", { cx: ex, cy: -9, r: 3.2, fill: "#fff", stroke: "#000", "stroke-width": 1.2 }, frog);
-    el("circle", { cx: ex, cy: -9, r: 1.4, fill: "#000" }, frog);
-  }
+  return segs;
+}
+
+function still(l) {
+  paint({ box: l.box, nodes: l.nodes, edges: [{ edges: l.edges, alpha: 1 }], frog: perch(houseOf(l)) });
+}
+
+function play(segs, end) {
+  const total = segs.reduce((t, s) => t + s.ms, 0);
+  const t0 = performance.now();
+  const tick = (now) => {
+    let t = Math.max(0, now - t0);
+    if (t >= total) return still(end);
+    for (const s of segs) {
+      if (t < s.ms) {
+        s.at(t / s.ms);
+        break;
+      }
+      t -= s.ms;
+    }
+    anim = requestAnimationFrame(tick);
+  };
+  tick(t0);
 }
 
 // On a narrow screen the picture scrolls sideways: keep the house in view.
 function follow(l) {
   const sc = $("scroller");
   if (sc.scrollWidth <= sc.clientWidth + 1) return;
-  const house = [...l.nodes.values()].find((n) => n.kind === "house");
-  const x = (house.x / l.box[2]) * sc.scrollWidth;
+  const house = houseOf(l);
+  const x = ((house.x - l.box[0]) / l.box[2]) * sc.scrollWidth;
   sc.scrollTo({ left: x - sc.clientWidth / 2, behavior: shown ? "smooth" : "auto" });
 }
 
-function draw(animate) {
+// mode: "play" acts out this step's ops from the step before, "jump" goes
+// straight there, and anything else just draws it.
+function draw(mode) {
   const next = layout(states[at]);
   requestAnimationFrame(() => follow(next));
-  const from = animate ? shown : null;
+  const from = shown;
   shown = next;
   cancelAnimationFrame(anim);
-  if (!from || matchMedia("(prefers-reduced-motion: reduce)").matches) return frame(null, next, 1);
-  const t0 = performance.now();
-  const tick = (now) => {
-    const t = Math.min(1, (now - t0) / TWEEN);
-    frame(from, next, t);
-    if (t < 1) anim = requestAnimationFrame(tick);
-  };
-  anim = requestAnimationFrame(tick);
+  if (!mode || !from || matchMedia("(prefers-reduced-motion: reduce)").matches) return still(next);
+  const segs = mode === "play" && at > 0 ? stepSegs(states[at - 1], steps[at].ops) : [jumpSeg(from, next)];
+  if (!segs.length) return still(next);
+  play(segs, next);
 }
 
 // ---- the rest of the page ----
@@ -259,7 +476,7 @@ function nextValue() {
   return "Z";
 }
 
-function render(animate = true) {
+function render(mode = "jump") {
   const step = steps[at];
   const s = states[at];
   const n = tourLength();
@@ -309,14 +526,15 @@ function render(animate = true) {
     $("original-n").textContent = step.fig;
     $("original-img").src = `figs/fig${step.fig}.png`;
   }
-  draw(animate);
+  draw(mode);
   writeHash();
 }
 
 function go(i) {
   if (i < 0 || i >= steps.length || i === at) return;
+  const next = i === at + 1;
   at = i;
-  render();
+  render(next ? "play" : "jump");
 }
 
 function perform(op) {
@@ -325,7 +543,7 @@ function perform(op) {
   const t = apply(states[at], op);
   states = [...states.slice(0, at + 1), t];
   at++;
-  render();
+  render("play");
 }
 
 function buildMoves() {
