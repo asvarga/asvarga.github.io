@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Plotting on Ordinals · Alexander Varga</title>
+    <meta name="description" content="Put 1, 2, 3, …, ω, …, ω^ω, … on a line: follow any ordinal from tree to parentheses to tick, zoom the ruler, and plot functions on it." />
+    <link rel="canonical" href="https://asvarga.com/ordinals/" />
+    <link rel="icon" href="/files/triangle-wave.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="art/arcade.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="crumbs"><a href="/">← Home</a></p>
+        <h1>Plotting on Ordinals</h1>
+        <p class="lede">
+          Where on a line do you put 1, 2, 3, …, ω, ω+1, …, ω<sup>ω</sup>, … so that you can plot a function
+          of ordinals? Turn each ordinal into a tree, the tree into parentheses, the parentheses into binary
+          digits, and the digits into a number. Pick an ordinal and follow it step by step, then zoom the ruler
+          it makes. From the post
+          <a href="/blog/2020/05/27/plotting-functions-on-ordinals/">Plotting Functions on Ordinals</a>
+        </p>
+      </header>
+
+      <section class="controls" aria-label="The ordinal">
+        <form id="pick" class="pick" autocomplete="off">
+          <label for="ord">Ordinal <var>x</var></label>
+          <input id="ord" spellcheck="false" inputmode="text" aria-describedby="ord-error" placeholder="ω+3" />
+          <button type="submit" class="primary">Go</button>
+          <span class="seg" role="group" aria-label="Step along the ruler">
+            <button type="button" id="prev" title="The ordinal before x on the ruler (←)"><kbd>←</kbd></button>
+            <button type="button" id="next" title="The ordinal after x on the ruler (→)"><kbd>→</kbd></button>
+          </span>
+          <span class="seg" role="group" aria-label="Make x bigger">
+            <button type="button" data-op="succ" title="x + 1">+1</button>
+            <button type="button" data-op="times" title="x · ω">·ω</button>
+            <button type="button" data-op="power" title="ω to the x">ω<sup>x</sup></button>
+          </span>
+        </form>
+        <p id="ord-error" class="error" role="alert"></p>
+        <div class="presets" id="presets" aria-label="Examples"></div>
+      </section>
+
+      <figure id="ruler-fig">
+        <div class="fig-head">
+          <span class="seg" role="group" aria-label="Parentheses">
+            <button data-naive="1" title="Every parenthesis: the post's first try, which leaves gaps (N)">Balanced</button>
+            <button data-naive="0" title="Redundant ) left out: the post's fix (N)">Unbalanced <kbd>N</kbd></button>
+          </span>
+          <label class="weight" for="weight"
+            >Digit weight <var>r</var> <output id="weight-out"></output>
+            <input id="weight" type="range" min="0.5" max="0.75" step="0.002" list="weights" />
+            <datalist id="weights"><option value="0.5"></option><option value="0.618"></option></datalist>
+          </label>
+          <span class="seg zoom" role="group" aria-label="Zoom">
+            <button id="zoom-out" title="Zoom out (−)">−</button>
+            <button id="zoom-fit" title="Show 0 to ω^ω^ω (0)">Fit</button>
+            <button id="zoom-in" title="Zoom in on x (+)">+</button>
+          </span>
+        </div>
+        <svg id="ruler" role="img" aria-label="The ordinals on a line, each at its tick t"></svg>
+        <figcaption id="readout" aria-live="polite"></figcaption>
+      </figure>
+
+      <section class="card wide">
+        <h2>From <span id="steps-x"></span> to a tick, step by step</h2>
+        <ol class="steps">
+          <li>
+            <h3>Cantor normal form</h3>
+            <p class="big" id="cnf"></p>
+            <p class="mono dim" id="cnf-long"></p>
+            <p class="dim">A sum of powers of ω, largest first, each exponent itself in this form.</p>
+          </li>
+          <li>
+            <h3>A tree</h3>
+            <svg id="tree" role="img" aria-label="x as a tree"></svg>
+            <p class="dim">The root (at the bottom) is <var>x</var>. Each node is ω to the power of the sum of the nodes on it, so a bare leaf is ω<sup>0</sup> = 1.</p>
+          </li>
+          <li>
+            <h3>Parentheses</h3>
+            <p class="parens" id="parens"></p>
+            <p class="mono" id="parens-strings"></p>
+            <p class="dim" id="parens-note"></p>
+          </li>
+          <li>
+            <h3>Binary digits</h3>
+            <p class="mono big" id="bits"></p>
+            <p class="dim" id="bits-note"></p>
+          </li>
+          <li>
+            <h3>A number in [0, 1)</h3>
+            <p class="big" id="real"></p>
+            <p class="dim">The order of the digits is the order of the ordinals, so the numbers rise with them (desideratum 1).</p>
+          </li>
+          <li>
+            <h3>Stretched to the ruler</h3>
+            <p class="big" id="stretch"></p>
+            <p class="dim" id="stretch-note"></p>
+          </li>
+        </ol>
+      </section>
+
+      <div class="cols">
+        <section class="card">
+          <h2>Closing in on <span id="seq-x"></span></h2>
+          <p class="dim" id="seq-note"></p>
+          <svg id="seq-ruler" role="img" aria-label="The sequence's ticks closing in on x"></svg>
+          <table id="seq"></table>
+        </section>
+        <section class="card">
+          <h2>Plot a function</h2>
+          <div class="seg fns" id="fns" role="group" aria-label="The function"></div>
+          <svg id="plot" role="img" aria-label="f plotted on the ordinal ruler, both axes"></svg>
+          <p id="plot-readout" class="dim" aria-live="polite"></p>
+        </section>
+      </div>
+
+      <p class="dim foot">
+        Drag the ruler to pan; scroll, pinch or <kbd>+</kbd> <kbd>−</kbd> to zoom; click a tick to pick it. <kbd>←</kbd>
+        <kbd>→</kbd> step to the ordinal before or after, <kbd>N</kbd> switches the parentheses, <kbd>0</kbd> fits.
+        Type ordinals with <code>w</code> or <code>ω</code>, <code>+ * ^</code> and brackets: <code>w^(w+1)*2+3</code>, or
+        <code>2^w^w</code>. The ruler has every ordinal of up to 12 nodes, so ticks get finer as you zoom. Ordinal arithmetic
+        and the parentheses are ported from the post's
+        <a href="https://github.com/asvarga/ordinals-python" target="_blank" rel="noopener">ordinals-python ↗</a>, whose
+        plots weight the digits by the golden ratio (<var>r</var> = 0.618).
+      </p>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

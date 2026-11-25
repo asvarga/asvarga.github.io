@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Collision Trees, interactive · Alexander Varga</title>
+    <meta name="description" content="Branching lines that cut off whichever branch reaches a crossing last: write the rules, plant seeds and watch them race." />
+    <link rel="canonical" href="https://asvarga.com/collision-trees/play/" />
+    <link rel="icon" href="/files/triangle-wave.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="art/arcade.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="view" aria-label="The trees, growing"></canvas>
+    <canvas id="overlay" aria-hidden="true"></canvas>
+
+    <aside id="panel">
+      <header>
+        <h1>Collision Trees</h1>
+        <button id="fold" title="Hide the panel (H)" aria-expanded="true">‹</button>
+      </header>
+      <div id="body">
+        <p class="lede">
+          Grow branching lines, and wherever branches collide, cut off the ones that got there last.
+          <a href="/collision-trees/" target="_blank" rel="noopener">The
+          original pictures ↗</a>
+        </p>
+
+        <label>
+          Start from
+          <select id="preset"></select>
+        </label>
+
+        <label>
+          Rules
+          <textarea id="rules" rows="3" spellcheck="false"></textarea>
+        </label>
+        <p id="error" role="alert"></p>
+        <details class="help">
+          <summary>How rules work</summary>
+          <p>
+            <code>A: 45 A, -45 A</code> ends each A in two A's, turned 45° left and right.
+            <code>*0.9</code> after a child shrinks it. A symbol with no rule is a leaf. Seeds start
+            as the first rule's symbol. <code>45, -45</code> alone is short for the first example.
+          </p>
+          <p>
+            Angles and scales can move with the time <code>t</code>, in seconds:
+            <code>A: (45 + 20*sin(t)) A, -45 A</code>. There's <code>sin cos tri pulse abs min max
+            clamp mix sqrt</code> and <code>pi</code>.
+          </p>
+        </details>
+
+        <fieldset>
+          <legend>Shape <span class="hint">∿ swings a slider in time</span></legend>
+          <div class="slider" data-key="depth">
+            <label for="depth">Depth <output id="depth-out"></output></label>
+            <input id="depth" type="range" min="1" max="200" step="1" />
+            <button class="swing" data-swing="depth" aria-pressed="false" title="Swing depth in time">∿</button>
+          </div>
+          <div class="slider" data-key="spread">
+            <label for="spread">Spread <output id="spread-out"></output></label>
+            <input id="spread" type="range" min="0" max="2" step="0.01" />
+            <button class="swing" data-swing="spread" aria-pressed="false" title="Swing spread in time">∿</button>
+          </div>
+          <div class="slider" data-key="twist">
+            <label for="twist">Twist <output id="twist-out"></output></label>
+            <input id="twist" type="range" min="-45" max="45" step="0.5" />
+            <button class="swing" data-swing="twist" aria-pressed="false" title="Swing twist in time">∿</button>
+          </div>
+          <div class="slider" data-key="shrink">
+            <label for="shrink">Shrink <output id="shrink-out"></output></label>
+            <input id="shrink" type="range" min="0.8" max="1.05" step="0.005" />
+            <button class="swing" data-swing="shrink" aria-pressed="false" title="Swing shrink in time">∿</button>
+          </div>
+          <div class="slider">
+            <label for="cycle">One swing takes <output id="cycle-out"></output></label>
+            <input id="cycle" type="range" min="2" max="60" step="1" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Growth</legend>
+          <div class="slider">
+            <label for="rate">Speed <output id="rate-out"></output></label>
+            <input id="rate" type="range" min="0" max="1" step="0.01" />
+          </div>
+          <div class="slider">
+            <label for="speed">New seeds' speed <output id="speed-out"></output></label>
+            <input id="speed" type="range" min="0.25" max="4" step="0.05" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Look</legend>
+          <div class="pair">
+            <label>
+              Effect
+              <select id="effect">
+                <option value="neon">Neon glow</option>
+                <option value="glass">Stained glass</option>
+                <option value="contours">Contours</option>
+                <option value="skeleton">Skeleton</option>
+                <option value="none">Plain</option>
+              </select>
+            </label>
+            <label>
+              Color by
+              <select id="color">
+                <option value="depth">Depth</option>
+                <option value="seed">Seed</option>
+                <option value="time">Time</option>
+                <option value="ink">Ink</option>
+              </select>
+            </label>
+            <label>
+              Palette
+              <select id="palette">
+                <option value="aurora">Aurora</option>
+                <option value="ember">Ember</option>
+                <option value="ocean">Ocean</option>
+                <option value="candy">Candy</option>
+                <option value="moss">Moss</option>
+                <option value="honeycomb">Honeycomb</option>
+              </select>
+            </label>
+            <label>
+              Paper
+              <select id="paper">
+                <option value="night">Night</option>
+                <option value="day">Day</option>
+                <option value="honeycomb">Honeycomb</option>
+              </select>
+            </label>
+          </div>
+          <div class="slider">
+            <label for="width">Line width <output id="width-out"></output></label>
+            <input id="width" type="range" min="0.5" max="4" step="0.1" />
+          </div>
+          <div class="slider">
+            <label for="glow">Effect strength <output id="glow-out"></output></label>
+            <input id="glow" type="range" min="0" max="2" step="0.05" />
+          </div>
+          <label class="check"><input id="sparks" type="checkbox" /> Sparks where branches are cut</label>
+          <label class="check"><input id="tips" type="checkbox" /> Glowing tips</label>
+        </fieldset>
+
+        <div class="buttons">
+          <button id="play" title="Play or pause (Space)">Pause <kbd>Space</kbd></button>
+          <button id="step" title="Wait a beat (W)">Wait <kbd>W</kbd></button>
+          <button id="end" title="Skip to the end (E)">End <kbd>E</kbd></button>
+          <button id="regrow" title="Grow again from the start (R)">Regrow <kbd>R</kbd></button>
+          <button id="fit" title="Fit the trees in view (F)">Fit <kbd>F</kbd></button>
+          <button id="unplant" title="Take back the last seed (Z)">Unplant <kbd>Z</kbd></button>
+          <button id="clear" title="Clear every seed">Clear</button>
+          <button id="save" title="Save a picture">Save PNG</button>
+          <button id="share" title="Copy a link to this tree">Copy link</button>
+        </div>
+
+        <p id="stats"></p>
+        <p class="keys">
+          Click to plant a seed; drag to aim it, and it grows from the moment you plant it. Right-drag
+          or Shift-drag pans (two fingers on a phone), and the wheel or a pinch zooms.
+        </p>
+      </div>
+    </aside>
+
+    <p id="message" role="status"></p>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Efficient Transfinite Lists · Alexander Varga</title>
+    <meta name="description" content="A list whose places are ordinals, built from pairs: put and get by 1, ω or ω^ω, and watch get follow its parentheses up the shortcuts." />
+    <link rel="canonical" href="https://asvarga.com/tflists/" />
+    <link rel="icon" href="/files/triangle-wave.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="art/arcade.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="crumbs"><a href="/">← Home</a></p>
+        <h1>Efficient Transfinite Lists</h1>
+        <p class="lede">
+          A list whose places are ordinals. <code>put(n)</code> pushes everything <var>n</var> places
+          along and <code>get(n)</code> drops the first <var>n</var>, so after <code>put(ω)</code> the
+          list starts again past every natural number. It's built from pairs, and
+          <code>get(n)</code> just follows <var>n</var>'s own parentheses: <code>(</code> goes left,
+          <code>)</code> goes right. That takes as many steps as <var>n</var> has parentheses, however
+          many places stand in the way. From the post
+          <a href="/blog/2022/05/30/efficient-transfinite-lists/">Efficient Transfinite Lists</a>
+        </p>
+      </header>
+
+      <figure id="figure">
+        <div id="scroller">
+          <svg id="fig" role="img" aria-label="The list's pairs: hollow nodes on the ground are its places, filled ones join them"></svg>
+        </div>
+        <figcaption>
+          <p id="op" class="op" aria-live="polite"></p>
+          <p id="caption"></p>
+        </figcaption>
+      </figure>
+
+      <section class="card wide readout">
+        <div>
+          <h2>Places</h2>
+          <p class="dim">The hollow nodes, counted from the head. Tap one to <code>get</code> it.</p>
+          <ul id="places" class="chips"></ul>
+        </div>
+        <div>
+          <h2>Differences</h2>
+          <p class="dim">The post's naive list: the gaps between places, which <code>get</code> would walk one by one.</p>
+          <p id="diffs" class="diffs"></p>
+        </div>
+      </section>
+
+      <div class="cols">
+        <section class="card">
+          <h2>put(<var>n</var>)</h2>
+          <p class="dim">Builds <var>n</var>'s path in front of the head (orange), following the same path through the old list (bold). Where it goes right it copies the old path's left edge (gold).</p>
+          <ul id="put-chips" class="chips"></ul>
+          <form id="put-form" class="ask">
+            <input id="put-in" value="ω^2+1" aria-label="An ordinal to put" autocomplete="off" spellcheck="false" />
+            <button class="primary">put</button>
+          </form>
+        </section>
+        <section class="card">
+          <h2>get(<var>n</var>)</h2>
+          <p class="dim">Follows <var>n</var>'s path from the head (green). Ask for something that isn't a place, like <code>get(1)</code> before an ω, and it falls off.</p>
+          <ul id="get-chips" class="chips"></ul>
+          <form id="get-form" class="ask">
+            <input id="get-in" value="ω" aria-label="An ordinal to get" autocomplete="off" spellcheck="false" />
+            <button class="primary">get</button>
+          </form>
+        </section>
+      </div>
+
+      <section class="card wide">
+        <h2>Lists to start from</h2>
+        <div class="row" id="examples"></div>
+        <div class="row">
+          <button id="undo" title="Back one step (U). The old list is still there: nothing is ever changed in place.">Undo <kbd>U</kbd></button>
+          <span id="history" class="dim"></span>
+        </div>
+      </section>
+
+      <details class="card wide code">
+        <summary>The post's code</summary>
+        <p class="dim">
+          From <a href="https://github.com/asvarga/tf-lists" target="_blank" rel="noopener">asvarga/tf-lists ↗</a>,
+          in Racket, where a list is a pair or <code>'()</code>. <code>l</code> and <code>r</code> give
+          a pair's left and right, or <code>'()</code>. The gold line is the copy. This page runs a
+          port of it, and puts any ordinal by putting its powers, last first.
+        </p>
+<pre><code>(define (get ord L)
+  (define (get path L) (match path
+    [(cons #\( rst) (get rst (l L))]
+    [(cons #\) rst) (get rst (r L))]
+    [_ L]))
+  (get (o2p ord) L))
+
+(define (put ord L)   ; ord = ω^a
+  (define (put path M) (match path
+    [(cons #\( rst) (cons (put rst (l M)) '())]
+<mark>    [(cons #\) rst) (cons (l M) (put rst (r M)))]</mark>
+    [_ L]))
+  (put (o2p ord) L))</code></pre>
+        <p class="dim">
+          The post had no proof that it works. This page's tests check it against the naive list
+          on random puts and gets: every place is found, and nothing else is.
+        </p>
+      </details>
+
+      <p class="dim foot">
+        <b class="k-hollow">Hollow nodes</b> are places, where values would go; the head is ringed.
+        <b class="k-pair">Filled nodes</b> are pairs that join them. Each place's path runs up and back
+        down to the ground, <code>(</code> up to the left child and <code>)</code> down to the right.
+        <b class="k-copy">Gold arcs</b> are copied left edges, the shortcuts. Keys: <kbd>U</kbd> undoes.
+        The URL keeps your steps.
+      </p>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

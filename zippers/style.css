@@ -1,0 +1,433 @@
+/* Transfinite Zippers' own: art/arcade.css has the rest. The structure's
+   colors are the post's: orange values, pink lists, a green vine, blue keeps. */
+
+:root {
+  --orange: #f08a4b;
+  --pink: #e083b4;
+  --chosen: #c4418c;
+  --green: #5cbf73;
+  --blue: #3a8fb7;
+  --edge: rgb(244 241 228 / 62%);
+}
+
+html,
+body {
+  overflow: auto;
+}
+
+main {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: max(14px, env(safe-area-inset-top)) 16px 2rem;
+  line-height: 1.45;
+}
+
+h1 {
+  margin: 0.2rem 0 0.3rem;
+  font-size: 1.6rem;
+  color: var(--accent);
+}
+
+.lede {
+  margin: 0 0 0.8rem;
+  color: var(--dim);
+  max-width: 50rem;
+}
+
+a {
+  color: var(--accent);
+}
+
+var {
+  font-style: italic;
+}
+
+code {
+  font-family: ui-monospace, monospace;
+  font-size: 0.92em;
+}
+
+.stepper {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.where {
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+#where {
+  font-variant-numeric: tabular-nums;
+}
+
+#dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#dots button {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  position: relative;
+}
+
+#dots button::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: var(--dim);
+  opacity: 0.45;
+}
+
+#dots button.own::after {
+  background: var(--green);
+  opacity: 0.7;
+  border-radius: 2px;
+}
+
+#dots button.now {
+  border-color: var(--accent);
+}
+
+#dots button.now::after {
+  background: var(--accent);
+  opacity: 1;
+}
+
+figure {
+  margin: 0 0 0.8rem;
+  padding: 0.5rem;
+  border-radius: 14px;
+  background: rgb(0 0 0 / 18%);
+  border: 1px solid var(--line);
+}
+
+#scroller {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+#fig {
+  display: block;
+  width: 100%;
+  max-height: 62vh;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+figcaption {
+  margin: 0.3rem 0.4rem 0.1rem;
+}
+
+figcaption p {
+  margin: 0.25rem 0;
+  max-width: 54rem;
+}
+
+.ops {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  min-height: 1.7em;
+}
+
+.ops code {
+  padding: 0.1rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+#caption {
+  min-height: 3em;
+}
+
+.tap {
+  font-size: 0.85rem;
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.card {
+  width: auto;
+  padding: 0.8rem 1rem;
+}
+
+.card h2 {
+  font-size: 1.1rem;
+}
+
+.card p {
+  margin: 0.3rem 0 0.6rem;
+}
+
+.dim {
+  color: var(--dim);
+  font-size: 0.9rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips button {
+  padding: 0.2rem 0.55rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.chips b {
+  color: var(--orange);
+}
+
+.chips button.here {
+  opacity: 1;
+  border-color: var(--orange);
+}
+
+.moves {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.move {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.move button {
+  border: 0;
+  border-radius: 0;
+  padding: 0.45rem 0.3rem;
+  white-space: nowrap;
+}
+
+.move button:hover {
+  background: rgb(255 255 255 / 8%);
+}
+
+code.vine {
+  color: var(--green);
+  font-size: 0.8rem;
+  padding: 0 0.25rem;
+  letter-spacing: -0.02em;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+#set b {
+  color: var(--orange);
+}
+
+details.card {
+  margin-bottom: 0.8rem;
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+#original-img {
+  display: block;
+  max-width: 100%;
+  margin-top: 0.4rem;
+  border-radius: 10px;
+}
+
+.foot {
+  max-width: 54rem;
+}
+
+.k-house,
+.k-bucket {
+  color: var(--orange);
+}
+
+.k-pink {
+  color: var(--pink);
+}
+
+.k-chosen {
+  color: var(--chosen);
+}
+
+.k-green {
+  color: var(--green);
+}
+
+.k-blue {
+  color: var(--blue);
+}
+
+/* the picture */
+
+svg text {
+  font-family: inherit;
+  text-anchor: middle;
+}
+
+.edge {
+  stroke: var(--edge);
+  stroke-width: 1.6;
+}
+
+.edge.vine {
+  stroke: var(--green);
+  stroke-width: 3;
+}
+
+.arrowhead {
+  fill: var(--edge);
+}
+
+.arrowhead.vine {
+  fill: var(--green);
+}
+
+.green {
+  fill: var(--green);
+  stroke: #12301a;
+  stroke-width: 1.2;
+}
+
+.empty {
+  fill: none;
+  stroke: var(--pink);
+  stroke-width: 1.3;
+  stroke-dasharray: 4 3;
+}
+
+.diamond {
+  fill: var(--pink);
+  stroke: #2a1426;
+  stroke-width: 1.2;
+}
+
+.chosen {
+  fill: var(--chosen);
+  stroke: #2a1426;
+  stroke-width: 1.2;
+}
+
+.node.chosen rect {
+  fill: var(--chosen);
+}
+
+.blue {
+  fill: var(--blue);
+  stroke: #10232c;
+  stroke-width: 1.2;
+}
+
+.blue-lines {
+  stroke: #10232c;
+  stroke-width: 1.2;
+}
+
+.house,
+.bucket {
+  fill: var(--orange);
+  stroke: #3a1d0c;
+  stroke-width: 1.3;
+}
+
+.house {
+  filter: drop-shadow(0 0 6px rgb(92 191 115 / 70%));
+}
+
+.blank {
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 1.3;
+  stroke-dasharray: 4 3;
+}
+
+.value {
+  fill: #2b1508;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.gap {
+  fill: var(--dim);
+  font-size: 18px;
+}
+
+.row-label {
+  fill: var(--dim);
+  font-size: 16px;
+  font-style: italic;
+}
+
+.node.has-value:not(.house) {
+  cursor: pointer;
+}
+
+.node.has-value:not(.house):hover path,
+.node.has-value:not(.house):hover ellipse {
+  filter: brightness(1.15);
+}
+
+@media (max-width: 720px) {
+  .cols {
+    grid-template-columns: 1fr;
+  }
+  .stepper button {
+    padding: 0.55rem 0.7rem;
+  }
+  #fig {
+    max-height: none;
+    /* No smaller than 0.55 of its size, so a value stays readable. */
+    width: max(100%, calc(var(--units, 0) * 0.55px));
+  }
+  #dots button {
+    width: 18px;
+    height: 18px;
+  }
+  #dots button::after {
+    inset: 5px;
+  }
+}
+
+.frog {
+  pointer-events: none;
+}
