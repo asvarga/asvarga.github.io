@@ -348,6 +348,20 @@
    "external": true
   },
   {
+   "url": "https://quiltlang.github.io/phib/",
+   "kind": "project",
+   "title": "Phib",
+   "date": null,
+   "tags": [
+    "languages",
+    "gpu",
+    "games"
+   ],
+   "summary": "A language for cellular automata where every rule is a picture of cells before and after. Play the frog puzzles, redraw the rules, and race three engines, with compilers to JavaScript and WGSL written in Quilt.",
+   "text": "A language for cellular automata where every rule is a picture of cells before and after. Play the frog puzzles, redraw the rules, and race three engines, with compilers to JavaScript and WGSL written in Quilt.",
+   "external": true
+  },
+  {
    "url": "https://www.youtube.com/watch?v=lBxgJZyGVoQ",
    "kind": "project",
    "title": "Turing Turtle",
